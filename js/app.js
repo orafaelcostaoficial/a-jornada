@@ -10,6 +10,7 @@ import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 
 const NOME_APP = 'A Jornada';
+const VERSAO_APP = 'v10';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -359,7 +360,7 @@ function telaResultado(res) {
     <h2>Sessão concluída!</h2>
     <ul class="ganhos">${res.ganhos.map(([t, x]) => `<li><span>${esc(t)}</span><b>+${x}</b></li>`).join('')}</ul>
     ${res.juntos?.length ? `<p class="dica">Também concluíram: ${res.juntos.map(esc).join(', ')}</p>` : ''}
-    ${res.novosP.length + (res.novosS?.length || 0) ? `<button class="btn grande ouro pacote" data-acao="abrir-cartas">${ico('layers')} Abrir ${[res.novosP.length ? `${res.novosP.length} carta${res.novosP.length > 1 ? 's' : ''}` : '', res.novosS?.length ? `${res.novosS.length} selo${res.novosS.length > 1 ? 's' : ''}` : ''].filter(Boolean).join(' e ')}</button>` : ''}
+    ${res.abertas ? `<a class="btn grande sec" href="#/cartas">${ico('layers')} Ver no álbum</a>` : res.novosP.length + (res.novosS?.length || 0) ? `<button class="btn grande ouro pacote" data-acao="abrir-cartas">${ico('layers')} Abrir ${[res.novosP.length ? `${res.novosP.length} carta${res.novosP.length > 1 ? 's' : ''}` : '', res.novosS?.length ? `${res.novosS.length} selo${res.novosS.length > 1 ? 's' : ''}` : ''].filter(Boolean).join(' e ')}</button>` : ''}
     ${res.novosM.length ? `<section class="bloco"><div class="rot">Na linha do tempo</div>${res.novosM.map((m) => `<p>${ico('flag')} ${esc(J.MARCOS.find((x) => x.id === m).titulo)}</p>`).join('')}</section>` : ''}
     ${res.novasC.length ? `<section class="bloco"><div class="rot">Conquistas</div>${res.novasC.map((c) => `<p>${ico('trophy')} <b>${esc(c.nome)}</b> — ${esc(c.desc)}</p>`).join('')}</section>` : ''}
     <a class="btn sec" href="#/hoje">Voltar ao início</a>
@@ -373,7 +374,7 @@ function selo(id, { aberta = true, grande = false } = {}) {
 }
 
 function abrirCartas(lista, i = 0) {
-  if (i >= lista.length) return;
+  if (i >= lista.length) { if (ultimoResultado) ultimoResultado.abertas = true; render(); return; }
   if (lista[i].startsWith('selo:')) {
     const id = lista[i].slice(5); const s = J.SELOS[id];
     const o = overlay(`<div class="revelar r-epica"><div class="revelar-selo">${selo(id, { grande: true })}</div>
@@ -632,7 +633,7 @@ function telaPerfil() {
     <p class="dica">Os dados de todos os viajantes ficam neste aparelho. Exporte de vez em quando e guarde o arquivo, ou use para passar o progresso para outro celular.</p>
     <div class="linha-btns"><button class="btn sec" data-acao="exportar">${ico('download')} Exportar</button>
     <label class="btn sec">${ico('upload')} Importar<input type="file" accept="application/json" id="importar" hidden></label></div></section>
-  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).</p>`;
+  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}</p>`;
 }
 
 // ─── Rascunho da sessão ───
@@ -787,7 +788,7 @@ ${location.origin}${location.pathname}`;
     if (semPersonagem) setTimeout(() => folegoDeVida(p.id, () => ultimoResultado.subiu && subiuNivel(ultimoResultado.subiu)), 900);
     else if (ultimoResultado.subiu) setTimeout(() => subiuNivel(ultimoResultado.subiu), 700);
   }
-  if (acao === 'abrir-cartas') abrirCartas([...ultimoResultado.novosP, ...(ultimoResultado.novosS || []).map((x) => 'selo:' + x)]);
+  if (acao === 'abrir-cartas' && !ultimoResultado.abertas && !document.querySelector('.overlay')) abrirCartas([...ultimoResultado.novosP, ...(ultimoResultado.novosS || []).map((x) => 'selo:' + x)]);
 
   if (acao === 'revisar') {
     const t = document.getElementById('como').value.trim();
@@ -823,4 +824,16 @@ document.querySelector('nav').innerHTML = [
 
 render();
 if (RAIZ.nuvem) agendarSync(200);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+if ('serviceWorker' in navigator) {
+  const tinhaControle = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('./sw.js').then((reg) => {
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+  }).catch(() => {});
+  // Versão nova instalada: recarrega uma vez (fora de uma sessão em andamento) para não ficar com código velho.
+  let recarregou = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!tinhaControle || recarregou) return;
+    const recarregar = () => { if (!recarregou) { recarregou = true; location.reload(); } };
+    if (location.hash.startsWith('#/sessao')) window.addEventListener('hashchange', recarregar, { once: true }); else recarregar();
+  });
+}
