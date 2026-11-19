@@ -334,3 +334,69 @@ nav a.on { background: var(--tx); color: var(--bg); }
 
 .toast { position: fixed; left: 50%; bottom: calc(100px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); opacity: 0; background: var(--tx); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 700; font-size: .9rem; transition: .3s; z-index: 70; white-space: nowrap; }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ── v3: leitor, cenários, amigos ── */
+.abas-topo { margin: 6px 0 16px; }
+.abas-topo a { flex: 1; display: flex; gap: 6px; align-items: center; justify-content: center; padding: 10px; border-radius: 10px; font-weight: 800; font-size: .9rem; color: var(--tx-2); }
+.abas-topo a.on { background: var(--sup); box-shadow: var(--sombra); color: var(--tx); }
+
+.abas-cap { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 2px; }
+.abas-cap button { flex: none; border: 2px solid var(--ln); background: var(--sup); border-radius: 999px; padding: 8px 14px; font-weight: 800; cursor: pointer; }
+.abas-cap button.on { background: var(--tx); color: var(--bg); border-color: var(--tx); }
+.leitor { background: var(--sup); border-radius: var(--r); padding: 22px 20px; box-shadow: var(--sombra); margin-bottom: 12px; }
+.leitor h3 { font-size: 1.5rem; margin-bottom: 12px; color: var(--ouro-esc); }
+.versos { font-family: var(--display); font-weight: 500; font-size: 1.14rem; line-height: 1.75; }
+.versos sup { font-family: var(--ui); font-weight: 800; font-size: .62em; color: var(--ouro-esc); margin-right: 3px; vertical-align: .55em; }
+.leitor-acoes .btn { margin-bottom: 8px; }
+.credito { font-size: .72rem; color: var(--tx-2); text-align: center; margin: 4px 0 14px; }
+.credito a { text-decoration: underline; }
+.check { margin-bottom: 12px; }
+
+.cena { position: relative; margin: 0 -18px; padding: 10px 18px 16px; background: linear-gradient(180deg, var(--ceu1), var(--ceu2)); overflow: hidden; }
+.cena + .cena { border-top: 0; }
+.cena::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: linear-gradient(180deg, transparent, rgba(0,0,0,.04)); pointer-events: none; }
+@media (prefers-color-scheme: dark) { .cena { filter: brightness(.62) saturate(.9); } .cena .no, .cena .livro-banner, .cena .cena-nome { filter: brightness(1.55); } }
+.cena .livro-banner { color: var(--tx); }
+.cena-nome { display: inline-block; margin: 8px 0 0; padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,.7); color: #3a2f22; font-family: var(--display); font-weight: 600; font-size: .95rem; backdrop-filter: blur(4px); }
+.cena .livro-banner { margin-top: 6px; }
+.passo-mapa { position: relative; width: 100%; display: flex; justify-content: center; }
+.passo-mapa .no { transform: translateX(var(--x)); }
+.enf { position: absolute; top: 4px; width: 78px; height: 78px; opacity: .95; pointer-events: none; }
+.enf.esq { left: 4%; } .enf.dir { right: 4%; }
+.enfeite { width: 100%; height: 100%; }
+.no-circ { position: relative; z-index: 1; }
+.no.bloq .no-circ { background: rgba(255,255,255,.65); color: #8a8072; }
+.no.feita .no-circ { border: 3px solid rgba(255,255,255,.7); }
+.no-lbl { background: rgba(255,255,255,.75); padding: 0 8px; border-radius: 999px; color: #3a2f22; }
+.amigos-no { position: absolute; left: calc(100% + 6px); top: 6px; display: flex; gap: 2px; z-index: 2; }
+.amigo-pin { display: grid; justify-items: center; background: #fff; border-radius: 14px; padding: 2px 4px 3px; box-shadow: 0 3px 8px rgba(0,0,0,.18); border: 2px solid #3a6ea5; }
+.amigo-pin.fam { border-color: var(--ok); }
+.amigo-pin small { font-size: .58rem; font-weight: 800; color: #2a2420; max-width: 52px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.amigo-mais { align-self: center; background: #fff; border-radius: 999px; font-size: .7rem; font-weight: 800; padding: 2px 6px; color: #2a2420; }
+
+.sync { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.sync.erro { color: var(--erro); } .sync.ok { color: var(--ok); }
+.mini { border: 0; background: var(--sup); box-shadow: var(--sombra); border-radius: 999px; padding: 4px 10px; font-weight: 800; font-size: .78rem; cursor: pointer; color: var(--tx); }
+.codigo { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 10px; background: var(--ouro-cl); border-radius: 16px; padding: 12px 14px; margin-bottom: 8px; }
+.codigo small { grid-column: 1; font-weight: 700; color: var(--tx-2); font-size: .78rem; }
+.codigo b { grid-column: 1; font-family: var(--display); font-size: 1.7rem; letter-spacing: .12em; }
+.codigo .btn { grid-column: 2; grid-row: 1 / span 2; margin: 0; width: auto; padding: 10px 14px; }
+.codigo.secreto { background: var(--sup-2); }
+.codigo.secreto b { font-size: 1.15rem; letter-spacing: .04em; }
+.linha-btns .campo { flex: 1; text-transform: uppercase; }
+.linha-btns .btn.ouro { width: auto; padding: 0 18px; }
+.rank { display: flex; align-items: center; gap: 10px; padding: 8px 6px; border-radius: 14px; }
+.rank svg { border-radius: 50%; background: var(--ouro-cl); flex: none; }
+.rank > div { flex: 1; min-width: 0; }
+.rank b { display: block; font-size: .95rem; }
+.rank small { display: block; color: var(--tx-2); font-size: .75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rank.eu { background: var(--ouro-cl); }
+.pos { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .85rem; color: var(--tx-2); flex: none; }
+.pos.p1 { background: linear-gradient(135deg, #ffe08a, #d29a2c); color: #fff; } .pos.p2 { background: linear-gradient(135deg, #eef1f5, #a9b3c0); color: #fff; } .pos.p3 { background: linear-gradient(135deg, #f0c9a0, #b07a4a); color: #fff; }
+.rank-xp { font-weight: 800; color: var(--ouro-esc); font-size: .9rem; }
+.fam-amiga { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--ln); }
+.fam-amiga:first-of-type { border-top: 0; }
+.fam-amiga div { flex: 1; } .fam-amiga small { display: block; color: var(--tx-2); font-size: .8rem; }
+.confirma p { font-size: 1.05rem; margin-bottom: 18px; }
+.btn.perigo { background: var(--erro); color: #fff; }
+.btn.perigo-sec { background: transparent; color: var(--erro); box-shadow: none; margin-top: 4px; }

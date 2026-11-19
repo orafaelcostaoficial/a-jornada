@@ -5,8 +5,10 @@
 // Raiz: { v: 2, ativo: <idPerfil>, perfis: { [id]: Perfil } }
 // Perfil: { id, nome, tipo: 'adulto'|'crianca', avatar: {pele, cabelo, manto}, ...progresso }
 
-const CHAVE = 'ajornada.v2';
-const CHAVE_V1 = 'jornada.v1';
+import { CANAL_TESTE } from './config.js';
+
+const CHAVE = CANAL_TESTE ? 'ajornada.teste.v2' : 'ajornada.v2';
+const CHAVE_V1 = CANAL_TESTE ? '-' : 'jornada.v1';
 
 export function progressoVazio() {
   return {
@@ -26,7 +28,41 @@ export function novoPerfil(nome, tipo = 'adulto', avatar = {}) {
 }
 
 export function raizVazia() {
-  return { v: 2, ativo: null, perfis: {} };
+  // nuvem: { familiaId, familiaNome, codigoAmigo, convite } quando a família está ligada ao banco.
+  // removidos: ids de perfis apagados neste aparelho (para apagar também na nuvem).
+  return { v: 2, ativo: null, perfis: {}, nuvem: null, removidos: [] };
+}
+
+// Junta duas versões do mesmo perfil (aparelhos diferentes) sem perder progresso.
+export function mesclarPerfil(a, b) {
+  if (!a) return b; if (!b) return a;
+  const novo = (a.editado || '') >= (b.editado || '') ? a : b;
+  const r = { ...novo };
+  r.sessoes = { ...a.sessoes };
+  for (const [id, sb] of Object.entries(b.sessoes || {})) {
+    const sa = r.sessoes[id];
+    if (!sa) { r.sessoes[id] = sb; continue; }
+    const base = sa.data <= sb.data ? sa : sb;
+    const outra = base === sa ? sb : sa;
+    const m = { ...outra, ...base };
+    for (const k of ['entendi', 'estudo', 'aplicacao']) m[k] = base[k] || outra[k] || '';
+    m.revisao = sa.revisao || sb.revisao || null;
+    r.sessoes[id] = m;
+  }
+  r.quiz = { ...a.quiz };
+  for (const [k, qb] of Object.entries(b.quiz || {})) {
+    const qa = r.quiz[k];
+    const peso = (q) => (q.acertos + q.erros) * 1000 + (q.proxima > '' ? 1 : 0);
+    if (!qa || peso(qb) > peso(qa) || (peso(qb) === peso(qa) && qb.proxima > qa.proxima)) r.quiz[k] = qb;
+  }
+  const chave = (l) => `${l.data}|${l.tipo}|${l.ref}|${l.xp}`;
+  const vistos = new Set(); r.log = [];
+  for (const l of [...(a.log || []), ...(b.log || [])]) { const c = chave(l); if (!vistos.has(c)) { vistos.add(c); r.log.push(l); } }
+  r.log.sort((x, y) => (x.data < y.data ? -1 : x.data > y.data ? 1 : 0));
+  r.xp = r.log.reduce((t, l) => t + l.xp, 0);
+  r.conquistas = { ...b.conquistas, ...a.conquistas };
+  r.vistas = { ...b.vistas, ...a.vistas };
+  return r;
 }
 
 export function carregar() {

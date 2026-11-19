@@ -4,6 +4,9 @@ import * as store from './store.js';
 import * as J from './jogo.js';
 import { ico } from './icones.js';
 import { avatarSVG, PELES, CABELOS, MANTOS } from './avatar.js';
+import * as N from './nuvem.js';
+import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
+import { CANAL_TESTE } from './config.js';
 
 const NOME_APP = 'A Jornada';
 let RAIZ = store.carregar();
@@ -22,7 +25,44 @@ const RARIDADE = {
 };
 
 const esc = (t = '') => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const salvar = () => store.salvar(RAIZ);
+const salvar = () => { store.salvar(RAIZ); agendarSync(); };
+
+// ─── Nuvem ───
+let AMIGOS = []; let SYNC = { status: N.ligada() ? 'pronto' : 'desligada', erro: null };
+function resumo(p) {
+  const s = J.semanaAtual(p); const prox = J.proxima(p);
+  const xpSemana = p.log.filter((l) => s.dias.includes(l.data)).reduce((t, l) => t + l.xp, 0);
+  return { xpSemana, semana: s.dias[0], sessaoAtual: prox ? prox.id : 'fim', era: prox ? LIVROS[prox.livro].era : null };
+}
+let timerSync = null;
+function agendarSync(ms = 2500) {
+  if (!N.ligada() || !RAIZ.nuvem) return;
+  clearTimeout(timerSync); timerSync = setTimeout(sincronizar, ms);
+}
+async function sincronizar() {
+  if (!N.ligada() || !RAIZ.nuvem || SYNC.status === 'sincronizando') return;
+  SYNC = { status: 'sincronizando', erro: null };
+  try {
+    RAIZ = await N.sincronizar(RAIZ, resumo); store.salvar(RAIZ);
+    AMIGOS = await N.amigos();
+    SYNC = { status: 'ok', erro: null, em: new Date() };
+    if (!document.querySelector('textarea:focus, input:focus') && !location.hash.startsWith('#/sessao')) render();
+  } catch (e) { SYNC = { status: 'erro', erro: e.message }; }
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') agendarSync(300); });
+setInterval(() => document.visibilityState === 'visible' && agendarSync(0), 90000);
+
+function confirmar(msg, sim, aoSim) {
+  const o = overlay(`<div class="confirma"><p>${msg}</p><button class="btn grande perigo" data-sim>${sim}</button><button class="btn" data-fechar>Cancelar</button></div>`);
+  o.querySelector('[data-sim]').addEventListener('click', () => { o.remove(); aoSim(); });
+}
+
+// ─── Texto bíblico (Bíblia Livre, dentro do app) ───
+const TEXTOS = {};
+async function textoLivro(livro) {
+  if (!TEXTOS[livro.n]) TEXTOS[livro.n] = fetch(`data/biblia/blivre/${livro.n}.json`).then((r) => r.json());
+  return TEXTOS[livro.n];
+}
 const ir = (h) => { location.hash = h; };
 const fmtData = (d) => { const [, m, dd] = d.split('-'); return `${dd}/${m}`; };
 const eraDe = (s) => LIVROS[s.livro].era;
@@ -127,6 +167,7 @@ function telaPerfilForm(editId) {
     <div class="rot">Cor da faixa e do manto</div>
     <div class="swatches">${MANTOS.map((c, i) => `<button class="sw ${f.avatar.manto === i ? 'on' : ''}" style="background:${c}" data-acao="f-av" data-k="manto" data-v="${i}" aria-label="Cor ${i + 1}"></button>`).join('')}</div>
     <button class="btn grande" data-acao="f-salvar" data-id="${editId || ''}">${p ? 'Salvar' : 'Começar a jornada'}</button>
+    ${p && perfis().length > 1 ? `<button class="btn perigo-sec" data-acao="f-remover" data-id="${editId}">Remover este viajante</button>` : ''}
   </div>`;
 }
 let FORM = null;
@@ -198,15 +239,16 @@ function telaSessao(id, passo = 0) {
     <button class="btn grande" data-acao="passo" data-passo="1">Ir para a leitura ${ico('chevron-right')}</button>`;
   } else if (passo === 1) {
     const caps = []; for (let c = s.caps[0]; c <= s.caps[1]; c++) caps.push(c);
+    const capAtual = r.cap && caps.includes(r.cap) ? r.cap : caps[0];
+    const url = linkNAA(livro, capAtual);
     corpo = `
-    <section class="bloco leitura">
-      <p>Leia <b>${esc(J.refSessao(s))}</b>.</p>
-      <div class="caps">${caps.map((c) => {
-        const url = linkNAA(livro, c);
-        return `<a class="cap" ${url ? `href="${url}" target="_blank" rel="noopener"` : ''}><b>${c}</b><small>NAA ${ico('external-link')}</small></a>`;
-      }).join('')}</div>
-      <label class="check"><input type="checkbox" id="li" ${r.li ? 'checked' : ''}><span>Li o texto</span></label>
-    </section>
+    ${caps.length > 1 ? `<div class="abas-cap">${caps.map((c) => `<button class="${c === capAtual ? 'on' : ''} ${r.lidos?.includes(c) ? 'lido' : ''}" data-acao="cap" data-c="${c}">${esc(livro.nome)} ${c}</button>`).join('')}</div>` : ''}
+    <section class="leitor" id="leitor" data-livro="${s.livro}" data-cap="${capAtual}"><h3>${esc(livro.nome)} ${capAtual}</h3><div class="versos"><p class="dica">Carregando o texto…</p></div></section>
+    <div class="leitor-acoes">
+      ${url ? `<a class="btn sec" href="${url}" target="_blank" rel="noopener">${ico('external-link')} Ler ${esc(livro.nome)} ${capAtual} na NAA</a>` : ''}
+    </div>
+    <p class="credito">Texto: Bíblia Livre (BLIVRE) © Diego Santos, Mario Sérgio e Marco Teles, 2018 · <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" target="_blank" rel="noopener">CC BY 4.0</a></p>
+    <label class="check"><input type="checkbox" id="li" ${r.li ? 'checked' : ''}><span>Li ${caps.length > 1 ? 'todo o trecho' : 'o texto'}</span></label>
     <button class="btn grande" data-acao="passo" data-passo="2" id="btn-li" ${r.li ? '' : 'disabled'}>Continuar ${ico('chevron-right')}</button>`;
   } else if (passo === 2) {
     corpo = `
@@ -304,29 +346,118 @@ function telaRevisao() {
     <div id="feedback"></div></section>`;
 }
 
+function marcadoresNo(sessaoId, eu) {
+  const locais = perfis().filter((o) => o.id !== eu.id && (J.proxima(o)?.id || 'fim') === sessaoId)
+    .map((o) => ({ nome: o.nome, avatar: o.avatar, xp: o.xp, familia: true }));
+  const amigos = AMIGOS.filter((a) => a.sessao_atual === sessaoId).map((a) => ({ nome: a.nome, avatar: a.avatar, xp: a.xp }));
+  const todos = [...locais, ...amigos];
+  if (!todos.length) return '';
+  return `<span class="amigos-no">${todos.slice(0, 3).map((a) => `<span class="amigo-pin ${a.familia ? 'fam' : ''}">${avatarSVG(a.avatar, J.itensAte(J.nivel(a.xp).n), 26)}<small>${esc(a.nome)}</small></span>`).join('')}${todos.length > 3 ? `<span class="amigo-mais">+${todos.length - 3}</span>` : ''}</span>`;
+}
+
+function abasJornada(atual) {
+  return `<div class="seg abas-topo"><a class="${atual === 'mapa' ? 'on' : ''}" href="#/jornada">${ico('map')} Mapa</a><a class="${atual === 'linha' ? 'on' : ''}" href="#/linha">${ico('hourglass')} Linha do tempo</a></div>`;
+}
+
 function telaJornada() {
   const p = P(); const prox = J.proxima(p);
-  return `${topo()}<h1 class="tit-tela">Jornada</h1><p class="sub">66 livros em ordem cronológica · 10 eras</p>
+  return `${topo()}<h1 class="tit-tela">Jornada</h1>${abasJornada('mapa')}
   ${ERAS.map((era) => {
     const pe = J.progressoEra(p, era.id);
     if (!era.conteudo) return `<section class="era-fech" style="--c:${COR_ERA[era.id]}"><div><b>${esc(era.nome)}</b><small>${era.livros.map((l) => esc(l.nome)).join(' · ')}</small></div><span>${ico('lock-keyhole')}</span></section>`;
+    const ss = J.SESSOES.filter((s) => LIVROS[s.livro].era === era.id);
+    const grupos = [];
+    for (const s of ss) {
+      const c = cenaDaSessao(s.id);
+      if (!grupos.length || grupos.at(-1).cena !== c) grupos.push({ cena: c, sessoes: [] });
+      grupos.at(-1).sessoes.push(s);
+    }
+    let i = 0;
     return `<section class="era-mapa" style="--c:${COR_ERA[era.id]}">
       <div class="era-banner"><small>Era ${ERAS.indexOf(era) + 1}</small><b>${esc(era.nome)}</b><span>${pe.feitas}/${pe.total}</span><div class="barra fina"><i style="width:${Math.round(pe.feitas / pe.total * 100)}%"></i></div></div>
-      ${era.livros.map((l) => {
-        const ss = J.SESSOES.filter((s) => s.livro === l.id);
-        if (!ss.length) return '';
-        return `<a class="livro-banner" href="#/livro/${l.id}"><span class="ordem">${l.ordem}</span><b>${esc(l.nome)}</b><small>Introdução ${ico('chevron-right')}</small></a>
-        <div class="trilha">${ss.map((s, i) => {
-          const st = J.concluida(p, s.id) ? 'feita' : J.liberada(p, s) ? 'atual' : 'bloq';
-          const off = [0, 60, 90, 60, 0, -60, -90, -60][i % 8];
-          return `<a class="no ${st}" style="--x:${off}px" ${st === 'bloq' ? '' : `href="#/sessao/${s.id}"`}>
-            ${st === 'atual' && prox?.id === s.id ? `<span class="no-av">${avatarSVG(p.avatar, J.itensAte(J.nivel(p.xp).n), 44)}</span>` : ''}
-            <span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>
-            <span class="no-lbl">${s.caps[0]}${s.caps[1] !== s.caps[0] ? '–' + s.caps[1] : ''}</span></a>`;
-        }).join('')}</div>`;
+      ${grupos.map((g) => {
+        const cena = CENAS[g.cena];
+        const livroIni = g.sessoes[0].livro;
+        const ehInicioLivro = J.SESSOES.find((x) => x.livro === livroIni).id === g.sessoes[0].id;
+        return `<div class="cena cena-${g.cena}" style="--ceu1:${cena.ceu[0]};--ceu2:${cena.ceu[1]}">
+          ${ehInicioLivro ? `<a class="livro-banner" href="#/livro/${livroIni}"><span class="ordem">${LIVROS[livroIni].ordem}</span><b>${esc(LIVROS[livroIni].nome)}</b><small>Introdução ${ico('chevron-right')}</small></a>` : ''}
+          <div class="cena-nome">${esc(cena.nome)}</div>
+          <div class="trilha">${g.sessoes.map((s, k) => {
+            const st = J.concluida(p, s.id) ? 'feita' : J.liberada(p, s) ? 'atual' : 'bloq';
+            const off = [0, 64, 96, 64, 0, -64, -96, -64][i++ % 8];
+            const lado = off > 0 ? 'esq' : 'dir';
+            const enf = cena.enfeites[k % cena.enfeites.length];
+            return `<div class="passo-mapa" style="--x:${off}px">
+              <span class="enf ${lado}">${enfeite(enf)}</span>
+              <a class="no ${st}" ${st === 'bloq' ? '' : `href="#/sessao/${s.id}"`}>
+                ${st === 'atual' && prox?.id === s.id ? `<span class="no-av">${avatarSVG(p.avatar, J.itensAte(J.nivel(p.xp).n), 44)}</span>` : ''}
+                <span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>
+                <span class="no-lbl">${s.caps[0]}${s.caps[1] !== s.caps[0] ? '–' + s.caps[1] : ''}</span>
+                ${marcadoresNo(s.id, p)}
+              </a></div>`;
+          }).join('')}</div></div>`;
       }).join('')}
     </section>`;
   }).join('')}`;
+}
+
+function telaAmigos() {
+  const p = P();
+  if (!N.ligada()) {
+    return `${topo()}<h1 class="tit-tela">Amigos</h1>
+    <section class="bloco vazio">${ico('users-round', 'g')}<p><b>${CANAL_TESTE ? 'A nuvem fica desligada no canal de teste.' : 'O banco ainda não foi ligado.'}</b></p>
+      <p class="dica">${CANAL_TESTE ? 'Abra com ?nuvem=1 no endereço para testar a sincronização.' : 'Quando o banco estiver configurado, aqui aparecem a família em todos os celulares, os amigos e o ranking da semana.'}</p></section>
+    ${rankingLocal(p)}`;
+  }
+  if (!RAIZ.nuvem) {
+    return `${topo()}<h1 class="tit-tela">Amigos</h1><p class="sub">Ligue a sua família à nuvem para usar em vários celulares e acompanhar os amigos.</p>
+    <section class="bloco"><div class="bloco-tit"><span>Primeiro celular da casa</span></div>
+      <label class="rot" for="fam-nome">Nome da família</label><input id="fam-nome" class="campo" placeholder="Ex.: Família Costa" maxlength="30">
+      <button class="btn grande ouro" data-acao="criar-familia" style="margin-top:12px">Criar família</button></section>
+    <section class="bloco"><div class="bloco-tit"><span>Já criou em outro celular?</span></div>
+      <label class="rot" for="convite">Convite da família</label><input id="convite" class="campo" placeholder="ex.: a1b2c3-d4e5f6" autocapitalize="off">
+      <button class="btn grande" data-acao="entrar-familia" style="margin-top:12px">Entrar na família</button>
+      <p class="dica">O convite aparece no celular que criou a família, nesta mesma tela.</p></section>`;
+  }
+  const n = RAIZ.nuvem;
+  const st = { sincronizando: 'Sincronizando…', ok: `Sincronizado ${SYNC.em ? SYNC.em.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : ''}`, erro: `Erro: ${esc(SYNC.erro || '')}`, pronto: 'Pronto' }[SYNC.status] || '';
+  const familias = {};
+  for (const a of AMIGOS) (familias[a.familia_id] ||= { nome: a.familia, membros: [] }).membros.push(a);
+  return `${topo()}<h1 class="tit-tela">Amigos</h1>
+  <p class="sub sync ${SYNC.status}">${ico(SYNC.status === 'erro' ? 'x' : 'circle-check')} ${esc(n.familiaNome)} · ${st} <button class="mini" data-acao="sync">Sincronizar</button></p>
+  ${ranking(p)}
+  <section class="bloco"><div class="bloco-tit"><span>Adicionar amigo</span></div>
+    <div class="codigo"><small>Seu código de amigo</small><b>${esc(n.codigoAmigo)}</b><button class="btn sec" data-acao="compartilhar">${ico('upload')} Enviar</button></div>
+    <label class="rot" for="cod-amigo">Código do amigo</label>
+    <div class="linha-btns"><input id="cod-amigo" class="campo" placeholder="ABC123" maxlength="6" autocapitalize="characters"><button class="btn ouro" data-acao="add-amigo">Adicionar</button></div></section>
+  ${Object.keys(familias).length ? `<section class="bloco"><div class="bloco-tit"><span>Famílias amigas</span></div>
+    ${Object.entries(familias).map(([fid, f]) => `<div class="fam-amiga"><div><b>${esc(f.nome)}</b><small>${f.membros.map((m) => esc(m.nome)).join(', ')}</small></div><button class="mini" data-acao="rem-amigo" data-f="${fid}" data-n="${esc(f.nome)}">Remover</button></div>`).join('')}</section>` : ''}
+  <section class="bloco"><div class="bloco-tit"><span>Outros celulares da casa</span></div>
+    <p class="dica">No outro celular, abra o app, vá em Amigos → "Entrar na família" e use o convite. Ele é secreto: dá acesso às anotações da família.</p>
+    <div class="codigo secreto"><small>Convite</small><b id="convite-val" data-v="${esc(n.convite)}">••••••-••••••</b><button class="btn sec" data-acao="ver-convite">Mostrar</button></div></section>`;
+}
+
+function linhaRanking(pos, a, eu) {
+  return `<div class="rank ${eu ? 'eu' : ''}"><span class="pos ${pos <= 3 ? 'p' + pos : ''}">${pos}</span>${avatarSVG(a.avatar, J.itensAte(J.nivel(a.xp).n), 34)}
+    <div><b>${esc(a.nome)}</b><small>${a.onde}</small></div><span class="rank-xp">${a.xpSemana} XP</span></div>`;
+}
+function ondeEsta(sessaoId) {
+  if (!sessaoId || sessaoId === 'fim') return 'Era concluída';
+  const s = J.sessaoPorId(sessaoId); return s ? `Em ${J.refSessao(s)}` : '';
+}
+function rankingLocal(p) {
+  const lista = perfis().map((o) => ({ id: o.id, nome: o.nome, avatar: o.avatar, xp: o.xp, xpSemana: resumo(o).xpSemana, onde: ondeEsta(resumo(o).sessaoAtual) }))
+    .sort((a, b) => b.xpSemana - a.xpSemana);
+  if (lista.length < 2) return '';
+  return `<section class="bloco"><div class="bloco-tit"><span>Ranking da semana · neste celular</span></div>${lista.map((a, i) => linhaRanking(i + 1, a, a.id === p.id)).join('')}</section>`;
+}
+function ranking(p) {
+  const semana = J.semanaAtual(p).dias[0];
+  const lista = [
+    ...perfis().map((o) => ({ id: o.id, nome: o.nome, avatar: o.avatar, xp: o.xp, xpSemana: resumo(o).xpSemana, onde: ondeEsta(resumo(o).sessaoAtual) })),
+    ...AMIGOS.map((a) => ({ id: a.perfil_id, nome: a.nome, avatar: a.avatar, xp: a.xp, xpSemana: a.semana === semana ? a.xp_semana : 0, onde: `${esc(a.familia)} · ${ondeEsta(a.sessao_atual)}` })),
+  ].sort((a, b) => b.xpSemana - a.xpSemana);
+  return `<section class="bloco"><div class="bloco-tit"><span>Ranking da semana</span><span>zera na segunda</span></div>${lista.map((a, i) => linhaRanking(i + 1, a, a.id === p.id)).join('')}</section>`;
 }
 
 function telaLivro(id) {
@@ -372,7 +503,7 @@ function telaCarta(id) {
 
 function telaLinha() {
   const lib = J.marcosLiberados(P());
-  return `${topo()}<h1 class="tit-tela">Linha do tempo</h1><p class="sub">Ela se preenche conforme você avança</p>
+  return `${topo()}<h1 class="tit-tela">Jornada</h1>${abasJornada('linha')}<p class="sub">A linha do tempo se preenche conforme você avança.</p>
   <div class="linha">${ERAS.map((era) => {
     const marcos = J.MARCOS.filter((m) => m.era === era.id);
     return `<div class="linha-era" style="--c:${COR_ERA[era.id]}"><div class="linha-era-nome">${esc(era.nome)}</div>
@@ -421,7 +552,7 @@ function capturar(id) {
 // ─── Roteamento ───
 let passoAtual = {};
 let ultimoResultado = null;
-const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jornada', cartas: 'cartas', carta: 'cartas', linha: 'linha', perfil: 'perfil', editar: 'perfil', 'novo-perfil': 'perfil', revisao: 'hoje', aplicacao: 'hoje', resultado: 'hoje' };
+const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jornada', cartas: 'cartas', carta: 'cartas', linha: 'jornada', amigos: 'amigos', perfil: 'perfil', editar: 'perfil', 'novo-perfil': 'perfil', revisao: 'hoje', aplicacao: 'hoje', resultado: 'hoje' };
 
 function render() {
   const [, rota = 'hoje', arg] = (location.hash || '#/hoje').split('/');
@@ -439,6 +570,7 @@ function render() {
     case 'cartas': html = telaCartas(); break;
     case 'carta': html = telaCarta(arg); break;
     case 'linha': html = telaLinha(); break;
+    case 'amigos': html = telaAmigos(); break;
     case 'perfil': html = telaPerfil(); break;
     default: html = telaHoje();
   }
@@ -447,6 +579,19 @@ function render() {
   document.querySelectorAll('nav a').forEach((a) => a.classList.toggle('on', a.dataset.r === NAV[rota]));
   if (rota === 'jornada') document.querySelector('.no.atual')?.scrollIntoView({ block: 'center' });
   else window.scrollTo(0, 0);
+  const leitor = document.getElementById('leitor');
+  if (leitor) carregarLeitor(leitor);
+}
+
+async function carregarLeitor(el) {
+  const livro = LIVROS[el.dataset.livro]; const cap = el.dataset.cap;
+  try {
+    const t = await textoLivro(livro);
+    const versos = t[cap] || {};
+    el.querySelector('.versos').innerHTML = Object.entries(versos).map(([v, txt]) => `<span class="v"><sup>${v}</sup>${esc(txt)} </span>`).join('');
+  } catch {
+    el.querySelector('.versos').innerHTML = '<p class="dica">Não consegui carregar o texto agora. Use o botão da NAA abaixo.</p>';
+  }
 }
 
 window.addEventListener('hashchange', () => {
@@ -484,9 +629,37 @@ document.body.addEventListener('click', (ev) => {
   if (acao === 'f-salvar') {
     const nome = (document.getElementById('nome').value || '').trim();
     if (!nome) { toast('Dê um nome ao viajante'); return; }
-    if (b.dataset.id) Object.assign(RAIZ.perfis[b.dataset.id], { nome, tipo: FORM.tipo, avatar: FORM.avatar });
-    else { const np = store.novoPerfil(nome, FORM.tipo, FORM.avatar); RAIZ.perfis[np.id] = np; RAIZ.ativo = np.id; }
+    const editado = new Date().toISOString();
+    if (b.dataset.id) Object.assign(RAIZ.perfis[b.dataset.id], { nome, tipo: FORM.tipo, avatar: FORM.avatar, editado });
+    else { const np = { ...store.novoPerfil(nome, FORM.tipo, FORM.avatar), editado }; RAIZ.perfis[np.id] = np; RAIZ.ativo = np.id; }
     salvar(); FORM = null; ir(b.dataset.id ? '#/perfil' : '#/hoje');
+  }
+  if (acao === 'f-remover') {
+    const alvo = RAIZ.perfis[b.dataset.id];
+    confirmar(`Remover <b>${esc(alvo.nome)}</b> e todo o progresso dele${RAIZ.nuvem ? ' em todos os celulares da família' : ''}? Não dá para desfazer.`, 'Remover', () => {
+      delete RAIZ.perfis[alvo.id]; RAIZ.removidos = [...(RAIZ.removidos || []), alvo.id];
+      if (RAIZ.ativo === alvo.id) RAIZ.ativo = Object.keys(RAIZ.perfis)[0];
+      salvar(); FORM = null; ir('#/perfil');
+    });
+  }
+  if (acao === 'cap') { const r = rascunho(id); r.cap = Number(b.dataset.c); render(); }
+  if (acao === 'criar-familia' || acao === 'entrar-familia') {
+    b.disabled = true;
+    const fn = acao === 'criar-familia' ? N.criarFamilia(document.getElementById('fam-nome').value) : N.entrarFamilia(document.getElementById('convite').value);
+    fn.then((info) => { RAIZ.nuvem = info; store.salvar(RAIZ); toast(acao === 'criar-familia' ? 'Família criada' : 'Você entrou na família'); return sincronizar(); })
+      .catch((e) => { toast(esc(e.message)); b.disabled = false; }).finally(render);
+  }
+  if (acao === 'sync') sincronizar().then(render);
+  if (acao === 'add-amigo') {
+    const cod = document.getElementById('cod-amigo').value; if (!cod.trim()) return;
+    N.adicionarAmigo(cod).then((nome) => { toast(`Agora vocês são amigos: ${esc(nome)}`); return sincronizar(); }).catch((e) => toast(esc(e.message))).finally(render);
+  }
+  if (acao === 'rem-amigo') confirmar(`Deixar de ser amigo de <b>${esc(b.dataset.n)}</b>?`, 'Remover', () => N.removerAmigo(b.dataset.f).then(sincronizar).catch((e) => toast(esc(e.message))).finally(render));
+  if (acao === 'ver-convite') { const el = document.getElementById('convite-val'); el.textContent = el.dataset.v; }
+  if (acao === 'compartilhar') {
+    const txt = `Vamos estudar a Bíblia juntos n'A Jornada! Meu código de amigo: ${RAIZ.nuvem.codigoAmigo}
+${location.origin}${location.pathname}`;
+    if (navigator.share) navigator.share({ text: txt }).catch(() => {}); else navigator.clipboard?.writeText(txt).then(() => toast('Copiado'));
   }
   if (acao === 'trocar') { RAIZ.ativo = b.dataset.p; salvar(); toast(`Agora: ${esc(P().nome)}`); ir('#/hoje'); render(); }
 
@@ -541,8 +714,9 @@ document.body.addEventListener('click', (ev) => {
 });
 
 document.querySelector('nav').innerHTML = [
-  ['hoje', 'house', 'Hoje'], ['jornada', 'map', 'Jornada'], ['cartas', 'layers', 'Álbum'], ['linha', 'hourglass', 'Linha'], ['perfil', 'user-round', 'Perfil'],
+  ['hoje', 'house', 'Hoje'], ['jornada', 'map', 'Jornada'], ['cartas', 'layers', 'Álbum'], ['amigos', 'users-round', 'Amigos'], ['perfil', 'user-round', 'Perfil'],
 ].map(([r, i, t]) => `<a href="#/${r}" data-r="${r}">${ico(i)}<span>${t}</span></a>`).join('');
 
 render();
+if (RAIZ.nuvem) agendarSync(200);
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});

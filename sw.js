@@ -1,9 +1,12 @@
 // Offline: rede primeiro (pega atualizações quando há internet), cache como reserva.
 // Ao mudar a lista de arquivos, suba a versão.
-const CACHE = 'ajornada-v2';
+const VERSAO = 'v3';
+const PREFIXO = 'ajornada:' + self.registration.scope + ':';
+const CACHE = PREFIXO + VERSAO;
 const ARQUIVOS = [
   './', './index.html', './css/estilo.css', './manifest.webmanifest',
-  './js/app.js', './js/jogo.js', './js/store.js', './js/icones.js', './js/avatar.js',
+  './js/app.js', './js/jogo.js', './js/store.js', './js/icones.js', './js/avatar.js', './js/config.js', './js/nuvem.js', './js/cenario.js', './vendor/supabase.js',
+  './data/biblia/blivre/1.json', './data/biblia/blivre/18.json',
   './fonts/fraunces-latin-500-normal.woff2', './fonts/fraunces-latin-600-normal.woff2', './fonts/fraunces-latin-700-normal.woff2',
   './fonts/nunito-latin-400-normal.woff2', './fonts/nunito-latin-600-normal.woff2', './fonts/nunito-latin-700-normal.woff2', './fonts/nunito-latin-800-normal.woff2',
   './data/plano.js', './data/era-principio.js', './data/imagens.js',
@@ -15,7 +18,7 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k.startsWith(PREFIXO) && k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
 
 self.addEventListener('fetch', (e) => {

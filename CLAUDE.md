@@ -1,39 +1,58 @@
-# A Jornada — estudo bíblico cronológico (projeto pessoal do Rafael, usado com as crianças)
+# A Jornada — estudo bíblico cronológico gamificado
 
-PWA estático (HTML/CSS/JS puro, sem build) publicado no GitHub Pages e instalado no celular.
-Evoluído pelo Claude a partir de qualquer aparelho: clonar, editar, testar, publicar.
+Projeto pessoal do Rafael, usado em casa com as crianças e com famílias amigas.
+PWA estático (HTML/CSS/JS puro, **sem build**), publicado no GitHub Pages e instalado no celular.
+**As evoluções são pedidas pelo celular**: o Claude clona, edita, testa sozinho e publica no canal de teste.
+
+## Fluxo de trabalho (obrigatório)
+1. Trabalhar sempre na branch `teste`. Ela publica em `https://orafaelcostaoficial.github.io/a-jornada/teste/`.
+2. Antes de subir, testar localmente: `python3 -m http.server 8765` na raiz e rodar um roteiro Playwright
+   (Chromium, viewport 390×844) que percorre as telas mexidas; zero erro no console. Mandar prints ao Rafael.
+3. Subir para `teste` e avisar o link para ele testar no celular.
+4. **Só fazer merge em `main` (produção) quando o Rafael disser "pode publicar" / "sim, publica".**
+5. Ao mudar arquivos que o app usa offline, subir `VERSAO` em `sw.js` e incluir arquivos novos em `ARQUIVOS`.
+O canal `/teste/` usa dados locais separados (`ajornada.teste.v2`) e não sincroniza com a nuvem
+(a não ser com `?nuvem=1`), para nunca bagunçar os dados reais da família.
 
 ## Método
-Uma sessão por dia: Contexto → Leitura (NAA) → O que entendi (+ nota da Bíblia de Estudo) → Aplicação.
-A aplicação volta em 3 dias ("como foi?"). Revisão em quiz com repetição espaçada (Leitner).
-Meta semanal: 5 de 7 dias (sem streak que zera).
-
-## Ordem
-Cronológica por livro, conforme a imagem do Rafael (@abibliadoprincipioaofim): 66 livros em 10 eras
-(`data/plano.js`). Só a era 1 (Gênesis + Jó) tem conteúdo (`data/era-principio.js`).
+Uma sessão por dia: Contexto (cenário, notas, Bíblia de Estudo) → Leitura (Bíblia Livre dentro do app,
+NAA no site da SBB) → O que entendi → Aplicação. A aplicação volta em 3 dias ("como foi?").
+Revisão em quiz com repetição espaçada (Leitner). Meta semanal 5 de 7 dias (sem streak que zera).
 
 ## Regras de conteúdo — inegociáveis
-- "Texto fiel, nada de achismos": toda afirmação sai do texto bíblico, com referência.
-- O que é tradição/estudiosos (não o texto) é marcado como tal. Datas não informadas não são inventadas.
-- NÃO copiar texto da NAA nem da Bíblia de Estudo NAA (direitos da SBB; repositório é público).
-  Conteúdo é paráfrase própria no formato de Bíblia de estudo (introdução, cenário, notas).
-- Texto bíblico abre no site oficial: `https://www.bibliaonline.com.br/naa/{slug}/{cap}`.
-  Conferir o slug no site antes de preencher (Jó = `jó`, João = `jo`).
+- "Texto fiel, nada de achismos": toda afirmação sai do texto bíblico e traz referência.
+- Tradição/estudiosos (não o texto) são marcados como tal. Datas não informadas não são inventadas.
+- NAA e Bíblia de Estudo NAA têm direitos da SBB: **nunca copiar** para o app. Conteúdo é paráfrase própria.
+  NAA abre em `https://www.bibliaonline.com.br/naa/{slug}/{cap}` — conferir o slug no site antes (Jó=`jó`, João=`jo`).
+- Texto dentro do app: Bíblia Livre (BLIVRE), CC BY 4.0 BR, em `data/biblia/blivre/<n>.json` (n = ordem canônica,
+  formato `{cap: {verso: texto}}`). O crédito aparece no leitor — manter sempre.
+
+## Ordem e conteúdo
+Cronológica por livro (imagem @abibliadoprincipioaofim): 66 livros em 10 eras (`data/plano.js`).
+Conteúdo escrito: era 1 (Gênesis + Jó) em `data/era-principio.js` — INTRODUCOES, SESSOES, PERSONAGENS,
+MARCOS, CARTAS (símbolo, raridade, título), CRIANCAS (pergunta por sessão).
+Nova era: criar `data/era-<id>.js` no mesmo formato, importar em `js/jogo.js`, marcar `conteudo: true` em
+`plano.js`, conferir e preencher os `slug` dos livros, adicionar cenas em `js/cenario.js` e incluir no `sw.js`.
 
 ## Jogo
-- Perfis da família no mesmo aparelho (adulto/criança); sessão pode ser feita junto ("Estudaram junto").
-- Personagem do jogador (`js/avatar.js`) evolui por estágios de nível (`ESTAGIOS` em `js/jogo.js`).
-- Curva de XP: subir do nível n ao n+1 custa 40 + 10·n^1,5 (50, 68, 92 … 356 no nível 10).
-- Cartas colecionáveis por personagem com raridade (`CARTAS` na era). Imagens geradas no Gemini a partir de
-  `PROMPTS-CARTAS.md`, salvas em `img/cartas/<id>.webp` e listadas em `data/imagens.js`.
-- Pergunta para crianças por sessão (`CRIANCAS` na era).
+- Perfis da família (adulto/criança) no aparelho; "Estudaram junto" conclui a sessão para vários.
+- Personagem (`js/avatar.js`) evolui por estágios (`ESTAGIOS` em `js/jogo.js`).
+- XP para subir do nível n ao n+1 = 40 + 10·n^1,5 (50, 68, 92 … 356 no nível 10 … 934 no 20).
+- Cartas: imagens do Gemini (prompts em `PROMPTS-CARTAS.md`) em `img/cartas/<id>.webp`, listadas em `data/imagens.js`.
+- Mapa estilo Duolingo com cenários por trecho (`js/cenario.js`) e amigos/família no ponto onde estão.
+
+## Nuvem (Supabase)
+- `supabase/schema.sql` (idempotente; testado em Postgres 16 com stub de `auth.uid()`): famílias, membros
+  (login anônimo por aparelho), perfis (progresso completo em `dados`), amizades. Amigos só veem dados
+  públicos do jogo pela função `amigos()` — nunca as anotações.
+- `js/config.js`: `SUPABASE_URL` e a chave pública (anon/publishable). Nunca a service_role.
+- `js/nuvem.js`: criar/entrar na família (convite secreto), sincronizar (mescla com `mesclarPerfil` em
+  `js/store.js`, sem perder progresso), amigos por código de 6 letras.
+- Requer no painel: Authentication → "Allow anonymous sign-ins" ligado.
 
 ## Estrutura
-- `js/store.js` — única camada de dados (localStorage, chave `ajornada.v2`, migra a v1; backup JSON). Para sincronizar entre celulares, trocar só ela.
-- `js/jogo.js` — regras de progresso, XP, níveis, conquistas, quiz.
-- `js/app.js` — telas (roteamento por hash).
-- `sw.js` — offline; subir `CACHE` ao adicionar arquivos.
-
-## Nova era
-Criar `data/era-<id>.js` com INTRODUCOES, SESSOES, PERSONAGENS, MARCOS; importar em `js/jogo.js`;
-marcar `conteudo: true` na era em `plano.js`; adicionar slugs dos livros; incluir no `sw.js`.
+- `js/store.js` — dados locais (localStorage) e backup JSON; migra a v1.
+- `js/jogo.js` — regras: progresso, XP, níveis, conquistas, quiz.
+- `js/app.js` — telas (roteamento por hash: hoje, jornada, linha, sessao, livro, cartas, carta, amigos, perfil…).
+- `sw.js` — offline, rede primeiro; caches separados por canal.
+- `.github/workflows/publicar.yml` — publica `main` na raiz e `teste` em `/teste/` (Pages com fonte "GitHub Actions").

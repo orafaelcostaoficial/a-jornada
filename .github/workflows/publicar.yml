@@ -1,0 +1,41 @@
+# Publica no GitHub Pages:
+#   branch main  → https://<conta>.github.io/a-jornada/         (app de verdade)
+#   branch teste → https://<conta>.github.io/a-jornada/teste/   (para testar no celular antes)
+# Em Settings → Pages, a fonte deve ser "GitHub Actions".
+name: Publicar
+on:
+  push:
+    branches: [main, teste]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: _site
+      - name: Canal de teste
+        run: |
+          if git ls-remote --exit-code --heads "https://github.com/${{ github.repository }}" teste >/dev/null; then
+            git clone --depth 1 --branch teste "https://github.com/${{ github.repository }}" _teste
+            rm -rf _teste/.git _teste/.github
+            mv _teste _site/teste
+          fi
+          rm -rf _site/.git _site/.github
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4

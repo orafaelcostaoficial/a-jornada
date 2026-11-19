@@ -38,13 +38,16 @@ export const ERAS = [
 export const linkNAA = (livro, cap) =>
   livro.slug ? `https://www.bibliaonline.com.br/naa/${livro.slug}/${cap}` : null;
 
+// Ordem canônica protestante (1 = Gênesis … 66 = Apocalipse): nome do arquivo do texto em data/biblia/blivre/<n>.json
+const CANON = 'gn ex lv nm dt js jz rt 1sm 2sm 1rs 2rs 1cr 2cr ed ne et jo sl pv ec ct is jr lm ez dn os jl am ob jn mq na hc sf ag zc ml mt mc lc joa at rm 1co 2co gl ef fp cl 1ts 2ts 1tm 2tm tt fm hb tg 1pe 2pe 1jo 2jo 3jo jd ap'.split(' ');
+
 export const LIVROS = {};
 let ordem = 0;
 for (const era of ERAS) {
   era.livros = era.livros.map(([id, nome, caps, slug]) => {
     // slug = abreviação usada pelo site da SBB (bibliaonline.com.br) na URL.
     // Só preencher depois de conferir no site (ex.: Jó = "jó", João = "jo").
-    const l = { id, nome, caps, slug, era: era.id, ordem: ++ordem };
+    const l = { id, nome, caps, slug, era: era.id, ordem: ++ordem, n: CANON.indexOf(id) + 1 };
     LIVROS[id] = l;
     return l;
   });
