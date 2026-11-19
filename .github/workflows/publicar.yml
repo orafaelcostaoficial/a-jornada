@@ -11,11 +11,22 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: write
 concurrency:
-  group: pages
+  group: pages-${{ github.ref_name }}
   cancel-in-progress: true
 jobs:
+  # O ambiente github-pages só aceita publicar a partir da main. Um push na teste
+  # apenas dispara a publicação na main, que monta o site com as duas branches.
+  disparar:
+    if: github.ref_name != 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run publicar.yml --ref main -R "${{ github.repository }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
   publicar:
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
