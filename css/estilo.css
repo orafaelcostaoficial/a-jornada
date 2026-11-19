@@ -400,3 +400,11 @@ nav a.on { background: var(--tx); color: var(--bg); }
 .confirma p { font-size: 1.05rem; margin-bottom: 18px; }
 .btn.perigo { background: var(--erro); color: #fff; }
 .btn.perigo-sec { background: transparent; color: var(--erro); box-shadow: none; margin-top: 4px; }
+.faixas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.faixa { display: grid; text-align: center; padding: 8px 4px; border-radius: 14px; background: var(--sup-2); border: 2px dashed var(--ln); }
+.faixa b { font-size: .9rem; } .faixa small { font-size: .72rem; color: var(--tx-2); font-weight: 700; }
+.faixa.on { border: 2px solid transparent; background: linear-gradient(135deg, #e7b445, #c98a1c); color: #fff; }
+.faixa.on small { color: #fff; }
+.seqs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.seqs span { display: flex; gap: 6px; align-items: center; background: var(--ouro-cl); color: var(--ouro-esc); font-weight: 800; font-size: .82rem; padding: 6px 12px; border-radius: 999px; }
+.semana .dica { margin: 10px 0 0; font-size: .78rem; }

@@ -132,11 +132,17 @@ function carta(id, { aberta = true, nova = false, verso = false } = {}) {
 }
 
 function semana(p) {
-  const s = J.semanaAtual(p); const h = store.hoje();
+  const s = J.semanaAtual(p); const h = store.hoje(); const seg = s.dias[0];
   const letras = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
+  const anterior = store.somarDias(seg, -7);
+  const seqMeta = J.bateuFaixa(p, seg, 5) ? J.sequencia(p, seg, 5) : J.sequencia(p, anterior, 5);
+  const seqFech = J.bateuFaixa(p, seg, 7) ? J.sequencia(p, seg, 7) : J.sequencia(p, anterior, 7);
   return `<section class="bloco semana">
-    <div class="bloco-tit"><span>Esta semana</span><span class="${s.feitos >= J.META_SEMANA ? 'ok' : ''}">${s.feitos}/${J.META_SEMANA} dias · +${J.XP.semana} XP</span></div>
+    <div class="bloco-tit"><span>Esta semana</span><span class="${s.feitos >= J.META_SEMANA ? 'ok' : ''}">${s.feitos}/7 dias</span></div>
     <div class="dias">${s.dias.map((d, i) => `<div class="dia ${s.ativos.has(d) ? 'feito' : ''} ${d === h ? 'hoje' : ''}">${s.ativos.has(d) ? ico('check') : letras[i]}</div>`).join('')}</div>
+    <div class="faixas">${J.FAIXAS_SEMANA.map((f) => `<span class="faixa ${J.bateuFaixa(p, seg, f.dias) ? 'on' : ''}"><b>${f.dias} dias</b><small>${f.dias === 7 ? 'fechada · ' : ''}+${f.xp} XP</small></span>`).join('')}</div>
+    ${seqMeta || seqFech ? `<div class="seqs">${seqMeta ? `<span>${ico('flame')} ${seqMeta} semana${seqMeta > 1 ? 's' : ''} batendo a meta</span>` : ''}${seqFech ? `<span>${ico('crown')} ${seqFech} semana${seqFech > 1 ? 's' : ''} fechada${seqFech > 1 ? 's' : ''}</span>` : ''}</div>` : ''}
+    <p class="dica">Semanas seguidas dão bônus extra: +${J.SEQ.meta.porSemana} XP por semana batendo a meta e +${J.SEQ.fechada.porSemana} XP por semana fechada. Perder uma semana só zera a sequência, nunca o que você já ganhou.</p>
   </section>`;
 }
 

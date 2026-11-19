@@ -13,6 +13,43 @@ export const CRIANCAS = { ...E1.CRIANCAS };
 
 export const XP = { sessao: 10, aplicacao: 4, estudo: 3, revisao: 8, acerto: 3, livro: 40, era: 100, semana: 25 };
 
+// Bônus da semana (segunda a domingo), por dias com sessão concluída.
+export const FAIXAS_SEMANA = [
+  { dias: 5, xp: 25, nome: 'Meta da semana' },
+  { dias: 6, xp: 15, nome: '6 dias na semana' },
+  { dias: 7, xp: 30, nome: 'Semana fechada' },
+];
+// Sequências: semanas seguidas batendo a meta (5+) e semanas fechadas (7/7) seguidas.
+export const SEQ = { meta: { porSemana: 10, teto: 50 }, fechada: { porSemana: 20, teto: 80 } };
+
+const chaveFaixa = (seg, dias) => `semana-${seg}-${dias}`;
+export const bateuFaixa = (e, seg, dias) => !!e.conquistas[chaveFaixa(seg, dias)] || (dias === 5 && !!e.conquistas[`semana-${seg}`]);
+
+// Quantas semanas seguidas (terminando em `seg`, inclusive) bateram a faixa.
+export function sequencia(e, seg, dias) {
+  let n = 0, d = seg;
+  while (bateuFaixa(e, d, dias)) { n++; d = somarDias(d, -7); }
+  return n;
+}
+
+function bonusSemana(e) {
+  const sem = semanaAtual(e); const seg = sem.dias[0]; const out = [];
+  for (const f of FAIXAS_SEMANA) {
+    if (sem.feitos < f.dias || bateuFaixa(e, seg, f.dias)) continue;
+    e.conquistas[chaveFaixa(seg, f.dias)] = hoje();
+    out.push([f.nome, f.xp, chaveFaixa(seg, f.dias)]);
+    const tipo = f.dias === 5 ? 'meta' : f.dias === 7 ? 'fechada' : null;
+    if (tipo) {
+      const n = sequencia(e, seg, f.dias);
+      if (n >= 2) {
+        const xp = Math.min(SEQ[tipo].porSemana * (n - 1), SEQ[tipo].teto);
+        out.push([`${n} semanas seguidas ${tipo === 'meta' ? 'batendo a meta' : 'fechadas'}`, xp, `seq-${tipo}-${seg}`]);
+      }
+    }
+  }
+  return out;
+}
+
 // Evolução do personagem do jogador.
 export const ESTAGIOS = [
   { nivel: 1, nome: 'Peregrino', item: null },
@@ -121,12 +158,7 @@ export function concluirSessao(e, s, dados) {
   ganhar(e, 'sessao', XP.sessao, s.id); ganhos.push(['Sessão concluída', XP.sessao]);
   if (dados.aplicacao) { ganhar(e, 'bonus', XP.aplicacao, s.id); ganhos.push(['Aplicação escrita', XP.aplicacao]); }
   if (dados.estudo) { ganhar(e, 'bonus', XP.estudo, s.id); ganhos.push(['Nota da Bíblia de Estudo', XP.estudo]); }
-  const sem = semanaAtual(e);
-  const chaveSem = 'semana-' + sem.dias[0];
-  if (sem.feitos >= META_SEMANA && !e.conquistas[chaveSem]) {
-    e.conquistas[chaveSem] = hoje(); ganhar(e, 'bonus', XP.semana, chaveSem); ganhos.push(['Meta da semana', XP.semana]);
-  }
-  s.quiz.forEach((_, i) => { e.quiz[qid(s, i)] = { caixa: 1, proxima: somarDias(hoje(), 1), acertos: 0, erros: 0 }; });
+  for (const g of bonusSemana(e)) { ganhar(e, 'bonus', g[1], g[2]); ganhos.push([g[0], g[1]]); }
   if (progressoLivro(e, s.livro).completo) {
     ganhar(e, 'livro', XP.livro, s.livro); ganhos.push([`${LIVROS[s.livro].nome} concluído`, XP.livro]);
   }
