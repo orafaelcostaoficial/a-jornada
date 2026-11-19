@@ -589,3 +589,88 @@ export const MARCOS = [
   { id: 'morte-jose', titulo: 'Morte de José', quando: 'José tinha 110 anos (Gn 50:26).' },
   { id: 'jo', titulo: 'Jó em Uz', quando: 'Data não informada no texto. Seu plano cronológico o coloca após Gênesis.' },
 ];
+
+// Cartas: [símbolo, raridade, título]. Símbolo e título vêm de algo que o texto diz
+// sobre a pessoa (ref ao lado). Raridade é só mecânica do jogo, não juízo sobre a pessoa.
+export const CARTAS = {
+  adao: ['sprout', 'lendaria', 'O primeiro homem'],              // Gn 2:7,15
+  eva: ['tree-deciduous', 'epica', 'Mãe de todos os que vivem'],  // Gn 3:20
+  caim: ['wheat', 'comum', 'O lavrador'],                         // Gn 4:2
+  abel: ['flame', 'rara', 'O pastor de ovelhas'],                 // Gn 4:2,4
+  sete: ['route', 'rara', 'Dado no lugar de Abel'],               // Gn 4:25
+  enoque: ['footprints', 'epica', 'Andou com Deus'],              // Gn 5:24
+  matusalem: ['hourglass', 'rara', '969 anos'],                   // Gn 5:27
+  noe: ['ship', 'lendaria', 'Achou favor diante do Senhor'],      // Gn 6:8
+  sem: ['scroll-text', 'comum', 'Filho de Noé'],                  // Gn 6:10
+  ninrode: ['target', 'comum', 'Poderoso caçador'],               // Gn 10:9
+  tera: ['map', 'comum', 'Saiu de Ur dos caldeus'],               // Gn 11:31
+  abraao: ['stars', 'lendaria', 'Pai de muitas nações'],          // Gn 15:5; 17:5
+  sara: ['baby', 'epica', 'Mãe de nações'],                       // Gn 17:16
+  lo: ['signpost', 'rara', 'Escolheu a planície do Jordão'],      // Gn 13:11
+  melquisedeque: ['grape', 'epica', 'Rei de Salém e sacerdote'],  // Gn 14:18
+  agar: ['eye', 'rara', 'Viu o Deus que a vê'],                   // Gn 16:13
+  ismael: ['bow-arrow', 'rara', 'Flecheiro no deserto'],          // Gn 21:20
+  isaque: ['flame-kindling', 'lendaria', 'O filho da promessa'],  // Gn 17:19; 22:6
+  abimeleque: ['handshake', 'comum', 'Rei de Gerar'],             // Gn 20:2; 21:27
+  rebeca: ['amphora', 'epica', 'A resposta da oração'],           // Gn 24:15
+  labao: ['scale', 'comum', 'Mudou o salário dez vezes'],         // Gn 31:7
+  esau: ['soup', 'rara', 'Edom'],                                 // Gn 25:30
+  jaco: ['escada', 'lendaria', 'Israel'],                         // Gn 28:12; 32:28
+  lia: ['heart', 'rara', 'Vista pelo Senhor'],                    // Gn 29:31
+  raquel: ['droplets', 'rara', 'Pastora junto ao poço'],          // Gn 29:9-10
+  dina: ['flower-2', 'comum', 'Filha de Jacó e Lia'],             // Gn 30:21
+  benjamim: ['wine', 'rara', 'A taça na bagagem'],                // Gn 44:12
+  jose: ['shirt', 'lendaria', 'O Senhor estava com ele'],         // Gn 37:3; 39:2
+  ruben: ['hand-helping', 'comum', 'O primogênito'],              // Gn 37:21-22
+  juda: ['crown', 'epica', 'O cetro não se afastará'],            // Gn 49:10
+  tamar: ['stamp', 'rara', 'Mais justa do que eu'],               // Gn 38:18,26
+  potifar: ['shield', 'comum', 'Capitão da guarda'],              // Gn 39:1
+  'farao-jose': ['pyramid', 'rara', 'Rei do Egito'],              // Gn 41
+  manasses: ['sunrise', 'comum', 'Deus me fez esquecer'],         // Gn 41:51
+  efraim: ['leafy-green', 'comum', 'Deus me fez prosperar'],      // Gn 41:52
+  simeao: ['lock', 'comum', 'Preso como garantia'],               // Gn 42:24
+  jo: ['shield-check', 'lendaria', 'Íntegro e reto'],             // Jó 1:1
+  elifaz: ['moon-star', 'comum', 'O temanita'],                   // Jó 2:11; 4:13
+  bildade: ['messages-square', 'comum', 'O suíta'],               // Jó 2:11
+  zofar: ['gavel', 'comum', 'O naamatita'],                       // Jó 2:11
+  eliu: ['cloud-lightning', 'rara', 'O mais jovem'],              // Jó 32:6; 37
+};
+
+// Pergunta para as crianças em cada sessão (estudo em família).
+export const CRIANCAS = {
+  'gn-01': 'Deus fez tudo e viu que era bom. Cite três coisas que Deus criou de que você gosta.',
+  'gn-02': 'O que Adão e Eva fizeram depois de desobedecer? E o que Deus fez?',
+  'gn-03': 'Deus avisou Caim antes de ele errar. O que fazer quando ficamos com muita raiva?',
+  'gn-04': 'Noé obedeceu antes de ver a chuva. Em que você pode obedecer hoje?',
+  'gn-05': 'Quando você vir um arco-íris, que promessa de Deus ele lembra?',
+  'gn-06': 'Por que Deus misturou as línguas em Babel?',
+  'gn-07': 'Abrão saiu de casa confiando em Deus. Você já fez algo novo com medo?',
+  'gn-08': 'Hoje à noite, tente contar as estrelas. O que Deus prometeu a Abrão com elas?',
+  'gn-09': 'Agar chamou Deus de "o Deus que me vê". Como é saber que Deus vê você?',
+  'gn-10': 'Existe alguma coisa difícil demais para Deus?',
+  'gn-11': 'Sara disse que Deus a fez rir. Que coisa boa de Deus faz você sorrir?',
+  'gn-12': 'O que Deus colocou no lugar de Isaque?',
+  'gn-13': 'O servo orou antes de escolher. Sobre o que podemos orar antes de decidir algo?',
+  'gn-14': 'Esaú trocou algo muito valioso por um prato de comida. O que é valioso para você?',
+  'gn-15': 'Deus prometeu a Jacó: "estou com você". Onde você precisa lembrar disso?',
+  'gn-16': 'Sete anos pareceram poucos dias para Jacó. Por quê?',
+  'gn-17': 'Qual foi o novo nome que Deus deu a Jacó?',
+  'gn-18': 'Esaú abraçou o irmão. Com quem você precisa fazer as pazes?',
+  'gn-19': 'Jacó mandou tirar os ídolos de casa. O que pode tomar o lugar de Deus no coração?',
+  'gn-20': 'Os irmãos de José ficaram com ciúmes. O que fazer quando sentimos ciúmes?',
+  'gn-21': 'José disse não ao que era errado. Como dizer não quando alguém nos chama para errar?',
+  'gn-22': 'José ficou esperando na prisão e foi esquecido. Como é ter que esperar?',
+  'gn-23': 'Os irmãos lembraram do mal que fizeram. O que fazer quando erramos com alguém?',
+  'gn-24': 'José perdoou os irmãos. Tem alguém que você precisa perdoar?',
+  'gn-25': 'Deus disse a Jacó: "não tenha medo". Do que você tem medo?',
+  'gn-26': 'Deus transformou em bem o mal que fizeram a José. Você lembra de algo ruim que virou bom?',
+  'jo-01': 'Jó perdeu muita coisa e mesmo assim adorou a Deus. Por que amamos a Deus?',
+  'jo-02': 'Jó contou para Deus toda a tristeza dele. Você sabia que pode falar tudo com Deus?',
+  'jo-03': 'Os amigos de Jó ficaram sete dias em silêncio com ele. Como ajudar um amigo triste?',
+  'jo-04': 'Mesmo sofrendo, Jó disse: "o meu Redentor vive". O que nos dá esperança?',
+  'jo-05': 'Jó disse que sairia da prova como o ouro. O que você acha que isso quer dizer?',
+  'jo-06': 'Jó ajudava os pobres, os órfãos e as viúvas. Quem nós podemos ajudar?',
+  'jo-07': 'Eliú esperou os mais velhos falarem. Por que é bom saber ouvir?',
+  'jo-08': 'Deus perguntou a Jó sobre o mar, as estrelas e os animais. O que na criação mostra que Deus é grande?',
+  'jo-09': 'Jó orou pelos amigos que o magoaram. Por quem você pode orar hoje?',
+};

@@ -1,4 +1,4 @@
-# Jornada — estudo bíblico cronológico (projeto pessoal do Rafael)
+# A Jornada — estudo bíblico cronológico (projeto pessoal do Rafael, usado com as crianças)
 
 PWA estático (HTML/CSS/JS puro, sem build) publicado no GitHub Pages e instalado no celular.
 Evoluído pelo Claude a partir de qualquer aparelho: clonar, editar, testar, publicar.
@@ -20,8 +20,16 @@ Cronológica por livro, conforme a imagem do Rafael (@abibliadoprincipioaofim): 
 - Texto bíblico abre no site oficial: `https://www.bibliaonline.com.br/naa/{slug}/{cap}`.
   Conferir o slug no site antes de preencher (Jó = `jó`, João = `jo`).
 
+## Jogo
+- Perfis da família no mesmo aparelho (adulto/criança); sessão pode ser feita junto ("Estudaram junto").
+- Personagem do jogador (`js/avatar.js`) evolui por estágios de nível (`ESTAGIOS` em `js/jogo.js`).
+- Curva de XP: subir do nível n ao n+1 custa 40 + 10·n^1,5 (50, 68, 92 … 356 no nível 10).
+- Cartas colecionáveis por personagem com raridade (`CARTAS` na era). Imagens geradas no Gemini a partir de
+  `PROMPTS-CARTAS.md`, salvas em `img/cartas/<id>.webp` e listadas em `data/imagens.js`.
+- Pergunta para crianças por sessão (`CRIANCAS` na era).
+
 ## Estrutura
-- `js/store.js` — única camada de dados (localStorage + backup JSON). Para crescer com login, trocar só ela.
+- `js/store.js` — única camada de dados (localStorage, chave `ajornada.v2`, migra a v1; backup JSON). Para sincronizar entre celulares, trocar só ela.
 - `js/jogo.js` — regras de progresso, XP, níveis, conquistas, quiz.
 - `js/app.js` — telas (roteamento por hash).
 - `sw.js` — offline; subir `CACHE` ao adicionar arquivos.

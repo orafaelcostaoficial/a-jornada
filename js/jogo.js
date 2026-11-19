@@ -8,8 +8,23 @@ export const SESSOES = [...E1.SESSOES];
 export const PERSONAGENS = { ...E1.PERSONAGENS };
 export const MARCOS = [...E1.MARCOS.map((m) => ({ ...m, era: 'principio' }))];
 export const INTRODUCOES = { ...E1.INTRODUCOES };
+export const CARTAS = { ...E1.CARTAS };
+export const CRIANCAS = { ...E1.CRIANCAS };
 
-export const XP = { sessao: 10, revisao: 5, acerto: 2, livro: 25, era: 50 };
+export const XP = { sessao: 10, aplicacao: 4, estudo: 3, revisao: 8, acerto: 3, livro: 40, era: 100, semana: 25 };
+
+// Evolução do personagem do jogador.
+export const ESTAGIOS = [
+  { nivel: 1, nome: 'Peregrino', item: null },
+  { nivel: 3, nome: 'Andarilho', item: 'cajado' },
+  { nivel: 5, nome: 'Viajante', item: 'alforje' },
+  { nivel: 8, nome: 'Pastor', item: 'manto' },
+  { nivel: 12, nome: 'Guardião', item: 'lamparina' },
+  { nivel: 16, nome: 'Sábio', item: 'pergaminho' },
+  { nivel: 20, nome: 'Ancião', item: 'aura' },
+];
+export const estagio = (n) => [...ESTAGIOS].reverse().find((e) => n >= e.nivel);
+export const itensAte = (n) => ESTAGIOS.filter((e) => e.item && n >= e.nivel).map((e) => e.item);
 export const META_SEMANA = 5;
 export const DIAS_PARA_REVISAR_APLICACAO = 3;
 const INTERVALOS = [0, 1, 3, 7, 14, 30]; // dias por caixa (Leitner)
@@ -51,11 +66,13 @@ export function progressoEra(e, eraId) {
   return { feitas, total: lista.length, completo: !!era.conteudo && lista.length > 0 && feitas === lista.length };
 }
 
+// Curva de jogo: fácil no começo, pesada depois.
+// XP para passar do nível n ao n+1 = 40 + 10·n^1,5 → 50, 68, 92, 120, 152 … 356 (nível 10) … 934 (nível 20).
+export const xpParaSubir = (n) => Math.round(40 + 10 * n ** 1.5);
 export function nivel(xp) {
-  // nível n começa em 25·n·(n−1) XP: 0, 50, 150, 300, 500…
-  let n = 1;
-  while (25 * (n + 1) * n <= xp) n++;
-  const ini = 25 * n * (n - 1), fim = 25 * (n + 1) * n;
+  let n = 1, ini = 0;
+  while (xp >= ini + xpParaSubir(n)) { ini += xpParaSubir(n); n++; }
+  const fim = ini + xpParaSubir(n);
   return { n, ini, fim, pct: Math.round(((xp - ini) / (fim - ini)) * 100) };
 }
 
@@ -99,8 +116,16 @@ export function concluirSessao(e, s, dados) {
   const antesP = personagensLiberados(e);
   const antesM = marcosLiberados(e);
   const ganhos = [];
+  const nivelAntes = nivel(e.xp).n;
   e.sessoes[s.id] = { data: hoje(), revisao: null, ...dados };
   ganhar(e, 'sessao', XP.sessao, s.id); ganhos.push(['Sessão concluída', XP.sessao]);
+  if (dados.aplicacao) { ganhar(e, 'bonus', XP.aplicacao, s.id); ganhos.push(['Aplicação escrita', XP.aplicacao]); }
+  if (dados.estudo) { ganhar(e, 'bonus', XP.estudo, s.id); ganhos.push(['Nota da Bíblia de Estudo', XP.estudo]); }
+  const sem = semanaAtual(e);
+  const chaveSem = 'semana-' + sem.dias[0];
+  if (sem.feitos >= META_SEMANA && !e.conquistas[chaveSem]) {
+    e.conquistas[chaveSem] = hoje(); ganhar(e, 'bonus', XP.semana, chaveSem); ganhos.push(['Meta da semana', XP.semana]);
+  }
   s.quiz.forEach((_, i) => { e.quiz[qid(s, i)] = { caixa: 1, proxima: somarDias(hoje(), 1), acertos: 0, erros: 0 }; });
   if (progressoLivro(e, s.livro).completo) {
     ganhar(e, 'livro', XP.livro, s.livro); ganhos.push([`${LIVROS[s.livro].nome} concluído`, XP.livro]);
@@ -112,7 +137,8 @@ export function concluirSessao(e, s, dados) {
   const novosP = [...personagensLiberados(e)].filter((p) => !antesP.has(p));
   const novosM = [...marcosLiberados(e)].filter((m) => !antesM.has(m));
   const novasC = verificarConquistas(e);
-  return { ganhos, novosP, novosM, novasC };
+  const nivelDepois = nivel(e.xp).n;
+  return { ganhos, novosP, novosM, novasC, subiu: nivelDepois > nivelAntes ? nivelDepois : null };
 }
 
 export function revisarAplicacao(e, s, texto) {
