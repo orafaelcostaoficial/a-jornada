@@ -423,9 +423,13 @@ body.sem-nav nav { visibility: hidden; }
 /* retratos de personagem */
 .retrato { position: relative; display: inline-grid; place-items: center; width: var(--rt); height: var(--rt); border-radius: 50%; flex: none; overflow: visible;
   background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--rc) 35%, #fff), var(--rc) 80%); box-shadow: 0 0 0 calc(var(--rt) * .045) #fff, 0 0 0 calc(var(--rt) * .085) var(--anel, #c8a27a); }
-.retrato img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.retrato-in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; display: grid; place-items: center; }
+.retrato-fundo { position: absolute; inset: 0; width: 100%; height: 100%; }
+.retrato:not(.com-img) .retrato-fundo { opacity: .55; mix-blend-mode: luminosity; }
+.retrato img { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+.retrato-sim, .retrato-ini { position: relative; }
 .retrato-sim .ico { width: calc(var(--rt) * .42); height: calc(var(--rt) * .42); color: #fff; stroke-width: 1.8; filter: drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
-.retrato-ini { position: absolute; bottom: 12%; font-family: var(--display); font-weight: 700; color: #fff; font-size: calc(var(--rt) * .14); text-shadow: 0 1px 3px rgba(0,0,0,.35); }
+.retrato-ini { position: absolute !important; bottom: 12%; font-family: var(--display); font-weight: 700; color: #fff; font-size: calc(var(--rt) * .14); text-shadow: 0 1px 3px rgba(0,0,0,.35); }
 .retrato.est-0 { --anel: #c8a27a; } .retrato.est-1 { --anel: #a9783f; } .retrato.est-2 { --anel: #9fb3c8; }
 .retrato.est-3 { --anel: #6f8fb3; } .retrato.est-4 { --anel: #d29a2c; } .retrato.est-5 { --anel: #7d4fc0; }
 .retrato.est-6 { --anel: #ffd36b; animation: brilhoav 2.4s ease-in-out infinite; }
@@ -443,3 +447,6 @@ body.sem-nav nav { visibility: hidden; }
 .boas-av { display: flex; justify-content: center; gap: 14px; margin-bottom: 8px; }
 .eu-av .retrato { box-shadow: none; } .eu-av:has(.retrato) { background: none; }
 .hero-av .retrato { margin: 8px 8px 8px 12px; }
+.retrato-vazio { width: 140px; height: 140px; border-radius: 50%; display: grid; place-items: center; background: var(--sup-2); border: 3px dashed var(--ln); color: var(--tx-2); }
+.retrato-vazio .ico { width: 54px; height: 54px; }
+.aviso-av { background: var(--ouro-cl); border-radius: 14px; padding: 10px 14px; margin: 14px 0 0; font-weight: 700; text-align: center; font-size: .9rem; }
