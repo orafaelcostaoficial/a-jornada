@@ -243,7 +243,7 @@ function telaHoje() {
   const est = J.estagio(nv.n);
 
   const missoes = [
-    { feito: feitaHoje, ico: 'book-open', txt: 'Fazer a sessão do dia', xp: `+${J.XP.sessao}–${J.XP.sessao + J.XP.aplicacao + J.XP.estudo}`, href: prox ? `#/sessao/${prox.id}` : null },
+    { feito: feitaHoje, ico: 'book-open', txt: 'Fazer a sessão do dia', xp: `+${J.XP.sessao}–${J.XP.sessao + J.XP.aplicacao}`, href: prox ? `#/sessao/${prox.id}` : null },
     quiz.length ? { feito: false, ico: 'medal', txt: `Revisar ${quiz.length} pergunta${quiz.length > 1 ? 's' : ''}`, xp: `+${J.XP.acerto} cada`, href: '#/revisao' } : null,
     ...aplic.map((s) => ({ feito: false, ico: 'heart', txt: `Como foi: “${p.sessoes[s.id].aplicacao}”`, xp: `+${J.XP.revisao}`, href: `#/aplicacao/${s.id}` })),
   ].filter(Boolean);
@@ -299,7 +299,6 @@ function telaSessao(id, passo = 0) {
       <ul class="notas">${s.notas.map(([ref, t]) => `<li><b>${esc(ref)}</b><span>${esc(t)}</span></li>`).join('')}</ul>
     </section>
     ${(temCriancas || crianca) && J.CRIANCAS[s.id] ? `<section class="kids">${ico('users-round')}<div><b>Para as crianças</b><p>${esc(J.CRIANCAS[s.id])}</p></div></section>` : ''}
-    <div class="lembrete">${ico('book-open')} Abra a sua <b>Bíblia de Estudo</b> neste trecho: notas, mapas e quadros.</div>
     <button class="btn grande" data-acao="passo" data-passo="1">Ir para a leitura ${ico('chevron-right')}</button>`;
   } else if (passo === 1) {
     const caps = []; for (let c = s.caps[0]; c <= s.caps[1]; c++) caps.push(c);
@@ -319,8 +318,7 @@ function telaSessao(id, passo = 0) {
     <section class="bloco">
       <label class="rot" for="entendi">${crianca ? 'O que eu aprendi' : 'O que eu entendi'}</label>
       <textarea id="entendi" rows="4" placeholder="Uma frase já basta.">${esc(r.entendi || '')}</textarea>
-      ${crianca ? '' : `<label class="rot" for="estudo">Da minha Bíblia de Estudo <em>+${J.XP.estudo} XP</em></label>
-      <textarea id="estudo" rows="3" placeholder="Nota, mapa ou quadro que chamou atenção — e a página.">${esc(r.estudo || '')}</textarea>`}
+
     </section>
     <button class="btn grande" data-acao="passo" data-passo="3" id="btn-entendi" ${r.entendi?.trim() ? '' : 'disabled'}>Continuar ${ico('chevron-right')}</button>`;
   } else {
@@ -344,7 +342,6 @@ function telaSessaoFeita(s) {
   const r = P().sessoes[s.id];
   return `${cabSessao(s, `${J.refSessao(s)} · ${fmtData(r.data)}`)}
   <section class="bloco"><div class="rot">O que entendi</div><p>${esc(r.entendi)}</p>
-    ${r.estudo ? `<div class="rot">Da minha Bíblia de Estudo</div><p>${esc(r.estudo)}</p>` : ''}
     ${r.aplicacao ? `<div class="rot">Aplicação</div><p>${esc(r.aplicacao)}</p>` : ''}
     ${r.revisao ? `<div class="rot">Como foi · ${fmtData(r.revisao.data)}</div><p>${esc(r.revisao.texto)}</p>` : ''}
   </section>
@@ -558,7 +555,7 @@ function telaLivro(id) {
     <div class="rot">Esboço</div>
     <div class="esboco">${it.esboco.map(([c, t]) => `<div><b>${esc(c)}</b><span>${esc(t)}</span></div>`).join('')}</div>
   </section>
-  <div class="lembrete">${ico('book-open')} Compare com a introdução de ${esc(l.nome)} na sua Bíblia de Estudo.</div>`;
+`;
 }
 
 function telaCartas(aba = 'pessoas') {

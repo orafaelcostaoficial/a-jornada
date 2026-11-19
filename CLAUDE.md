@@ -15,14 +15,14 @@ O canal `/teste/` usa dados locais separados (`ajornada.teste.v2`) e não sincro
 (a não ser com `?nuvem=1`), para nunca bagunçar os dados reais da família.
 
 ## Método
-Uma sessão por dia: Contexto (cenário, notas, Bíblia de Estudo) → Leitura (Bíblia Livre dentro do app,
+Uma sessão por dia: Contexto (cenário e notas) → Leitura (Bíblia Livre dentro do app,
 NAA no site da SBB) → O que entendi → Aplicação. A aplicação volta em 3 dias ("como foi?").
 Revisão em quiz com repetição espaçada (Leitner). Meta semanal 5 de 7 dias (sem streak que zera).
 
 ## Regras de conteúdo — inegociáveis
 - "Texto fiel, nada de achismos": toda afirmação sai do texto bíblico e traz referência.
 - Tradição/estudiosos (não o texto) são marcados como tal. Datas não informadas não são inventadas.
-- NAA e Bíblia de Estudo NAA têm direitos da SBB: **nunca copiar** para o app. Conteúdo é paráfrase própria.
+- Não pressupor que a pessoa tenha Bíblia de Estudo (nem todos têm). NAA e Bíblia de Estudo NAA têm direitos da SBB: **nunca copiar** para o app. Conteúdo é paráfrase própria.
   NAA abre em `https://www.bibliaonline.com.br/naa/{slug}/{cap}` — conferir o slug no site antes (Jó=`jó`, João=`jo`).
 - Texto dentro do app: Bíblia Livre (BLIVRE), CC BY 4.0 BR, em `data/biblia/blivre/<n>.json` (n = ordem canônica,
   formato `{cap: {verso: texto}}`). O crédito aparece no leitor — manter sempre.

@@ -13,7 +13,7 @@ export const CRIANCAS = { ...E1.CRIANCAS };
 export const SELOS = { ...E1.SELOS };
 export const selosDaSessao = (id) => Object.keys(SELOS).filter((k) => SELOS[k].sessao === id);
 
-export const XP = { sessao: 10, aplicacao: 4, estudo: 3, revisao: 8, acerto: 3, livro: 40, era: 100, semana: 25 };
+export const XP = { sessao: 10, aplicacao: 4, revisao: 8, acerto: 3, livro: 40, era: 100, semana: 25 };
 
 // Bônus da semana (segunda a domingo), por dias com sessão concluída.
 export const FAIXAS_SEMANA = [
@@ -163,7 +163,6 @@ export function concluirSessao(e, s, dados) {
   e.sessoes[s.id] = { data: hoje(), revisao: null, ...dados };
   ganhar(e, 'sessao', XP.sessao, s.id); ganhos.push(['Sessão concluída', XP.sessao]);
   if (dados.aplicacao) { ganhar(e, 'bonus', XP.aplicacao, s.id); ganhos.push(['Aplicação escrita', XP.aplicacao]); }
-  if (dados.estudo) { ganhar(e, 'bonus', XP.estudo, s.id); ganhos.push(['Nota da Bíblia de Estudo', XP.estudo]); }
   for (const g of bonusSemana(e)) { ganhar(e, 'bonus', g[1], g[2]); ganhos.push([g[0], g[1]]); }
   if (progressoLivro(e, s.livro).completo) {
     ganhar(e, 'livro', XP.livro, s.livro); ganhos.push([`${LIVROS[s.livro].nome} concluído`, XP.livro]);
@@ -206,7 +205,6 @@ export const CONQUISTAS = [
   { id: 'pers25', nome: 'Árvore da família', desc: 'Desbloquear 25 personagens', ok: (e) => personagensLiberados(e).size >= 25 },
   { id: 'aplic1', nome: 'Da página para a vida', desc: 'Contar como foi uma aplicação', ok: (e) => Object.values(e.sessoes).some((s) => s.revisao) },
   { id: 'aplic5', nome: 'Praticante', desc: 'Contar como foram 5 aplicações', ok: (e) => Object.values(e.sessoes).filter((s) => s.revisao).length >= 5 },
-  { id: 'estudo5', nome: 'Na Bíblia de Estudo', desc: 'Registrar 5 anotações da Bíblia de Estudo', ok: (e) => Object.values(e.sessoes).filter((s) => s.estudo?.trim()).length >= 5 },
   { id: 'quiz25', nome: 'Memória firme', desc: 'Acertar 25 perguntas de revisão', ok: (e) => e.log.filter((l) => l.tipo === 'acerto').length >= 25 },
   { id: 'selos6', nome: 'Guardador de selos', desc: 'Reunir 6 Selos da Palavra', ok: (e) => selosLiberados(e).size >= 6 },
   { id: 'gn', nome: 'No princípio', desc: 'Concluir Gênesis', ok: (e) => progressoLivro(e, 'gn').completo },
