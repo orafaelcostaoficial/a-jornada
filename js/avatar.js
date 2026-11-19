@@ -1,3 +1,5 @@
+import { avatarPorId, AVATARES_COM_IMAGEM } from '../data/avatares.js';
+import { ico } from './icones.js';
 // Personagem do jogador, desenhado em SVG. Evolui com os itens do nível.
 export const PELES = ['#f6d3b3', '#e0ac85', '#b97c55', '#7d4f33'];
 export const CABELOS = [
@@ -39,4 +41,25 @@ export function avatarSVG(av = {}, itens = [], tam = 120) {
     ${tem('lamparina') ? '<g transform="translate(22 108)"><path d="M0 8h16l-3 8H3z" fill="#b8862b"/><path d="M8 0c3 3 3 6 0 8-3-2-3-5 0-8z" fill="#ffb238"/></g>' : ''}
     ${tem('pergaminho') ? '<g transform="translate(46 112) rotate(-15)"><rect width="22" height="10" rx="2" fill="#f4e6c4" stroke="#b39b6e"/><circle cx="0" cy="5" r="4" fill="#d9c49a"/><circle cx="22" cy="5" r="4" fill="#d9c49a"/></g>' : ''}
   </svg>`;
+}
+
+// ── Retrato de personagem bíblico escolhido (avatar.personagem) ──
+
+// Item que marca cada estágio, mostrado como selo no retrato.
+const SELO_ITEM = { cajado: 'footprints', alforje: 'backpack', manto: 'shirt', lamparina: 'lamp', pergaminho: 'scroll', aura: 'sparkles' };
+
+export function retrato(id, itens = [], tam = 120) {
+  const a = avatarPorId(id);
+  if (!a) return '';
+  const est = itens.length; // 0 a 6
+  const ultimo = itens[itens.length - 1];
+  const arte = AVATARES_COM_IMAGEM.has(id)
+    ? `<img src="img/avatares/${id}.webp" alt="${a.nome}" loading="lazy">`
+    : `<span class="retrato-sim">${ico(a.simbolo)}</span>${tam >= 100 ? `<span class="retrato-ini">${a.nome}</span>` : ''}`;
+  return `<span class="retrato est-${est}" style="--rc:${a.cor};--rt:${tam}px">${arte}${ultimo && tam >= 44 ? `<span class="selo-item">${ico(SELO_ITEM[ultimo])}</span>` : ''}</span>`;
+}
+
+// Usar sempre esta: escolhe entre retrato (personagem) e o boneco montado (SVG).
+export function avatarHTML(av = {}, itens = [], tam = 120) {
+  return av?.personagem ? retrato(av.personagem, itens, tam) : avatarSVG(av, itens, tam);
 }

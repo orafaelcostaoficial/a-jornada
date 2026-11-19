@@ -31,7 +31,7 @@ body.sem-nav #app { padding-bottom: 40px; }
 .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .eu { display: flex; gap: 10px; align-items: center; }
 .eu-av { width: 42px; height: 42px; border-radius: 50%; background: var(--ouro-cl); display: grid; place-items: center; overflow: hidden; }
-.eu-av svg { margin-top: 10px; }
+.eu-av > svg { margin-top: 10px; }
 .eu b { display: block; font-size: .95rem; line-height: 1.1; }
 .eu small { color: var(--tx-2); font-size: .78rem; }
 .xp-chip { display: flex; gap: 6px; align-items: center; background: var(--sup); box-shadow: var(--sombra); padding: 6px 12px; border-radius: 999px; font-weight: 800; color: var(--ouro-esc); font-size: .9rem; }
@@ -154,7 +154,7 @@ textarea:focus { outline: none; border-color: var(--ouro); }
 .check input { width: 24px; height: 24px; accent-color: var(--ok); }
 .juntos { display: flex; gap: 8px; flex-wrap: wrap; }
 .junto { display: flex; gap: 6px; align-items: center; border: 2px solid var(--ln); background: var(--sup-2); border-radius: 999px; padding: 4px 14px 4px 6px; font-weight: 700; cursor: pointer; }
-.junto svg { border-radius: 50%; background: var(--ouro-cl); }
+.junto > svg { border-radius: 50%; background: var(--ouro-cl); }
 .junto.on { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, var(--sup)); }
 .linha-link { display: block; padding: 10px 0; border-top: 1px solid var(--ln); }
 .linha-link:first-of-type { border-top: 0; }
@@ -312,7 +312,7 @@ textarea:focus { outline: none; border-color: var(--ouro); }
 .stats small { font-size: .68rem; color: var(--tx-2); font-weight: 700; }
 .familia { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
 .membro { display: grid; justify-items: center; gap: 2px; background: var(--sup-2); border: 2px solid var(--ln); border-radius: 16px; padding: 10px 4px; cursor: pointer; }
-.membro svg { border-radius: 50%; background: var(--ouro-cl); }
+.membro > svg { border-radius: 50%; background: var(--ouro-cl); }
 .membro.on { border-color: var(--ouro); background: var(--ouro-cl); }
 .membro b { font-size: .88rem; } .membro small { font-size: .72rem; color: var(--tx-2); }
 .membro.novo { border-style: dashed; color: var(--tx-2); }
@@ -386,7 +386,7 @@ nav a.on { background: var(--tx); color: var(--bg); }
 .linha-btns .campo { flex: 1; text-transform: uppercase; }
 .linha-btns .btn.ouro { width: auto; padding: 0 18px; }
 .rank { display: flex; align-items: center; gap: 10px; padding: 8px 6px; border-radius: 14px; }
-.rank svg { border-radius: 50%; background: var(--ouro-cl); flex: none; }
+.rank > svg { border-radius: 50%; background: var(--ouro-cl); flex: none; }
 .rank > div { flex: 1; min-width: 0; }
 .rank b { display: block; font-size: .95rem; }
 .rank small { display: block; color: var(--tx-2); font-size: .75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -419,3 +419,27 @@ nav a.on { background: var(--tx); color: var(--bg); }
 .guia-instalar .btn { background: var(--tx); color: var(--bg); }
 .boas .btn.sec { margin-top: 4px; }
 body.sem-nav nav { visibility: hidden; }
+
+/* retratos de personagem */
+.retrato { position: relative; display: inline-grid; place-items: center; width: var(--rt); height: var(--rt); border-radius: 50%; flex: none; overflow: visible;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--rc) 35%, #fff), var(--rc) 80%); box-shadow: 0 0 0 calc(var(--rt) * .045) #fff, 0 0 0 calc(var(--rt) * .085) var(--anel, #c8a27a); }
+.retrato img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.retrato-sim .ico { width: calc(var(--rt) * .42); height: calc(var(--rt) * .42); color: #fff; stroke-width: 1.8; filter: drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+.retrato-ini { position: absolute; bottom: 12%; font-family: var(--display); font-weight: 700; color: #fff; font-size: calc(var(--rt) * .14); text-shadow: 0 1px 3px rgba(0,0,0,.35); }
+.retrato.est-0 { --anel: #c8a27a; } .retrato.est-1 { --anel: #a9783f; } .retrato.est-2 { --anel: #9fb3c8; }
+.retrato.est-3 { --anel: #6f8fb3; } .retrato.est-4 { --anel: #d29a2c; } .retrato.est-5 { --anel: #7d4fc0; }
+.retrato.est-6 { --anel: #ffd36b; animation: brilhoav 2.4s ease-in-out infinite; }
+@keyframes brilhoav { 50% { box-shadow: 0 0 0 calc(var(--rt) * .045) #fff, 0 0 0 calc(var(--rt) * .085) #ffd36b, 0 0 calc(var(--rt) * .35) rgba(255, 211, 107, .8); } }
+.selo-item { position: absolute; right: -4%; bottom: -2%; width: 34%; height: 34%; border-radius: 50%; display: grid; place-items: center; background: var(--anel); color: #fff; border: 2px solid #fff; }
+.selo-item .ico { width: 58%; height: 58%; }
+.galeria-av { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.op-av { display: grid; justify-items: center; gap: 6px; padding: 10px 2px 8px; border-radius: 16px; border: 2px solid var(--ln); background: var(--sup); cursor: pointer; font-weight: 700; font-size: .78rem; }
+.op-av.on { border-color: var(--ouro); background: var(--ouro-cl); }
+.op-av.montar .ico { width: 64px; height: 64px; padding: 16px; border-radius: 50%; background: var(--sup-2); color: var(--tx-2); }
+.esc-info { text-align: center; margin-top: 14px; max-width: 320px; }
+.esc-info b { font-family: var(--display); font-size: 1.2rem; display: block; }
+.esc-info small { color: var(--tx-2); } .esc-info i { font-style: normal; color: var(--ouro-esc); font-weight: 700; }
+.editor-prev { flex-direction: column; padding: 18px 0; }
+.boas-av { display: flex; justify-content: center; gap: 14px; margin-bottom: 8px; }
+.eu-av .retrato { box-shadow: none; } .eu-av:has(.retrato) { background: none; }
+.hero-av .retrato { margin: 8px 8px 8px 12px; }

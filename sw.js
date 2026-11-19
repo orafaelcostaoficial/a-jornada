@@ -1,6 +1,6 @@
 // Offline: rede primeiro (pega atualizações quando há internet), cache como reserva.
 // Ao mudar a lista de arquivos, suba a versão.
-const VERSAO = 'v5';
+const VERSAO = 'v6';
 const PREFIXO = 'ajornada:' + self.registration.scope + ':';
 const CACHE = PREFIXO + VERSAO;
 const ARQUIVOS = [
@@ -9,7 +9,7 @@ const ARQUIVOS = [
   './data/biblia/blivre/1.json', './data/biblia/blivre/18.json',
   './fonts/fraunces-latin-500-normal.woff2', './fonts/fraunces-latin-600-normal.woff2', './fonts/fraunces-latin-700-normal.woff2',
   './fonts/nunito-latin-400-normal.woff2', './fonts/nunito-latin-600-normal.woff2', './fonts/nunito-latin-700-normal.woff2', './fonts/nunito-latin-800-normal.woff2',
-  './data/plano.js', './data/era-principio.js', './data/imagens.js',
+  './data/plano.js', './data/era-principio.js', './data/imagens.js', './data/avatares.js',
   './icons/icon-192.png', './icons/icon-512.png',
 ];
 

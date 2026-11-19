@@ -3,7 +3,8 @@ import { COM_IMAGEM } from '../data/imagens.js';
 import * as store from './store.js';
 import * as J from './jogo.js';
 import { ico } from './icones.js';
-import { avatarSVG, PELES, CABELOS, MANTOS } from './avatar.js';
+import { avatarHTML, PELES, CABELOS, MANTOS } from './avatar.js';
+import { AVATARES, AVATARES_COM_IMAGEM } from '../data/avatares.js';
 import * as N from './nuvem.js';
 import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
@@ -130,7 +131,7 @@ function overlay(html, aoFechar) {
 function topo() {
   const p = P(); const nv = J.nivel(p.xp);
   return `<header class="topbar">
-    <a class="eu" href="#/perfil"><span class="eu-av">${avatarSVG(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>Nível ${nv.n} · ${J.estagio(nv.n).nome}</small></span></a>
+    <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>Nível ${nv.n} · ${J.estagio(nv.n).nome}</small></span></a>
     <span class="xp-chip">${ico('sparkles')} ${p.xp} XP</span>
   </header>`;
 }
@@ -176,7 +177,7 @@ function semana(p) {
 // ─── Telas ───
 function telaBoasVindas() {
   return `<div class="boas">
-    <div class="boas-av">${avatarSVG({ pele: 1, cabelo: 0, manto: 0 }, ['cajado'], 130)}</div>
+    <div class="boas-av">${AVATARES.slice(0, 3).map((a) => avatarHTML({ personagem: a.id }, [], 86)).join('')}</div>
     <h1>${NOME_APP}</h1>
     <p class="lead">Atravesse a Bíblia na ordem da história. Cada dia: contexto, leitura, o que você entendeu e o que muda na sua vida.</p>
     <a class="btn grande" href="#/novo-perfil">Criar meu viajante</a>
@@ -186,20 +187,28 @@ function telaBoasVindas() {
 
 function telaPerfilForm(editId) {
   const p = editId ? RAIZ.perfis[editId] : null;
-  const f = FORM ||= { nome: p?.nome || '', tipo: p?.tipo || (perfis().length ? 'crianca' : 'adulto'), avatar: { ...(p?.avatar || { pele: 1, cabelo: 0, manto: 0 }) } };
+  const f = FORM ||= { nome: p?.nome || '', tipo: p?.tipo || (perfis().length ? 'crianca' : 'adulto'), avatar: { ...(p?.avatar || { personagem: null, pele: 1, cabelo: 0, manto: 0 }) }, montar: !!(p && !p.avatar?.personagem) };
+  const itens = J.itensAte(p ? J.nivel(p.xp).n : 1);
+  const esc1 = f.avatar.personagem ? AVATARES.find((a) => a.id === f.avatar.personagem) : null;
   return `<header class="topo-sec"><a class="voltar" href="${perfis().length ? '#/perfil' : '#/hoje'}">${ico('chevron-left')}</a><h2>${p ? 'Editar viajante' : 'Novo viajante'}</h2></header>
   <div class="editor">
-    <div class="editor-prev" id="prev">${avatarSVG(f.avatar, J.itensAte(p ? J.nivel(p.xp).n : 1), 140)}</div>
+    <div class="editor-prev" id="prev">${avatarHTML(f.montar ? { ...f.avatar, personagem: null } : f.avatar, itens, 140)}
+      ${esc1 && !f.montar ? `<div class="esc-info"><b>${esc(esc1.nome)}</b><small>${esc(esc1.frase)} <i>${esc(esc1.ref)}</i></small></div>` : ''}</div>
     <label class="rot" for="nome">Nome</label>
     <input id="nome" class="campo" value="${esc(f.nome)}" placeholder="Como chamar este viajante?" maxlength="20">
     <div class="rot">Perfil</div>
     <div class="seg">${[['adulto', 'Adulto'], ['crianca', 'Criança']].map(([v, t]) => `<button class="${f.tipo === v ? 'on' : ''}" data-acao="f-tipo" data-v="${v}">${t}</button>`).join('')}</div>
+    <div class="rot">Escolha o seu personagem</div>
+    <div class="galeria-av">${AVATARES.map((a) => `<button class="op-av ${!f.montar && f.avatar.personagem === a.id ? 'on' : ''}" data-acao="f-personagem" data-v="${a.id}">${avatarHTML({ personagem: a.id }, [], 64)}<span>${esc(a.nome)}</span></button>`).join('')}
+      <button class="op-av montar ${f.montar ? 'on' : ''}" data-acao="f-montar">${ico('user-pen')}<span>Montar o meu</span></button></div>
+    ${f.montar ? `
     <div class="rot">Pele</div>
     <div class="swatches">${PELES.map((c, i) => `<button class="sw ${f.avatar.pele === i ? 'on' : ''}" style="background:${c}" data-acao="f-av" data-k="pele" data-v="${i}" aria-label="Tom ${i + 1}"></button>`).join('')}</div>
     <div class="rot">Cabelo</div>
     <div class="chips">${CABELOS.map((c, i) => `<button class="chip ${f.avatar.cabelo === i ? 'on' : ''}" data-acao="f-av" data-k="cabelo" data-v="${i}">${c.nome}</button>`).join('')}</div>
     <div class="rot">Cor da faixa e do manto</div>
-    <div class="swatches">${MANTOS.map((c, i) => `<button class="sw ${f.avatar.manto === i ? 'on' : ''}" style="background:${c}" data-acao="f-av" data-k="manto" data-v="${i}" aria-label="Cor ${i + 1}"></button>`).join('')}</div>
+    <div class="swatches">${MANTOS.map((c, i) => `<button class="sw ${f.avatar.manto === i ? 'on' : ''}" style="background:${c}" data-acao="f-av" data-k="manto" data-v="${i}" aria-label="Cor ${i + 1}"></button>`).join('')}</div>` : ''}
+    <p class="dica">Conforme sobe de nível, o seu viajante ganha moldura e selo novos: Andarilho, Viajante, Pastor, Guardião, Sábio e Ancião.</p>
     <button class="btn grande" data-acao="f-salvar" data-id="${editId || ''}">${p ? 'Salvar' : 'Começar a jornada'}</button>
     ${p && perfis().length > 1 ? `<button class="btn perigo-sec" data-acao="f-remover" data-id="${editId}">Remover este viajante</button>` : ''}
   </div>`;
@@ -222,7 +231,7 @@ function telaHoje() {
 
   return `${topo()}
   <section class="hero" style="--c:${prox ? COR_ERA[eraDe(prox)] : '#d29a2c'}">
-    <div class="hero-av">${avatarSVG(p.avatar, J.itensAte(nv.n), 110)}</div>
+    <div class="hero-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 110)}</div>
     <div class="hero-info"><small>${est.nome}</small><h2>${esc(p.nome)}</h2>${barraXP(p)}</div>
   </section>
   ${cartaoInstalar(true)}
@@ -303,7 +312,7 @@ function telaSessao(id, passo = 0) {
       <textarea id="aplicacao" rows="4" placeholder="Algo concreto. Em ${J.DIAS_PARA_REVISAR_APLICACAO} dias o app pergunta como foi.">${esc(r.aplicacao || '')}</textarea>
     </section>
     ${outros.length && !J.concluida(p, s.id) ? `<section class="bloco"><div class="rot">Estudaram junto</div>
-      <div class="juntos">${outros.map((o) => `<button class="junto ${r.juntos?.includes(o.id) ? 'on' : ''}" data-acao="junto" data-p="${o.id}">${avatarSVG(o.avatar, J.itensAte(J.nivel(o.xp).n), 30)}<span>${esc(o.nome)}</span></button>`).join('')}</div>
+      <div class="juntos">${outros.map((o) => `<button class="junto ${r.juntos?.includes(o.id) ? 'on' : ''}" data-acao="junto" data-p="${o.id}">${avatarHTML(o.avatar, J.itensAte(J.nivel(o.xp).n), 30)}<span>${esc(o.nome)}</span></button>`).join('')}</div>
       <small class="dica">Quem for marcado também conclui a sessão e ganha XP e cartas.</small></section>` : ''}
     <button class="btn grande ouro" data-acao="concluir" data-id="${s.id}">${J.concluida(p, s.id) ? 'Salvar anotações' : 'Concluir sessão'}</button>`;
   }
@@ -354,7 +363,7 @@ function subiuNivel(n) {
   const p = P(); const est = J.ESTAGIOS.find((e) => e.nivel === n);
   overlay(`<div class="levelup">
     <small>Subiu de nível!</small><div class="lv-n">${n}</div>
-    <div class="lv-av">${avatarSVG(p.avatar, J.itensAte(n), 130)}</div>
+    <div class="lv-av">${avatarHTML(p.avatar, J.itensAte(n), 130)}</div>
     ${est ? `<p>Agora você é <b>${est.nome}</b>${est.item ? ` e ganhou: <b>${{ cajado: 'cajado', alforje: 'alforje', manto: 'manto', lamparina: 'lamparina', pergaminho: 'pergaminho', aura: 'brilho' }[est.item]}</b>` : ''}.</p>` : `<p>Próximo nível: ${J.xpParaSubir(n)} XP.</p>`}
     <button class="btn grande" data-fechar>Continuar</button></div>`);
   confete(80);
@@ -387,7 +396,7 @@ function marcadoresNo(sessaoId, eu) {
   const amigos = AMIGOS.filter((a) => a.sessao_atual === sessaoId).map((a) => ({ nome: a.nome, avatar: a.avatar, xp: a.xp }));
   const todos = [...locais, ...amigos];
   if (!todos.length) return '';
-  return `<span class="amigos-no">${todos.slice(0, 3).map((a) => `<span class="amigo-pin ${a.familia ? 'fam' : ''}">${avatarSVG(a.avatar, J.itensAte(J.nivel(a.xp).n), 26)}<small>${esc(a.nome)}</small></span>`).join('')}${todos.length > 3 ? `<span class="amigo-mais">+${todos.length - 3}</span>` : ''}</span>`;
+  return `<span class="amigos-no">${todos.slice(0, 3).map((a) => `<span class="amigo-pin ${a.familia ? 'fam' : ''}">${avatarHTML(a.avatar, J.itensAte(J.nivel(a.xp).n), 26)}<small>${esc(a.nome)}</small></span>`).join('')}${todos.length > 3 ? `<span class="amigo-mais">+${todos.length - 3}</span>` : ''}</span>`;
 }
 
 function abasJornada(atual) {
@@ -425,7 +434,7 @@ function telaJornada() {
             return `<div class="passo-mapa" style="--x:${off}px">
               <span class="enf ${lado}">${enfeite(enf)}</span>
               <a class="no ${st}" ${st === 'bloq' ? '' : `href="#/sessao/${s.id}"`}>
-                ${st === 'atual' && prox?.id === s.id ? `<span class="no-av">${avatarSVG(p.avatar, J.itensAte(J.nivel(p.xp).n), 44)}</span>` : ''}
+                ${st === 'atual' && prox?.id === s.id ? `<span class="no-av">${avatarHTML(p.avatar, J.itensAte(J.nivel(p.xp).n), 44)}</span>` : ''}
                 <span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>
                 <span class="no-lbl">${s.caps[0]}${s.caps[1] !== s.caps[0] ? '–' + s.caps[1] : ''}</span>
                 ${marcadoresNo(s.id, p)}
@@ -473,7 +482,7 @@ function telaAmigos() {
 }
 
 function linhaRanking(pos, a, eu) {
-  return `<div class="rank ${eu ? 'eu' : ''}"><span class="pos ${pos <= 3 ? 'p' + pos : ''}">${pos}</span>${avatarSVG(a.avatar, J.itensAte(J.nivel(a.xp).n), 34)}
+  return `<div class="rank ${eu ? 'eu' : ''}"><span class="pos ${pos <= 3 ? 'p' + pos : ''}">${pos}</span>${avatarHTML(a.avatar, J.itensAte(J.nivel(a.xp).n), 34)}
     <div><b>${esc(a.nome)}</b><small>${a.onde}</small></div><span class="rank-xp">${a.xpSemana} XP</span></div>`;
 }
 function ondeEsta(sessaoId) {
@@ -553,7 +562,7 @@ function telaPerfil() {
   const p = P(); const nv = J.nivel(p.xp);
   const aplic = Object.values(p.sessoes).filter((s) => s.revisao).length;
   return `${topo()}
-  <section class="perfil-hero"><div>${avatarSVG(p.avatar, J.itensAte(nv.n), 120)}</div>
+  <section class="perfil-hero"><div>${avatarHTML(p.avatar, J.itensAte(nv.n), 120)}</div>
     <div><h2>${esc(p.nome)}</h2><small>${J.estagio(nv.n).nome} · ${p.tipo === 'crianca' ? 'Criança' : 'Adulto'}</small>${barraXP(p)}
     <a class="link" href="#/editar/${p.id}">Editar viajante</a></div></section>
   <div class="stats">
@@ -563,7 +572,7 @@ function telaPerfil() {
     <div><b>${p.log.filter((l) => l.tipo === 'acerto').length}</b><small>acertos</small></div>
   </div>
   <section class="bloco"><div class="bloco-tit"><span>Família</span></div>
-    <div class="familia">${perfis().map((o) => `<button class="membro ${o.id === p.id ? 'on' : ''}" data-acao="trocar" data-p="${o.id}">${avatarSVG(o.avatar, J.itensAte(J.nivel(o.xp).n), 46)}<b>${esc(o.nome)}</b><small>Nível ${J.nivel(o.xp).n}</small></button>`).join('')}
+    <div class="familia">${perfis().map((o) => `<button class="membro ${o.id === p.id ? 'on' : ''}" data-acao="trocar" data-p="${o.id}">${avatarHTML(o.avatar, J.itensAte(J.nivel(o.xp).n), 46)}<b>${esc(o.nome)}</b><small>Nível ${J.nivel(o.xp).n}</small></button>`).join('')}
       <a class="membro novo" href="#/novo-perfil">${ico('plus')}<b>Adicionar</b><small>viajante</small></a></div></section>
   <section class="bloco"><div class="bloco-tit"><span>Conquistas</span><span>${J.CONQUISTAS.filter((c) => p.conquistas[c.id]).length}/${J.CONQUISTAS.length}</span></div>
     <div class="conquistas">${J.CONQUISTAS.map((c) => `<div class="conq ${p.conquistas[c.id] ? 'on' : ''}"><span>${ico(p.conquistas[c.id] ? 'award' : 'lock-keyhole')}</span><b>${esc(c.nome)}</b><small>${esc(c.desc)}</small></div>`).join('')}</div></section>
@@ -662,9 +671,13 @@ document.body.addEventListener('click', (ev) => {
 
   if (acao === 'f-tipo') { FORM.tipo = b.dataset.v; render(); }
   if (acao === 'f-av') { FORM.avatar[b.dataset.k] = Number(b.dataset.v); render(); }
+  if (acao === 'f-personagem') { FORM.montar = false; FORM.avatar.personagem = b.dataset.v; if (!FORM.nome) FORM.nome = ''; render(); }
+  if (acao === 'f-montar') { FORM.montar = true; render(); }
   if (acao === 'f-salvar') {
     const nome = (document.getElementById('nome').value || '').trim();
     if (!nome) { toast('Dê um nome ao viajante'); return; }
+    if (!FORM.montar && !FORM.avatar.personagem) { toast('Escolha um personagem'); return; }
+    if (FORM.montar) FORM.avatar.personagem = null;
     const editado = new Date().toISOString();
     if (b.dataset.id) Object.assign(RAIZ.perfis[b.dataset.id], { nome, tipo: FORM.tipo, avatar: FORM.avatar, editado });
     else { const np = { ...store.novoPerfil(nome, FORM.tipo, FORM.avatar), editado }; RAIZ.perfis[np.id] = np; RAIZ.ativo = np.id; }

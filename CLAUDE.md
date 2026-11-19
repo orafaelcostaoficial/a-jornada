@@ -36,7 +36,9 @@ Nova era: criar `data/era-<id>.js` no mesmo formato, importar em `js/jogo.js`, m
 
 ## Jogo
 - Perfis da família (adulto/criança) no aparelho; "Estudaram junto" conclui a sessão para vários.
-- Personagem (`js/avatar.js`) evolui por estágios (`ESTAGIOS` em `js/jogo.js`).
+- Viajante: escolhe 1 de 10 personagens bíblicos (`data/avatares.js`, imagens em `img/avatares/<id>.webp` geradas de
+  `PROMPTS-AVATARES.md`, listadas em `AVATARES_COM_IMAGEM`) ou monta o seu (SVG). Sempre renderizar com `avatarHTML`
+  (`js/avatar.js`). Evolui por estágios (`ESTAGIOS` em `js/jogo.js`): moldura e selo no retrato, itens no boneco.
 - XP para subir do nível n ao n+1 = 40 + 10·n^1,5 (50, 68, 92 … 356 no nível 10 … 934 no 20).
 - Cartas: imagens do Gemini (prompts em `PROMPTS-CARTAS.md`) em `img/cartas/<id>.webp`, listadas em `data/imagens.js`.
 - Mapa estilo Duolingo com cenários por trecho (`js/cenario.js`) e amigos/família no ponto onde estão.
