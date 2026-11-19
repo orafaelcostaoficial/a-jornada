@@ -57,6 +57,33 @@ function confirmar(msg, sim, aoSim) {
   o.querySelector('[data-sim]').addEventListener('click', () => { o.remove(); aoSim(); });
 }
 
+// ─── Instalar como app ───
+let pedidoInstalar = null;
+const instalado = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const ehIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+window.addEventListener('beforeinstallprompt', (ev) => { ev.preventDefault(); pedidoInstalar = ev; if (location.hash.match(/hoje|perfil|^$/)) render(); });
+window.addEventListener('appinstalled', () => { pedidoInstalar = null; toast('A Jornada instalada!'); render(); });
+function cartaoInstalar(compacto) {
+  if (instalado()) return '';
+  if (compacto && sessionStorage.getItem('ajornada-instalar-fechado')) return '';
+  return `<section class="instalar">${ico('download')}<div><b>Instale A Jornada no celular</b><small>Abre como app, em tela cheia, e funciona sem internet.</small></div>
+    <button class="btn ouro" data-acao="instalar">Instalar</button>${compacto ? `<button class="fechar" data-acao="fechar-instalar" aria-label="Fechar">${ico('x')}</button>` : ''}</section>`;
+}
+async function instalar() {
+  if (pedidoInstalar) { pedidoInstalar.prompt(); await pedidoInstalar.userChoice; pedidoInstalar = null; render(); return; }
+  overlay(ehIOS()
+    ? `<div class="guia-instalar"><h2>Instalar no iPhone</h2><ol>
+        <li>Abra este endereço no <b>Safari</b>.</li>
+        <li>Toque em <b>Compartilhar</b> (o quadrado com a seta para cima).</li>
+        <li>Escolha <b>Adicionar à Tela de Início</b> e confirme.</li></ol>
+        <button class="btn grande" data-fechar>Entendi</button></div>`
+    : `<div class="guia-instalar"><h2>Instalar no Android</h2><ol>
+        <li>Abra este endereço no <b>Chrome</b>.</li>
+        <li>Toque no menu <b>⋮</b> (canto superior direito).</li>
+        <li>Escolha <b>Instalar app</b> (ou <b>Adicionar à tela inicial</b>) e confirme.</li></ol>
+        <button class="btn grande" data-fechar>Entendi</button></div>`);
+}
+
 // ─── Texto bíblico (Bíblia Livre, dentro do app) ───
 const TEXTOS = {};
 async function textoLivro(livro) {
@@ -153,6 +180,7 @@ function telaBoasVindas() {
     <h1>${NOME_APP}</h1>
     <p class="lead">Atravesse a Bíblia na ordem da história. Cada dia: contexto, leitura, o que você entendeu e o que muda na sua vida.</p>
     <a class="btn grande" href="#/novo-perfil">Criar meu viajante</a>
+    ${instalado() ? '' : `<button class="btn sec" data-acao="instalar">${ico('download')} Instalar no celular</button>`}
   </div>`;
 }
 
@@ -197,6 +225,7 @@ function telaHoje() {
     <div class="hero-av">${avatarSVG(p.avatar, J.itensAte(nv.n), 110)}</div>
     <div class="hero-info"><small>${est.nome}</small><h2>${esc(p.nome)}</h2>${barraXP(p)}</div>
   </section>
+  ${cartaoInstalar(true)}
   ${prox ? `<a class="missao" href="#/sessao/${prox.id}" style="--c:${COR_ERA[eraDe(prox)]}">
       <div class="missao-top"><span>${feitaHoje ? 'Quer avançar mais?' : 'Sessão de hoje'}</span><span>${esc(ERAS.find((e) => e.id === eraDe(prox)).nome)}</span></div>
       <div class="missao-ref">${esc(J.refSessao(prox))}</div>
@@ -538,6 +567,7 @@ function telaPerfil() {
       <a class="membro novo" href="#/novo-perfil">${ico('plus')}<b>Adicionar</b><small>viajante</small></a></div></section>
   <section class="bloco"><div class="bloco-tit"><span>Conquistas</span><span>${J.CONQUISTAS.filter((c) => p.conquistas[c.id]).length}/${J.CONQUISTAS.length}</span></div>
     <div class="conquistas">${J.CONQUISTAS.map((c) => `<div class="conq ${p.conquistas[c.id] ? 'on' : ''}"><span>${ico(p.conquistas[c.id] ? 'award' : 'lock-keyhole')}</span><b>${esc(c.nome)}</b><small>${esc(c.desc)}</small></div>`).join('')}</div></section>
+  ${cartaoInstalar(false)}
   <section class="bloco"><div class="bloco-tit"><span>Backup</span></div>
     <p class="dica">Os dados de todos os viajantes ficam neste aparelho. Exporte de vez em quando e guarde o arquivo, ou use para passar o progresso para outro celular.</p>
     <div class="linha-btns"><button class="btn sec" data-acao="exportar">${ico('download')} Exportar</button>
@@ -648,6 +678,8 @@ document.body.addEventListener('click', (ev) => {
       salvar(); FORM = null; ir('#/perfil');
     });
   }
+  if (acao === 'instalar') instalar();
+  if (acao === 'fechar-instalar') { sessionStorage.setItem('ajornada-instalar-fechado', '1'); render(); }
   if (acao === 'cap') { const r = rascunho(id); r.cap = Number(b.dataset.c); render(); }
   if (acao === 'criar-familia' || acao === 'entrar-familia') {
     b.disabled = true;

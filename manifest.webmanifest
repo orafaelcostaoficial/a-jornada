@@ -24,5 +24,13 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "id": "./",
+  "description": "Estudo bíblico cronológico gamificado para a família.",
+  "orientation": "portrait",
+  "categories": [
+    "education",
+    "books",
+    "lifestyle"
   ]
 }
