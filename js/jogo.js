@@ -10,6 +10,8 @@ export const MARCOS = [...E1.MARCOS.map((m) => ({ ...m, era: 'principio' }))];
 export const INTRODUCOES = { ...E1.INTRODUCOES };
 export const CARTAS = { ...E1.CARTAS };
 export const CRIANCAS = { ...E1.CRIANCAS };
+export const SELOS = { ...E1.SELOS };
+export const selosDaSessao = (id) => Object.keys(SELOS).filter((k) => SELOS[k].sessao === id);
 
 export const XP = { sessao: 10, aplicacao: 4, estudo: 3, revisao: 8, acerto: 3, livro: 40, era: 100, semana: 25 };
 
@@ -84,6 +86,10 @@ export function personagensLiberados(e) {
   const set = new Set();
   for (const s of concluidas(e)) s.personagens.forEach((p) => set.add(p));
   return set;
+}
+
+export function selosLiberados(e) {
+  return new Set(Object.keys(SELOS).filter((k) => concluida(e, SELOS[k].sessao)));
 }
 
 export function marcosLiberados(e) {
@@ -167,10 +173,11 @@ export function concluirSessao(e, s, dados) {
     ganhar(e, 'era', XP.era, era); ganhos.push(['Era concluída', XP.era]);
   }
   const novosP = [...personagensLiberados(e)].filter((p) => !antesP.has(p));
+  const novosS = selosDaSessao(s.id);
   const novosM = [...marcosLiberados(e)].filter((m) => !antesM.has(m));
   const novasC = verificarConquistas(e);
   const nivelDepois = nivel(e.xp).n;
-  return { ganhos, novosP, novosM, novasC, subiu: nivelDepois > nivelAntes ? nivelDepois : null };
+  return { ganhos, novosP, novosS, novosM, novasC, subiu: nivelDepois > nivelAntes ? nivelDepois : null };
 }
 
 export function revisarAplicacao(e, s, texto) {
@@ -201,6 +208,7 @@ export const CONQUISTAS = [
   { id: 'aplic5', nome: 'Praticante', desc: 'Contar como foram 5 aplicações', ok: (e) => Object.values(e.sessoes).filter((s) => s.revisao).length >= 5 },
   { id: 'estudo5', nome: 'Na Bíblia de Estudo', desc: 'Registrar 5 anotações da Bíblia de Estudo', ok: (e) => Object.values(e.sessoes).filter((s) => s.estudo?.trim()).length >= 5 },
   { id: 'quiz25', nome: 'Memória firme', desc: 'Acertar 25 perguntas de revisão', ok: (e) => e.log.filter((l) => l.tipo === 'acerto').length >= 25 },
+  { id: 'selos6', nome: 'Guardador de selos', desc: 'Reunir 6 Selos da Palavra', ok: (e) => selosLiberados(e).size >= 6 },
   { id: 'gn', nome: 'No princípio', desc: 'Concluir Gênesis', ok: (e) => progressoLivro(e, 'gn').completo },
   { id: 'jo', nome: 'Meus olhos te veem', desc: 'Concluir Jó', ok: (e) => progressoLivro(e, 'jo').completo },
   { id: 'era1', nome: 'Era dos Patriarcas', desc: 'Concluir a era Princípio e Patriarcas', ok: (e) => progressoEra(e, 'principio').completo },

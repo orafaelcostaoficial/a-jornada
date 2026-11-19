@@ -2,12 +2,12 @@
 // Para uma nova era: adicionar cenas aqui e mapear as sessões em CENA_DA_SESSAO.
 
 export const CENAS = {
-  jardim:     { nome: 'O jardim do Éden', ceu: ['#d9f1d0', '#a7d98f'], enfeites: ['arvore', 'flor', 'rio', 'arvore', 'flor'] },
-  diluvio:    { nome: 'O dilúvio', ceu: ['#cfe3f2', '#7fb0d6'], enfeites: ['onda', 'arca', 'onda', 'arcoiris'] },
-  babel:      { nome: 'Babel', ceu: ['#f4e3c4', '#e0bf86'], enfeites: ['torre', 'tijolo'] },
-  patriarcas: { nome: 'Os patriarcas', ceu: ['#f8e6c6', '#e8c48d'], enfeites: ['tenda', 'estrelas', 'duna', 'poco', 'tenda', 'palmeira', 'estrelas'] },
-  egito:      { nome: 'O Egito', ceu: ['#fbe7b5', '#e7b45f'], enfeites: ['piramide', 'palmeira', 'nilo', 'espiga', 'piramide'] },
-  uz:         { nome: 'A terra de Uz', ceu: ['#d9dbe3', '#9aa3b8'], enfeites: ['nuvem', 'raio', 'nuvem', 'sol'] },
+  jardim:     { quando: 'Sem data', nome: 'O jardim do Éden', ceu: ['#d9f1d0', '#a7d98f'], enfeites: ['arvore', 'flor', 'rio', 'arvore', 'flor'] },
+  diluvio:    { quando: 'Sem data', nome: 'O dilúvio', ceu: ['#cfe3f2', '#7fb0d6'], enfeites: ['onda', 'arca', 'onda', 'arcoiris'] },
+  babel:      { quando: 'Sem data', nome: 'Babel', ceu: ['#f4e3c4', '#e0bf86'], enfeites: ['torre', 'tijolo'] },
+  patriarcas: { quando: 'c. 2100–1900 a.C.', nome: 'Os patriarcas', ceu: ['#f8e6c6', '#e8c48d'], enfeites: ['tenda', 'estrelas', 'duna', 'poco', 'tenda', 'palmeira', 'estrelas'] },
+  egito:      { quando: 'c. 1900–1800 a.C.', nome: 'O Egito', ceu: ['#fbe7b5', '#e7b45f'], enfeites: ['piramide', 'palmeira', 'nilo', 'espiga', 'piramide'] },
+  uz:         { quando: 'Sem data no texto', nome: 'A terra de Uz', ceu: ['#d9dbe3', '#9aa3b8'], enfeites: ['nuvem', 'raio', 'nuvem', 'sol'] },
 };
 
 export function cenaDaSessao(id) {

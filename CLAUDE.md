@@ -37,13 +37,16 @@ Nova era: criar `data/era-<id>.js` no mesmo formato, importar em `js/jogo.js`, m
 ## Jogo
 - Perfis da família (adulto/criança) no aparelho; "Estudaram junto" conclui a sessão para vários.
 - Viajante: escolhe 1 de 10 personagens bíblicos (`data/avatares.js`, imagens em `img/avatares/<id>.webp` geradas de
-  `PROMPTS-AVATARES.md`, listadas em `AVATARES_COM_IMAGEM`) (o boneco montado em SVG foi descontinuado:
-  perfis antigos são levados a escolher). Sempre renderizar com `avatarHTML` (`js/avatar.js`). Duas imagens por
-  personagem: base (cenário de fundo desenhado pelo app muda por estágio, `FUNDOS`) e `<id>-final` (nível 20, Ancião).
+  `PROMPTS-AVATARES.md`, listadas em `AVATARES_COM_IMAGEM`) Sempre renderizar com `avatarHTML` (`js/avatar.js`). Todo viajante começa como
+  pó da terra (Gn 2:7, `poHTML`) e escolhe o personagem no "fôlego de vida", ao concluir a 1ª sessão. Três imagens por
+  personagem: `<id>` (níveis 1–7), `<id>-meio` (8–19), `<id>-final` (20+), sobre cenário que muda por estágio (`FUNDOS`).
   Imagens do Gemini vêm com fundo branco: `python3 ferramentas/recortar.py entrada.png img/avatares/<id>.webp`.
 - XP para subir do nível n ao n+1 = 40 + 10·n^1,5 (50, 68, 92 … 356 no nível 10 … 934 no 20).
 - Cartas: imagens do Gemini (prompts em `PROMPTS-CARTAS.md`) em `img/cartas/<id>.webp`, listadas em `data/imagens.js`.
 - Mapa estilo Duolingo com cenários por trecho (`js/cenario.js`) e amigos/família no ponto onde estão.
+- Selos da Palavra (`SELOS` na era): objetos/palavras-chave ganhos na sessão em que aparecem; Álbum tem abas Pessoas/Selos.
+- Cronologia: `quando` em cada era (`plano.js`) e cena (`cenario.js`), sempre "aproximado"; sem data onde o texto não permite
+  (origens, Jó, Apocalipse). Divisor a.C./d.C. antes da era Jesus.
 
 ## Nuvem (Supabase)
 - `supabase/schema.sql` (idempotente; testado em Postgres 16 com stub de `auth.uid()`): famílias, membros

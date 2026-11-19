@@ -674,3 +674,20 @@ export const CRIANCAS = {
   'jo-08': 'Deus perguntou a Jó sobre o mar, as estrelas e os animais. O que na criação mostra que Deus é grande?',
   'jo-09': 'Jó orou pelos amigos que o magoaram. Por quem você pode orar hoje?',
 };
+
+// Selos da Palavra: objetos e palavras-chave do texto, ganhos na sessão em que aparecem.
+// texto = o que a passagem diz (paráfrase), sempre com referência.
+export const SELOS = {
+  luz:        { nome: 'Luz', icone: 'sun', sessao: 'gn-01', ref: 'Gn 1:3-4', texto: 'Deus disse que houvesse luz, e houve luz. E viu que a luz era boa.' },
+  arvore:     { nome: 'Árvore da vida', icone: 'tree-deciduous', sessao: 'gn-02', ref: 'Gn 2:9; 3:24', texto: 'Estava no meio do jardim. Depois da queda, querubins guardaram o caminho até ela.' },
+  arca:       { nome: 'Arca', icone: 'ship', sessao: 'gn-04', ref: 'Gn 6:14-16', texto: 'Noé a construiu como Deus mandou, com as medidas que Deus deu.' },
+  arcoiris:   { nome: 'Arco nas nuvens', icone: 'rainbow', sessao: 'gn-05', ref: 'Gn 9:13-15', texto: 'Sinal da aliança: Deus se lembraria e as águas não destruiriam mais a terra.' },
+  estrelas:   { nome: 'Estrelas', icone: 'stars', sessao: 'gn-08', ref: 'Gn 15:5', texto: 'Deus mandou Abrão contar as estrelas: assim seria a sua descendência.' },
+  carneiro:   { nome: 'Carneiro', icone: 'carneiro', sessao: 'gn-12', ref: 'Gn 22:13-14', texto: 'Preso pelos chifres, foi oferecido no lugar de Isaque. "O Senhor proverá."' },
+  poco:       { nome: 'Poço', icone: 'droplets', sessao: 'gn-13', ref: 'Gn 24:11-20', texto: 'Junto ao poço, Rebeca deu de beber ao servo e aos camelos: a resposta da oração.' },
+  escada:     { nome: 'Escada', icone: 'escada', sessao: 'gn-15', ref: 'Gn 28:12-15', texto: 'Em sonho, Jacó viu uma escada até o céu, e Deus prometeu estar com ele.' },
+  tunica:     { nome: 'Túnica', icone: 'shirt', sessao: 'gn-20', ref: 'Gn 37:3', texto: 'Jacó a deu a José, o filho que ele mais amava.' },
+  espiga:     { nome: 'Espigas', icone: 'wheat', sessao: 'gn-22', ref: 'Gn 41:5-7,26', texto: 'No sonho de Faraó, sete espigas boas eram sete anos de fartura.' },
+  ouro:       { nome: 'Ouro provado', icone: 'gem', sessao: 'jo-05', ref: 'Jó 23:10', texto: 'Deus conhece o caminho de Jó: provado, ele sairia como o ouro.' },
+  redemoinho: { nome: 'Redemoinho', icone: 'tornado', sessao: 'jo-08', ref: 'Jó 38:1', texto: 'Do meio do redemoinho, o Senhor respondeu a Jó.' },
+};
