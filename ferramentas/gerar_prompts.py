@@ -237,7 +237,7 @@ if __name__ == '__main__':
                "OBJETO: um sol nascendo laranja e amarelo-ouro atrás de duas colinas de areia do deserto, com raios curtos e definidos; "
                "descendo das colinas, um riacho azul que corta a areia, e na margem um broto verde novo com duas folhas "
                "(misericórdias novas a cada manhã e rios no deserto: Lm 3:23; Is 43:19). "
-               "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena, sem pessoas e sem texto. "
+               "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena, sem pessoas, sem texto e o sol SEM rosto (sem olhos, sem boca: é só um sol). "
                "CORES: laranja e ouro do sol, areia bege, azul do riacho, verde do broto, contorno marrom-escuro forte. "
                "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
                f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")

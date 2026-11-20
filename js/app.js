@@ -681,7 +681,7 @@ function telaCartas(aba = 'pessoas') {
     const fim = (d) => Object.values(p.desafios[d.id]).map((x) => x.data).sort().pop();
     return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">Cada desafio completado abre aqui a sua página, com o selo daquele evento.</p>
     ${eventos.sort((a, b) => fim(b).localeCompare(fim(a))).map((d) => `<a class="evento ${d.tema ? `t-${d.tema}` : ''}" href="#/selo/${d.selo.id}" style="--c:${d.cor}">
-      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? arteEspecial(d.selo) : `<span class="selo-disco">${ico(d.selo.icone)}</span>`}</span>
+      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? arteEspecial(d.selo) : (SELOS_COM_IMAGEM.has(d.selo.id) ? `<span class="selo-disco com-img"><img class="selo-img" src="img/selos/${d.selo.id}.webp" alt=""></span>` : `<span class="selo-disco">${ico(d.selo.icone)}</span>`)}</span>
       <span class="ev-txt"><small>${esc(d.tipo)} · concluído em ${fmtData(fim(d))}</small><b>${esc(d.nome)}</b><em>${d.sessoes.length} de ${d.sessoes.length} dias · Selo ${esc(d.selo.nome)}</em></span></a>`).join('')}`;
   }
   if (aba === 'selos') {
