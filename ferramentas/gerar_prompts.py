@@ -24,7 +24,7 @@ AVATARES = [
     ('ester', 'Ester', 'inicial', 'uma jovem judia de aparência bonita, roupas simples e um véu leve sobre os cabelos escuros, mãos cruzadas à frente', 'olhar tranquilo e gentil', 'tons de lilás claro e creme', 'Et 2:7'),
     ('ester-meio', 'Ester', 'mediano', 'Ester, já rainha, usando vestes simples de jejum, sem coroa, de olhos fechados e mãos juntas em oração', 'serenidade e coragem, concentrada na oração', 'tons de roxo suave e cinza claro', 'Et 4:16'),
     ('ester-final', 'Ester', 'final', 'Ester rainha, com coroa real delicada e vestes nobres, estendendo a mão direita para tocar a ponta de um cetro de ouro que aparece entrando pela lateral da imagem (só o cetro, sem mostrar o rei)', 'confiança serena', 'vestido púrpura com detalhes dourados', 'Et 2:17; 5:1-2'),
-    ('daniel', 'Daniel', 'inicial', 'um jovem nobre judeu segurando uma tigela de legumes numa mão e um copo de água na outra, recusando com gentileza a comida do rei', 'sorriso educado e decidido', 'túnica azul-clara de corte nobre, faixa branca', 'Dn 1:3-6,12'),
+    ('daniel', 'Daniel', 'inicial', 'um jovem nobre judeu segurando junto ao peito uma pequena tigela de legumes numa mão e um copo de água na outra, como quem escolhe com gentileza não comer a comida do rei', 'sorriso educado e decidido', 'túnica azul-clara de corte nobre, faixa branca', 'Dn 1:3-6,12'),
     ('daniel-meio', 'Daniel', 'mediano', 'Daniel adulto, de joelhos, mãos juntas em oração, olhando para cima, com o contorno de uma janela aberta logo atrás dele', 'paz e fidelidade', 'túnica azul e manto azul-marinho', 'Dn 6:10'),
     ('daniel-final', 'Daniel', 'final', 'Daniel mais velho, de barba grisalha, de pé e sereno, com dois leões grandes deitados e quietos aos seus pés, de olhos fechados como se descansassem', 'calma profunda, um leve sorriso', 'manto azul-marinho com borda dourada', 'Dn 6:22'),
     ('rute', 'Rute', 'inicial', 'uma jovem moabita abraçando com carinho a sogra idosa, Noemi, que aparece de perfil ao lado dela', 'decisão e ternura no olhar', 'túnica cor de trigo e véu creme; Noemi com manto cinza', 'Rt 1:14-16'),
@@ -122,8 +122,9 @@ def prompt_avatar(a):
     arq, nome, momento, cena, expr, cores, ref = a
     return (f"Crie uma {ESTILO}. Avatar do personagem bíblico {nome} ({momento} da jornada). "
             f"PERSONAGEM: {cena}. EXPRESSÃO: {expr}. ROUPA E CORES: {cores}; {TRAJES}. "
-            "COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, "
-            "com espaço livre acima da cabeça; pensado para ser recortado em círculo. "
+            "COMPOSIÇÃO: retrato próximo, só do peito para cima (busto), personagem centralizado e de frente; a cabeça é grande, "
+            "ocupando cerca de 40% da altura da imagem; braços e objetos ficam junto ao corpo, nunca abertos nem perto das bordas; "
+            "pensado para ser recortado em círculo e reconhecido mesmo bem pequeno. "
             "FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. "
             f"O mesmo traço e a mesma paleta suave usados para todos os personagens da série. "
             f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
