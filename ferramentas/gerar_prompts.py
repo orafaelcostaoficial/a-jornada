@@ -128,7 +128,7 @@ SELOS = [
     ('tunica', 'Túnica', 'uma túnica longa e especial, de mangas compridas, bem ornamentada, estendida como se estivesse pendurada', 'Gn 37:3'),
     ('espiga', 'Espigas', 'EXATAMENTE 7 (sete) espigas de trigo cheias e douradas, bem separadas em leque para dar para contar uma a uma, amarradas em feixe na base. O número sete importa (Gn 41: sete espigas, sete anos): não desenhar 5, 6 nem 8', 'Gn 41:5-7,26'),
     ('ouro', 'Ouro provado', 'um cadinho antigo de barro (pequeno pote grosso, cor terracota) sobre brasas vermelhas e chamas laranja, com ouro derretido brilhando dentro; ao lado do cadinho, três pepitas de ouro já purificadas. É o ouro provado no fogo (Jó 23:10). SEM barras de ouro modernas, SEM moedas', 'Jó 23:10'),
-    ('redemoinho', 'Redemoinho', 'um redemoinho de vento e nuvens girando, com uma luz forte e serena no centro', 'Jó 38:1'),
+    ('redemoinho', 'Redemoinho', 'um redemoinho de vento VISTO DE LADO, em forma de funil: largo em cima, entre nuvens escuras de tempestade, e afinando até tocar o chão de areia, com faixas de vento girando em volta e poeira levantando na base; dentro do funil, uma luz forte e serena brilhando. NÃO desenhar visto de cima (espiral de galáxia ou furacão)', 'Jó 38:1'),
     # ── Era 2: Moisés ──
     ('sarca', 'Sarça ardente', 'um pequeno arbusto do deserto envolto em chamas douradas, com os galhos e folhas inteiros, sem queimar', 'Êx 3:2'),
     ('pao', 'Pão sem fermento', 'um pão achatado e redondo, sem fermento, com marcas de forno, sobre um pano', 'Êx 12:8,15'),
