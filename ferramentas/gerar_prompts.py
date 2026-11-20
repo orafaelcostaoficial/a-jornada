@@ -124,7 +124,7 @@ SELOS = [
     ('estrelas', 'Estrelas', 'um grupo de estrelas douradas de vários tamanhos, brilhando, agrupadas de forma harmoniosa, sem lua e sem céu ao fundo', 'Gn 15:5'),
     ('carneiro', 'Carneiro', 'um carneiro de lã clara com chifres curvos presos num arbusto', 'Gn 22:13-14'),
     ('poco', 'Poço', 'um poço antigo do Oriente Próximo: só uma mureta baixa e redonda de pedras, rente ao chão, com um cântaro de barro apoiado na borda e água azul brilhando lá dentro; ao lado, um cocho comprido de pedra (bebedouro) com um pouco de água. SEM telhado, SEM manivela, SEM balde e SEM estrutura de madeira por cima (isso é de poço europeu, não da época de Rebeca)', 'Gn 24:11-20'),
-    ('escada', 'Escada', 'uma escada de luz que sobe da terra até as nuvens, com pequenas figuras de anjos de luz subindo e descendo', 'Gn 28:12-15'),
+    ('escada', 'Escada', 'uma escada dourada, alta e estreita, quase vertical, com a base apoiada num chão de pedras e o topo entrando nas nuvens; nela, 3 pequenas silhuetas de luz branca e dourada, simples, sem rosto, uma subindo e duas descendo. As silhuetas NÃO têm asas, NÃO têm auréola e NÃO são bebês nem crianças (o texto só diz que os anjos de Deus subiam e desciam). Poucos elementos, forma clara em tamanho pequeno', 'Gn 28:12-15'),
     ('tunica', 'Túnica', 'uma túnica longa e especial, de mangas compridas, bem ornamentada, estendida como se estivesse pendurada', 'Gn 37:3'),
     ('espiga', 'Espigas', 'sete espigas de trigo cheias e douradas, amarradas em feixe', 'Gn 41:5-7,26'),
     ('ouro', 'Ouro provado', 'uma barra de ouro puro, brilhante e polida, refletindo luz', 'Jó 23:10'),
