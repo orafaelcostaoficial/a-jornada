@@ -185,7 +185,7 @@ export function concluirSessao(e, s, dados) {
 export { DESAFIOS };
 export const desafioPorId = (id) => DESAFIOS.find((d) => d.id === id);
 // Visíveis na data; no canal de teste, também antes de começar (para conferir o conteúdo).
-export const desafiosVisiveis = (teste = false) => DESAFIOS.filter((d) => (teste || d.inicio <= hoje()) && hoje() <= d.fim);
+export const desafiosVisiveis = (teste = false) => DESAFIOS.filter((d) => (teste || d.inicio <= hoje()) && hoje() <= d.fim).sort((a, b) => a.inicio.localeCompare(b.inicio));
 export const SELOS_ESPECIAIS = Object.fromEntries(DESAFIOS.map((d) => [d.selo.id, d.selo]));
 export function progressoDesafio(e, d) {
   const feitos = e.desafios?.[d.id] || {};

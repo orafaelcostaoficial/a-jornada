@@ -111,8 +111,8 @@ data para começar e terminar e dá um **selo exclusivo** daquele ano (ex.: "Pá
 | Época | Desafio | Duração | Textos (base) |
 |---|---|---|---|
 | Ano novo | Recomeços | 7 dias | Gn 1; Lm 3:22-23; Is 43:18-19; 2Co 5:17; Ap 21:1-5 |
-| Páscoa | A última semana de Jesus | 8 dias | Entrada em Jerusalém até a ressurreição (Mt 21–28, com os paralelos) |
-| Pentecostes | O vento e o fogo | 7 dias | Jl 2:28-29; Jo 14–16; At 1–2 |
+| Páscoa | A última semana de Jesus (pronto) | 8 dias | Entrada em Jerusalém até a ressurreição (Mt 21–28, com os paralelos) |
+| Pentecostes | O vento e o fogo (pronto) | 7 dias | Jl 2:28-29; Jo 14–16; At 1–2 |
 | Dia das Mães | Mães na Bíblia | 5 dias | Joquebede, Ana, Rute/Noemi, Isabel, Maria |
 | Dia das Crianças | Crianças na Bíblia | 5 dias | Samuel, Davi pastor, a menina de Naamã, Josias, Jesus aos 12 anos |
 | Dia dos Pais | Pais na Bíblia | 5 dias | Abraão, Jacó, Jó, José (marido de Maria), o pai do filho pródigo |
@@ -141,7 +141,15 @@ Uma criança que faz o Natal com 8 anos refaz a mesma trilha com 13, e reencontr
 | Ano novo | Recomeços (pronto) | Salmos para começar | Promessas para o caminho | a definir | a definir |
 | Páscoa | A última semana de Jesus | As palavras na cruz | O Cordeiro (Êx 12 → Ap 5) | a definir | a definir |
 | Pentecostes | O vento e o fogo | O fruto do Espírito | A igreja que nasce (At 2–4) | a definir | a definir |
-| Mães / Pais / Crianças | personagens já listados | novos personagens a cada ciclo | | | |
+| Purim (Ester 9) | Para um momento como este (pronto) | a definir | | | |
+| Tabernáculos (Lv 23) | Morando em cabanas (pronto) | a definir | | | |
+| Mães / Pais / Crianças | personagens já listados (prontos) | novos personagens a cada ciclo | | | |
+
+**9 desafios por ano** (decidido em 20/11/2026): Ano novo, Purim, Páscoa, Dia das Mães, Pentecostes, Dia dos Pais,
+Dia das Crianças, Tabernáculos, Natal. Purim e Tabernáculos entram por serem festas do próprio texto e por ocuparem
+os meses vazios. As datas das festas judaicas mudam todo ano (calendário lunar): ficam escritas no arquivo,
+conferidas numa fonte (hebcal/chabad) antes de cada ano. Quando Purim encostar na Páscoa, o desafio de Purim termina
+antes do Domingo de Ramos (2027: 16–20/3, aberto até o dia de Purim, 23/3).
 
 ---
 

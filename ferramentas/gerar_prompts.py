@@ -257,9 +257,44 @@ if __name__ == '__main__':
                    "CORES: laranja, vermelho e ouro das chamas; azul-claro e branco do vento; contorno marrom-escuro forte. "
                    "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
                    f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    purim = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Purim 2027\". "
+            "OBJETO: uma coroa de rainha dourada com pedras vermelhas, apoiada ao lado de um cetro de ouro comprido com a ponta arredondada (Et 5:2), sobre um rolo de pergaminho aberto (a carta que mandou celebrar Purim, Et 9:20-22). SEM pessoas, SEM rosto e SEM texto legível no pergaminho (apenas traços). "
+            "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+            "CORES: fortes e quentes, contorno marrom-escuro forte. "
+            "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+            f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    tabern = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Tabernáculos 2027\". "
+            "OBJETO: uma pequena cabana feita de galhos e folhas de palmeira, com o teto de ramos verdes deixando ver frestas, ao lado de um ramo de palmeira e um ramo de salgueiro (Lv 23:40); acima, algumas estrelinhas no céu. SEM pessoas e SEM texto. "
+            "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+            "CORES: fortes e quentes, contorno marrom-escuro forte. "
+            "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+            f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    maes = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Dia das Mães 2027\". "
+            "OBJETO: um cesto pequeno e oval de juncos trançados, vedado com piche escuro, entre juncos verdes à beira de um rio azul (o cesto em que a mãe de Moisés o colocou, Êx 2:3), com um pequeno coração vermelho pairando acima. O cesto está fechado: SEM bebê visível, SEM pessoas e SEM texto. "
+            "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+            "CORES: fortes e quentes, contorno marrom-escuro forte. "
+            "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+            f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    pais = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Dia dos Pais 2027\". "
+            "OBJETO: um par de sandálias de couro simples, um anel de ouro e uma túnica dobrada (a melhor roupa), arrumados juntos como presentes de boas-vindas do pai ao filho que voltou (Lc 15:22). SEM pessoas e SEM texto. "
+            "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+            "CORES: fortes e quentes, contorno marrom-escuro forte. "
+            "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+            f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    criancas = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Dia das Crianças 2027\". "
+            "OBJETO: um cajado pequeno de pastor, uma funda de couro e cinco pedrinhas lisas de rio (as coisas do jovem pastor Davi, 1Sm 17:40), ao lado de uma ovelhinha deitada. SEM pessoas e SEM texto. "
+            "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+            "CORES: fortes e quentes, contorno marrom-escuro forte. "
+            "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+            f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
     with open('PROMPTS-SELOS.md', 'a', encoding='utf-8') as f:
         f.write("---\n\n## Selos especiais (desafios sazonais)\n\nGanhos ao completar um desafio; aparecem na aba Eventos do Álbum.\n\n"
                 + bloco('natal-2026.png', 'Natal 2026 — A promessa cumprida', 'Lc 2:7,12; Mt 2:9-10', natal)
                 + bloco('ano-novo-2027.png', 'Ano novo 2027 — Recomeços', 'Lm 3:22-23; Is 43:19', anonovo)
                 + bloco('pascoa-2027.png', 'Páscoa 2027 — A última semana de Jesus', 'Mt 27:60; 28:1-6', pascoa)
-                + bloco('pentecostes-2027.png', 'Pentecostes 2027 — O vento e o fogo', 'At 2:1-4', pentecostes))
+                + bloco('pentecostes-2027.png', 'Pentecostes 2027 — O vento e o fogo', 'At 2:1-4', pentecostes)
+                + bloco('purim-2027.png', 'Purim 2027 — Para um momento como este', 'Et 4:14; 5:2; 9:22', purim)
+                + bloco('tabernaculos-2027.png', 'Tabernáculos 2027 — Morando em cabanas', 'Lv 23:40-43', tabern)
+                + bloco('maes-2027.png', 'Dia das Mães 2027 — Mães na Bíblia', 'Êx 2:3; Lc 2:19', maes)
+                + bloco('pais-2027.png', 'Dia dos Pais 2027 — Pais na Bíblia', 'Lc 15:20-22', pais)
+                + bloco('criancas-2027.png', 'Dia das Crianças 2027 — Crianças na Bíblia', '1Sm 17:34-37; Lc 2:52', criancas))
