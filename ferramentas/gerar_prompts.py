@@ -118,7 +118,7 @@ CARTAS = [
 # (arquivo, nome, objeto detalhado, referência)
 SELOS = [
     ('luz', 'Luz', 'um sol-estrela estilizado: um círculo central amarelo-ouro intenso com um pequeno centro branco, e 12 raios pontudos alternando laranja forte e amarelo-ouro, todos com contorno marrom-escuro, como um emblema de luz rompendo; ao redor, 4 pequenas faíscas em forma de estrela de quatro pontas, também com contorno', 'Gn 1:3-4'),
-    ('arvore', 'Árvore da vida', 'uma árvore frondosa e cheia de frutos, de tronco forte e raízes visíveis, com folhas verdes brilhantes', 'Gn 2:9; 3:24'),
+    ('arvore', 'Árvore da vida', 'uma árvore frondosa de tronco forte e raízes visíveis, folhas verdes brilhantes, com frutos redondos dourados que brilham levemente, de um tipo que não existe (NÃO desenhar maçãs, laranjas nem outra fruta conhecida: o texto bíblico não diz qual era o fruto)', 'Gn 2:9; 3:24'),
     ('arca', 'Arca', 'um grande barco de madeira em forma de caixa, com um telhado, uma porta na lateral e uma abertura no alto, flutuando sobre ondas calmas', 'Gn 6:14-16'),
     ('arcoiris', 'Arco nas nuvens', 'um arco-íris completo sobre nuvens brancas e fofas, com gotas de chuva brilhando', 'Gn 9:13-15'),
     ('estrelas', 'Estrelas', 'um grupo de estrelas douradas de vários tamanhos, brilhando, agrupadas de forma harmoniosa, sem lua e sem céu ao fundo', 'Gn 15:5'),
