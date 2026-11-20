@@ -126,7 +126,7 @@ SELOS = [
     ('poco', 'Poço', 'um poço antigo do Oriente Próximo: só uma mureta baixa e redonda de pedras, rente ao chão, com um cântaro de barro apoiado na borda e água azul brilhando lá dentro; ao lado, um cocho comprido de pedra (bebedouro) com um pouco de água. SEM telhado, SEM manivela, SEM balde e SEM estrutura de madeira por cima (isso é de poço europeu, não da época de Rebeca)', 'Gn 24:11-20'),
     ('escada', 'Escada', 'uma escada dourada, alta e estreita, quase vertical, com a base apoiada num chão de pedras e o topo entrando nas nuvens; nela, 3 pequenas silhuetas de luz branca e dourada, simples, sem rosto, uma subindo e duas descendo. As silhuetas NÃO têm asas, NÃO têm auréola e NÃO são bebês nem crianças (o texto só diz que os anjos de Deus subiam e desciam). Poucos elementos, forma clara em tamanho pequeno', 'Gn 28:12-15'),
     ('tunica', 'Túnica', 'uma túnica longa e especial, de mangas compridas, bem ornamentada, estendida como se estivesse pendurada', 'Gn 37:3'),
-    ('espiga', 'Espigas', 'sete espigas de trigo cheias e douradas, amarradas em feixe', 'Gn 41:5-7,26'),
+    ('espiga', 'Espigas', 'EXATAMENTE 7 (sete) espigas de trigo cheias e douradas, bem separadas em leque para dar para contar uma a uma, amarradas em feixe na base. O número sete importa (Gn 41: sete espigas, sete anos): não desenhar 5, 6 nem 8', 'Gn 41:5-7,26'),
     ('ouro', 'Ouro provado', 'uma barra de ouro puro, brilhante e polida, refletindo luz', 'Jó 23:10'),
     ('redemoinho', 'Redemoinho', 'um redemoinho de vento e nuvens girando, com uma luz forte e serena no centro', 'Jó 38:1'),
     # ── Era 2: Moisés ──
