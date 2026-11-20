@@ -9,9 +9,10 @@ import * as N from './nuvem.js';
 import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 import { bannerNatal, ARTE_SELO } from './tema.js';
+import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v15';
+const VERSAO_APP = 'v16';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -664,12 +665,19 @@ function telaLivro(id) {
 
 function telaCartas(aba = 'pessoas') {
   const p = P();
-  const abas = `<div class="seg abas-topo"><a class="${aba === 'pessoas' ? 'on' : ''}" href="#/cartas">${ico('layers')} Pessoas</a><a class="${aba === 'selos' ? 'on' : ''}" href="#/selos">${ico('award')} Selos</a></div>`;
+  const eventos = DESAFIOS.filter((d) => J.progressoDesafio(p, d).completo);
+  const abas = `<div class="seg abas-topo"><a class="${aba === 'pessoas' ? 'on' : ''}" href="#/cartas">${ico('layers')} Pessoas</a><a class="${aba === 'selos' ? 'on' : ''}" href="#/selos">${ico('award')} Selos</a>${eventos.length ? `<a class="${aba === 'eventos' ? 'on' : ''}" href="#/eventos">${ico('trophy')} Eventos</a>` : ''}</div>`;
+  if (aba === 'eventos' && eventos.length) {
+    const fim = (d) => Object.values(p.desafios[d.id]).map((x) => x.data).sort().pop();
+    return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">Cada desafio completado abre aqui a sua página, com o selo daquele evento.</p>
+    ${eventos.sort((a, b) => fim(b).localeCompare(fim(a))).map((d) => `<a class="evento ${d.tema ? `t-${d.tema}` : ''}" href="#/selo/${d.selo.id}" style="--c:${d.cor}">
+      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? ARTE_SELO[d.selo.arte] : `<span class="selo-disco">${ico(d.selo.icone)}</span>`}</span>
+      <span class="ev-txt"><small>${esc(d.tipo)} · concluído em ${fmtData(fim(d))}</small><b>${esc(d.nome)}</b><em>${d.sessoes.length} de ${d.sessoes.length} dias · Selo ${esc(d.selo.nome)}</em></span></a>`).join('')}`;
+  }
   if (aba === 'selos') {
     const lib = J.selosLiberados(p);
     return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${Object.keys(J.SELOS).length} Selos da Palavra · palavras e objetos que marcam a história</p>
-    <div class="grade-selos">${Object.keys(J.SELOS).map((id) => selo(id, { aberta: lib.has(id) })).join('')}</div>
-    ${J.selosEspeciaisDe(p).length ? `<p class="sub">Selos especiais · desafios completados</p><div class="grade-selos">${J.selosEspeciaisDe(p).map((id) => selo(id)).join('')}</div>` : ''}`;
+    <div class="grade-selos">${Object.keys(J.SELOS).map((id) => selo(id, { aberta: lib.has(id) })).join('')}</div>`;
   }
   const lib = J.personagensLiberados(p);
   const ordem = [...new Set(J.SESSOES.flatMap((s) => s.personagens))];
@@ -681,8 +689,8 @@ function telaCartas(aba = 'pessoas') {
 
 function telaSelo(id) {
   if (J.SELOS_ESPECIAIS[id]) {
-    const e = J.SELOS_ESPECIAIS[id]; if (!J.selosEspeciaisDe(P()).includes(id)) return telaCartas('selos');
-    return `<header class="topo-sec"><a class="voltar" href="#/selos">${ico('chevron-left')}</a><h2>Selo especial</h2></header>
+    const e = J.SELOS_ESPECIAIS[id]; if (!J.selosEspeciaisDe(P()).includes(id)) return telaCartas('eventos');
+    return `<header class="topo-sec"><a class="voltar" href="#/eventos">${ico('chevron-left')}</a><h2>Selo especial</h2></header>
     <div class="selo-grande-wrap">${selo(id, { grande: true })}</div>
     <section class="folha"><div class="rot">Sobre este selo</div><p>${esc(e.texto)}</p><div class="rot">Onde conferir</div><p class="refs">${esc(e.ref)}</p></section>
     <a class="btn sec" href="#/desafio/${id}">Ver o desafio</a>`;
@@ -760,7 +768,7 @@ function capturar(id) {
 // ─── Roteamento ───
 let passoAtual = {};
 let ultimoResultado = null;
-const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jornada', cartas: 'cartas', carta: 'cartas', selos: 'cartas', selo: 'cartas', linha: 'jornada', amigos: 'amigos', perfil: 'perfil', editar: 'perfil', 'novo-perfil': 'perfil', revisao: 'hoje', aplicacao: 'hoje', resultado: 'hoje', desafio: 'hoje', dsessao: 'hoje' };
+const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jornada', cartas: 'cartas', carta: 'cartas', selos: 'cartas', eventos: 'cartas', selo: 'cartas', linha: 'jornada', amigos: 'amigos', perfil: 'perfil', editar: 'perfil', 'novo-perfil': 'perfil', revisao: 'hoje', aplicacao: 'hoje', resultado: 'hoje', desafio: 'hoje', dsessao: 'hoje' };
 
 function render() {
   const [, rota = 'hoje', arg] = (location.hash || '#/hoje').split('/');
@@ -779,6 +787,7 @@ function render() {
     case 'livro': html = telaLivro(arg); break;
     case 'cartas': html = telaCartas(); break;
     case 'selos': html = telaCartas('selos'); break;
+    case 'eventos': html = telaCartas('eventos'); break;
     case 'selo': html = telaSelo(arg); break;
     case 'carta': html = telaCarta(arg); break;
     case 'linha': html = telaLinha(); break;

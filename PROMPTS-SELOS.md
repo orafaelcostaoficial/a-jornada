@@ -176,3 +176,15 @@ Conferir: Dt 34:1-4
 Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, como um ícone-emblema para um selo colecionável chamado "Monte Nebo". OBJETO: um monte com o cume iluminado e, ao longe, um vale verde com um rio. COMPOSIÇÃO: só o objeto, centralizado, ocupando cerca de 75% da imagem, forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas (a não ser que estejam descritas acima). CORES: vivas e quentes, com brilho dourado suave. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o objeto sobre uma medalha dourada). EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
 ```
 
+---
+
+## Selos especiais (desafios sazonais)
+
+Ganhos ao completar um desafio; aparecem na aba Eventos do Álbum.
+
+### `natal-2026.png` — Natal 2026 — A promessa cumprida
+Conferir: Lc 2:7,12; Mt 2:9-10
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, como um emblema para um selo colecionável especial chamado "Natal 2026". OBJETO: uma manjedoura simples de madeira cheia de feno, com um pequeno pano branco dobrado sobre o feno (sem bebê visível), e acima dela uma estrela dourada de oito pontas brilhando com raios suaves; um raminho verde com duas frutinhas douradas na base. COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas. CORES: madeira quente, feno dourado, estrela dourada brilhante, verde do ramo. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha vermelha com borda dourada). EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```

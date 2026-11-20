@@ -225,3 +225,12 @@ if __name__ == '__main__':
     escrever('PROMPTS-SELOS.md', 'Prompts dos Selos da Palavra',
              'Os selos são objetos e palavras-chave do texto. A imagem é só o objeto, em fundo branco; '
              'o app coloca sobre uma medalha dourada.', 'luz.png', 'Selos', SELOS, prompt_selo, lambda s: s[1])
+    natal = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Natal 2026\". "
+             "OBJETO: uma manjedoura simples de madeira cheia de feno, com um pequeno pano branco dobrado sobre o feno (sem bebê visível), "
+             "e acima dela uma estrela dourada de oito pontas brilhando com raios suaves; um raminho verde com duas frutinhas douradas na base. "
+             "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas. "
+             "CORES: madeira quente, feno dourado, estrela dourada brilhante, verde do ramo. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
+             f"(o app coloca o emblema sobre uma medalha vermelha com borda dourada). EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    with open('PROMPTS-SELOS.md', 'a', encoding='utf-8') as f:
+        f.write("---\n\n## Selos especiais (desafios sazonais)\n\nGanhos ao completar um desafio; aparecem na aba Eventos do Álbum.\n\n"
+                + bloco('natal-2026.png', 'Natal 2026 — A promessa cumprida', 'Lc 2:7,12; Mt 2:9-10', natal))
