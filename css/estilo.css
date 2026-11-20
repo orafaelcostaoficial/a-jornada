@@ -509,3 +509,6 @@ body.sem-nav nav { visibility: hidden; }
 .dd-txt { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .dd-txt small { opacity: .7; font-size: 12px; }
 .leitor.trecho { margin-bottom: 12px; }
+
+/* Faixa do canal de teste */
+.faixa-teste { display: block; margin: -4px -4px 10px; padding: 7px 12px; border-radius: 12px; background: #b8323f; color: #fff; font-size: 12px; font-weight: 700; text-align: center; text-decoration: none; letter-spacing: .02em; }

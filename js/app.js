@@ -10,7 +10,7 @@ import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v13';
+const VERSAO_APP = 'v14';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -131,7 +131,7 @@ function overlay(html, aoFechar) {
 // ─── Componentes ───
 function topo() {
   const p = P(); const nv = J.nivel(p.xp);
-  return `<header class="topbar">
+  return `${CANAL_TESTE ? `<a class="faixa-teste" href="../#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
     <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>Nível ${nv.n} · ${J.estagio(nv.n).nome}</small></span></a>
     <span class="xp-chip">${ico('sparkles')} ${p.xp} XP</span>
   </header>`;
@@ -715,7 +715,7 @@ function telaPerfil() {
     <p class="dica">Os dados de todos os viajantes ficam neste aparelho. Exporte de vez em quando e guarde o arquivo, ou use para passar o progresso para outro celular.</p>
     <div class="linha-btns"><button class="btn sec" data-acao="exportar">${ico('download')} Exportar</button>
     <label class="btn sec">${ico('upload')} Importar<input type="file" accept="application/json" id="importar" hidden></label></div></section>
-  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}</p>`;
+  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}${CANAL_TESTE ? ' · canal de teste' : ` · <a href="./teste/#/hoje">abrir o canal de teste</a>`}</p>`;
 }
 
 // ─── Rascunho da sessão ───
