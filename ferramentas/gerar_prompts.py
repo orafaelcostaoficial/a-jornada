@@ -132,7 +132,7 @@ SELOS = [
     # ── Era 2: Moisés ──
     ('sarca', 'Sarça ardente', 'um pequeno arbusto do deserto envolto em chamas douradas, com os galhos e folhas inteiros, sem queimar', 'Êx 3:2'),
     ('pao', 'Pão sem fermento', 'uma pilha de 3 pães MUITO finos e achatados, sem fermento (finos como uma folha, quase como uma panqueca seca e crocante, com bolhinhas tostadas), sobre um pano de linho dobrado, e ao lado um pequeno maço de ervas verdes (ervas amargas, Êx 12:8). NÃO desenhar pão grosso, fofo, estufado ou de padaria: sem fermento o pão não cresce', 'Êx 12:8,15'),
-    ('coluna', 'Coluna de nuvem e fogo', 'uma coluna alta de nuvem branca que se torna fogo dourado na parte de baixo', 'Êx 13:21-22'),
+    ('coluna', 'Coluna de nuvem e fogo', 'um emblema dividido ao meio na vertical, em formato de cápsula alta: na metade da ESQUERDA é dia (céu azul-claro) e sobe do deserto uma coluna alta e reta de nuvem branca, como um pilar; na metade da DIREITA é noite (céu azul-escuro com estrelinhas) e sobe uma coluna alta e reta de fogo laranja, também como um pilar. Embaixo, uma faixa de areia com 2 ou 3 tendas pequenas. As colunas são finas, retas e altas, do chão até o alto. NÃO desenhar fogueira, NÃO desenhar fumaça saindo do fogo e NÃO desenhar nuvem em forma de cogumelo', 'Êx 13:21-22'),
     ('cajado', 'Cajado erguido', 'um cajado de pastor de madeira, em pé, com ondas do mar se abrindo dos dois lados', 'Êx 14:16,21'),
     ('mana', 'Maná', 'pequenos grãos brancos e redondos espalhados como geada sobre a areia, com brilho suave', 'Êx 16:14,31'),
     ('arcaalianca', 'Arca da aliança', 'uma caixa retangular de madeira coberta de ouro, com dois querubins de ouro de asas abertas sobre a tampa e varas de transporte nas laterais', 'Êx 25:10-22'),
