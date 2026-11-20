@@ -140,7 +140,7 @@ SELOS = [
     ('trombetas', 'Trombetas de prata', 'duas trombetas de prata batida, longas e retas, cruzadas em X. CADA trombeta tem uma boca larga (campana) em UMA ponta só e um bocal pequeno e estreito na outra ponta, como trombeta de verdade: as duas campanas viradas para cima, os dois bocais para baixo. NÃO desenhar campana nas duas pontas do mesmo tubo. Sem válvulas e sem curvas (trombeta antiga, reta)', 'Nm 10:1-2'),
     ('uvas', 'Cacho de Escol', 'um cacho de uvas enorme pendurado numa vara de madeira', 'Nm 13:23'),
     ('vara', 'Vara que floresceu', 'uma vara de madeira com brotos, flores brancas e amêndoas', 'Nm 17:8'),
-    ('serpente', 'Serpente de bronze', 'uma serpente de bronze enrolada no alto de uma haste de madeira, com aparência serena, não assustadora', 'Nm 21:8-9'),
+    ('serpente', 'Serpente de bronze', 'uma serpente feita de METAL (bronze polido, cor cobre-esverdeada com reflexos), como uma estátua rígida, enrolada no alto de uma haste de madeira comprida e reta, fincada na areia do deserto. A haste é UM pau só, vertical, SEM travessa: NÃO desenhar cruz. A serpente NÃO é um bicho vivo nem fofo: sem olhos expressivos, sem sorriso, sem cara de desenho animado; é um objeto de metal moldado (Nm 21:8-9)', 'Nm 21:8-9'),
     ('nebo', 'Monte Nebo', 'um monte com o cume iluminado e, ao longe, um vale verde com um rio', 'Dt 34:1-4'),
 ]
 
