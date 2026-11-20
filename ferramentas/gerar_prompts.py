@@ -127,7 +127,7 @@ SELOS = [
     ('escada', 'Escada', 'uma escada dourada, alta e estreita, quase vertical, com a base apoiada num chão de pedras e o topo entrando nas nuvens; nela, 3 pequenas silhuetas de luz branca e dourada, simples, sem rosto, uma subindo e duas descendo. As silhuetas NÃO têm asas, NÃO têm auréola e NÃO são bebês nem crianças (o texto só diz que os anjos de Deus subiam e desciam). Poucos elementos, forma clara em tamanho pequeno', 'Gn 28:12-15'),
     ('tunica', 'Túnica', 'uma túnica longa e especial, de mangas compridas, bem ornamentada, estendida como se estivesse pendurada', 'Gn 37:3'),
     ('espiga', 'Espigas', 'EXATAMENTE 7 (sete) espigas de trigo cheias e douradas, bem separadas em leque para dar para contar uma a uma, amarradas em feixe na base. O número sete importa (Gn 41: sete espigas, sete anos): não desenhar 5, 6 nem 8', 'Gn 41:5-7,26'),
-    ('ouro', 'Ouro provado', 'uma barra de ouro puro, brilhante e polida, refletindo luz', 'Jó 23:10'),
+    ('ouro', 'Ouro provado', 'um cadinho antigo de barro (pequeno pote grosso, cor terracota) sobre brasas vermelhas e chamas laranja, com ouro derretido brilhando dentro; ao lado do cadinho, três pepitas de ouro já purificadas. É o ouro provado no fogo (Jó 23:10). SEM barras de ouro modernas, SEM moedas', 'Jó 23:10'),
     ('redemoinho', 'Redemoinho', 'um redemoinho de vento e nuvens girando, com uma luz forte e serena no centro', 'Jó 38:1'),
     # ── Era 2: Moisés ──
     ('sarca', 'Sarça ardente', 'um pequeno arbusto do deserto envolto em chamas douradas, com os galhos e folhas inteiros, sem queimar', 'Êx 3:2'),
