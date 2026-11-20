@@ -1,16 +1,17 @@
 // Regras de progresso e gamificação (sem interface).
 import { ERAS, LIVROS } from '../data/plano.js';
 import * as E1 from '../data/era-principio.js';
+import * as E2 from '../data/era-moises.js';
 import { hoje, somarDias, diasEntre } from './store.js';
 
 // Quando escrever novas eras, importar aqui e somar nas listas.
-export const SESSOES = [...E1.SESSOES];
-export const PERSONAGENS = { ...E1.PERSONAGENS };
-export const MARCOS = [...E1.MARCOS.map((m) => ({ ...m, era: 'principio' }))];
-export const INTRODUCOES = { ...E1.INTRODUCOES };
-export const CARTAS = { ...E1.CARTAS };
-export const CRIANCAS = { ...E1.CRIANCAS };
-export const SELOS = { ...E1.SELOS };
+export const SESSOES = [...E1.SESSOES, ...E2.SESSOES];
+export const PERSONAGENS = { ...E1.PERSONAGENS, ...E2.PERSONAGENS };
+export const MARCOS = [...E1.MARCOS.map((m) => ({ ...m, era: 'principio' })), ...E2.MARCOS.map((m) => ({ ...m, era: 'moises' }))];
+export const INTRODUCOES = { ...E1.INTRODUCOES, ...E2.INTRODUCOES };
+export const CARTAS = { ...E1.CARTAS, ...E2.CARTAS };
+export const CRIANCAS = { ...E1.CRIANCAS, ...E2.CRIANCAS };
+export const SELOS = { ...E1.SELOS, ...E2.SELOS };
 export const selosDaSessao = (id) => Object.keys(SELOS).filter((k) => SELOS[k].sessao === id);
 
 export const XP = { sessao: 10, aplicacao: 4, revisao: 8, acerto: 3, livro: 40, era: 100, semana: 25 };
@@ -210,6 +211,7 @@ export const CONQUISTAS = [
   { id: 'gn', nome: 'No princípio', desc: 'Concluir Gênesis', ok: (e) => progressoLivro(e, 'gn').completo },
   { id: 'jo', nome: 'Meus olhos te veem', desc: 'Concluir Jó', ok: (e) => progressoLivro(e, 'jo').completo },
   { id: 'era1', nome: 'Era dos Patriarcas', desc: 'Concluir a era Princípio e Patriarcas', ok: (e) => progressoEra(e, 'principio').completo },
+  { id: 'era2', nome: 'Pelo deserto', desc: 'Concluir a era de Moisés', ok: (e) => progressoEra(e, 'moises').completo },
 ];
 
 export function verificarConquistas(e) {

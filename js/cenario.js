@@ -7,12 +7,21 @@ export const CENAS = {
   babel:      { quando: 'Sem data', nome: 'Babel', ceu: ['#f4e3c4', '#e0bf86'], enfeites: ['torre', 'tijolo'] },
   patriarcas: { quando: 'c. 2100–1900 a.C.', nome: 'Os patriarcas', ceu: ['#f8e6c6', '#e8c48d'], enfeites: ['tenda', 'estrelas', 'duna', 'poco', 'tenda', 'palmeira', 'estrelas'] },
   egito:      { quando: 'c. 1900–1800 a.C.', nome: 'O Egito', ceu: ['#fbe7b5', '#e7b45f'], enfeites: ['piramide', 'palmeira', 'nilo', 'espiga', 'piramide'] },
+  exodo:      { quando: 'Êxodo c. 1446 ou c. 1260 a.C.', nome: 'Escravos no Egito', ceu: ['#fbe7b5', '#d9a24e'], enfeites: ['piramide', 'tijolo', 'nilo', 'palmeira', 'tijolo'] },
+  mar:        { quando: 'Logo depois da saída (Êx 14)', nome: 'O mar se abre', ceu: ['#cfe6f2', '#6fa6cf'], enfeites: ['onda', 'nuvem', 'onda', 'onda'] },
+  deserto:    { quando: 'Os 40 anos no deserto', nome: 'O deserto', ceu: ['#f6e2bf', '#e2b977'], enfeites: ['duna', 'tenda', 'estrelas', 'poco', 'duna', 'nuvem'] },
+  sinai:      { quando: '3º mês depois da saída (Êx 19:1)', nome: 'Ao pé do Sinai', ceu: ['#e3dcef', '#a99bc7'], enfeites: ['nuvem', 'raio', 'tenda', 'duna', 'tenda'] },
+  moabe:      { quando: '40º ano depois da saída (Dt 1:3)', nome: 'As planícies de Moabe', ceu: ['#e9efd2', '#bccb8a'], enfeites: ['palmeira', 'tenda', 'rio', 'palmeira', 'duna'] },
   uz:         { quando: 'Sem data no texto', nome: 'A terra de Uz', ceu: ['#d9dbe3', '#9aa3b8'], enfeites: ['nuvem', 'raio', 'nuvem', 'sol'] },
 };
 
 export function cenaDaSessao(id) {
   const [l, n] = [id.slice(0, 2), Number(id.slice(3))];
   if (l === 'jo') return 'uz';
+  if (l === 'ex') return n <= 5 ? 'exodo' : n === 6 ? 'mar' : n === 7 ? 'deserto' : 'sinai';
+  if (l === 'lv') return 'sinai';
+  if (l === 'nm') return n <= 2 ? 'sinai' : n <= 6 ? 'deserto' : 'moabe';
+  if (l === 'dt') return 'moabe';
   if (n <= 3) return 'jardim';
   if (n <= 5) return 'diluvio';
   if (n === 6) return 'babel';

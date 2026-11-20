@@ -10,7 +10,7 @@ import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v11';
+const VERSAO_APP = 'v12';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -551,7 +551,7 @@ function telaLivro(id) {
     </div>
     <div class="rot">Cenário</div><p>${esc(it.cenario)}</p>
     <div class="rot">Tema</div><p>${esc(it.tema)}</p>
-    <div class="rot">Texto-chave</div><p><a class="link" href="${linkNAA(l, cap)}" target="_blank" rel="noopener">${esc(it.chave)} ${ico('external-link')}</a></p>
+    <div class="rot">Texto-chave</div><p>${linkNAA(l, cap) ? `<a class="link" href="${linkNAA(l, cap)}" target="_blank" rel="noopener">${esc(it.chave)} ${ico('external-link')}</a>` : esc(it.chave)}</p>
     <div class="rot">Estrutura</div><p>${esc(it.estrutura)}</p>
     <div class="rot">Esboço</div>
     <div class="esboco">${it.esboco.map(([c, t]) => `<div><b>${esc(c)}</b><span>${esc(t)}</span></div>`).join('')}</div>
@@ -564,7 +564,7 @@ function telaCartas(aba = 'pessoas') {
   const abas = `<div class="seg abas-topo"><a class="${aba === 'pessoas' ? 'on' : ''}" href="#/cartas">${ico('layers')} Pessoas</a><a class="${aba === 'selos' ? 'on' : ''}" href="#/selos">${ico('award')} Selos</a></div>`;
   if (aba === 'selos') {
     const lib = J.selosLiberados(p);
-    return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${Object.keys(J.SELOS).length} Selos da Palavra nesta era · palavras e objetos que marcam a história</p>
+    return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${Object.keys(J.SELOS).length} Selos da Palavra · palavras e objetos que marcam a história</p>
     <div class="grade-selos">${Object.keys(J.SELOS).map((id) => selo(id, { aberta: lib.has(id) })).join('')}</div>`;
   }
   const lib = J.personagensLiberados(p);

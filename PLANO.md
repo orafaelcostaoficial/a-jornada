@@ -140,8 +140,7 @@ Cada camada nova pede conteúdo próprio, escrito com a mesma regra: texto fiel 
 
 ## 9. Era 2 — Moisés (proposta de sessões)
 
-137 capítulos. Proposta com **32 sessões** (2 acima do alvo de 30). A diferença pode ser compensada no Reino Unido,
-onde os Salmos permitem blocos maiores.
+137 capítulos. **32 sessões (aprovado).** As 2 a mais que o alvo de 30 se compensam no Reino Unido, onde os Salmos permitem blocos maiores.
 
 | # | Trecho | Assunto |
 |---|---|---|
@@ -201,8 +200,8 @@ pode ganhar carta também.)
 **Ponto de atenção:** o maior esforço não é técnico, é o conteúdo das próximas eras. No ritmo de uma era por mês, o
 conteúdo fica pronto antes de quem começar hoje chegar lá (quem está na era 1 leva ~2 meses para terminá-la).
 
-## 11. Decisões em aberto
+## 11. Decisões aprovadas em 20/11/2026
 
-1. **Natal 2026:** fazer o desafio de Natal já este ano (12 dias, começando ~14/12)? Pede escrever 12 sessões curtas.
-2. **Era 2:** aprovar as 32 sessões propostas ou apertar para 30?
-3. **Ligas:** os nomes de plantas da Bíblia servem?
+1. **Natal 2026:** sim — desafio de 12 dias, começando ~14/12.
+2. **Era 2:** 32 sessões, como proposto.
+3. **Ligas:** Cevada → Trigo → Oliveira → Videira → Cedro.

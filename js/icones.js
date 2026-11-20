@@ -1,4 +1,4 @@
-// Ícones: Lucide (ISC License, https://lucide.dev) + "escada" desenhado para o app.
+// Ícones: Lucide (ISC License, https://lucide.dev) + "escada" e outros ícones desenhados para o app.
 export const ICONES = {"sprout":"<path d=\"M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3\" /> <path d=\"M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4\" /> <path d=\"M5 21h14\" />",
 "tree-deciduous":"<path d=\"M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z\" /> <path d=\"M12 19v3\" />",
 "wheat":"<path d=\"M2 22 16 8\" /> <path d=\"M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z\" /> <path d=\"M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z\" /> <path d=\"M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z\" /> <path d=\"M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z\" /> <path d=\"M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z\" /> <path d=\"M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z\" /> <path d=\"M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z\" />",
@@ -82,6 +82,14 @@ export const ICONES = {"sprout":"<path d=\"M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 
 "gem":"<path d=\"M10.5 3 8 9l4 13 4-13-2.5-6\" /> <path d=\"M17 3a2 2 0 0 1 1.6.8l3 4a2 2 0 0 1 .013 2.382l-7.99 10.986a2 2 0 0 1-3.247 0l-7.99-10.986A2 2 0 0 1 2.4 7.8l2.998-3.997A2 2 0 0 1 7 3z\" /> <path d=\"M2 9h20\" />",
 "sun":"<circle cx=\"12\" cy=\"12\" r=\"4\" /> <path d=\"M12 2v2\" /> <path d=\"M12 20v2\" /> <path d=\"m4.93 4.93 1.41 1.41\" /> <path d=\"m17.66 17.66 1.41 1.41\" /> <path d=\"M2 12h2\" /> <path d=\"M20 12h2\" /> <path d=\"m6.34 17.66-1.41 1.41\" /> <path d=\"m19.07 4.93-1.41 1.41\" />",
 "wind":"<path d=\"M12.8 19.6A2 2 0 1 0 14 16H2\" /> <path d=\"M17.5 8a2.5 2.5 0 1 1 2 4H2\" /> <path d=\"M9.8 4.4A2 2 0 1 1 11 8H2\" />",
-"carneiro":"<path d=\"M7 14c-2.5 0-4-1.6-4-3.5S4.5 7 7 7c.7-1.8 2.6-3 5-3s4.3 1.2 5 3c2.5 0 4 1.6 4 3.5S19.5 14 17 14\"/><path d=\"M7 14v5M10 14v5M14 14v5M17 14v5\"/><path d=\"M5 8c-1.5-.5-2.5.5-2.5 2\"/><path d=\"M19 8c1.5-.5 2.5.5 2.5 2\"/>"};
+"carneiro":"<path d=\"M7 14c-2.5 0-4-1.6-4-3.5S4.5 7 7 7c.7-1.8 2.6-3 5-3s4.3 1.2 5 3c2.5 0 4 1.6 4 3.5S19.5 14 17 14\"/><path d=\"M7 14v5M10 14v5M14 14v5M17 14v5\"/><path d=\"M5 8c-1.5-.5-2.5.5-2.5 2\"/><path d=\"M19 8c1.5-.5 2.5.5 2.5 2\"/>",
+"pao":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 9h.01M12 8h.01M16 10h.01M9 14h.01M14 13h.01M12 16h.01\"/>",
+"coluna":"<path d=\"M8 3c-2 1-2 3 0 4s2 3 0 4-2 3 0 4 2 3 0 4\"/><path d=\"M16 3c2 1 2 3 0 4s-2 3 0 4 2 3 0 4-2 3 0 4\"/><path d=\"M5 21h14\"/>",
+"cajado":"<path d=\"M9 22V8a4 4 0 0 1 8 0v1\"/>",
+"mana":"<path d=\"M4 18h16\"/><circle cx=\"7\" cy=\"14\" r=\"1\"/><circle cx=\"12\" cy=\"15\" r=\"1\"/><circle cx=\"17\" cy=\"13\" r=\"1\"/><circle cx=\"9.5\" cy=\"10\" r=\"1\"/><circle cx=\"14.5\" cy=\"9\" r=\"1\"/><circle cx=\"12\" cy=\"5\" r=\"1\"/>",
+"arcaalianca":"<rect x=\"4\" y=\"11\" width=\"16\" height=\"8\" rx=\"1\"/><path d=\"M4 11l3-4M20 11l-3-4\"/><path d=\"M2 15h2M20 15h2\"/>",
+"tabuas":"<path d=\"M3 21V8a4 4 0 0 1 8 0v13Z\"/><path d=\"M13 21V8a4 4 0 0 1 8 0v13Z\"/><path d=\"M5.5 11h3M5.5 14h3M15.5 11h3M15.5 14h3\"/>",
+"trombeta":"<path d=\"M3 10v4h3l9 5V5L6 10Z\"/><path d=\"M18 9a4 4 0 0 1 0 6\"/>",
+"serpente":"<path d=\"M12 2v20\"/><path d=\"M9 6c3-1 6 0 5 2.5S9 11 9 13.5 13 16 15 15\"/>"};
 
 export const ico = (nome, cls = "") => `<svg class="ico ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[nome] || ""}</svg>`;
