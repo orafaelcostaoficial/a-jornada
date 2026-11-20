@@ -94,6 +94,24 @@ CARTAS = [
     ('bildade', 'Bildade', 'sentado no chão, falando com gestos firmes', 'homem idoso', 'chão de terra com outros amigos sentados em círculo, só contornos', 'Jó 2:11; 8:1'),
     ('zofar', 'Zofar', 'sentado no chão, apontando o dedo enquanto fala', 'homem de expressão severa', 'chão de terra ao entardecer', 'Jó 2:11; 11:1'),
     ('eliu', 'Eliú', 'de pé, falando com energia, com a mão erguida', 'homem jovem, o mais novo do grupo', 'nuvens de tempestade e relâmpagos ao longe', 'Jó 32:6; 37:1-5'),
+    # ── Era 2: Moisés ──
+    ('joquebede', 'Joquebede', 'colocando com cuidado um bebê num cesto de juncos à beira do rio, entre os juncos', 'mulher hebreia jovem, mãe carinhosa', 'margem do Nilo com juncos altos ao amanhecer', 'Êx 2:2-3'),
+    ('filha-farao', 'Filha de Faraó', 'segurando nos braços um bebê que acabou de tirar de um cesto de juncos, com ternura', 'princesa egípcia com vestido de linho branco e joias simples', 'margem do Nilo com servas ao fundo', 'Êx 2:5-6,10'),
+    ('moises', 'Moisés', 'descendo do monte com duas tábuas de pedra lisas nos braços, o rosto resplandecendo de luz suave', 'homem idoso de barba branca longa', 'encosta rochosa do monte Sinai com nuvens', 'Êx 34:29'),
+    ('zipora', 'Zípora', 'à entrada de uma tenda, segurando um cântaro, com ovelhas ao lado', 'mulher jovem midianita, pastora', 'deserto de Midiã com um poço e ovelhas', 'Êx 2:16,21'),
+    ('arao', 'Arão', 'segurando uma vara de madeira da qual brotam flores e amêndoas', 'homem idoso de barba, vestido de sumo sacerdote com peitoral de pedras coloridas e turbante', 'interior iluminado de uma tenda de tecido', 'Êx 28:1-4; Nm 17:8'),
+    ('farao-exodo', 'Faraó', 'sentado no trono, de braços cruzados e olhar teimoso, com rãs pequenas no chão do salão', 'rei egípcio com coroa e trajes reais egípcios', 'salão egípcio com colunas pintadas', 'Êx 5:2; 8:2-6'),
+    ('miria', 'Miriã', 'tocando um tamborim erguido e dançando de alegria, com mulheres dançando atrás', 'mulher madura, profetisa, véu claro e manto rosa', 'margem do mar ao sol, com ondas calmas', 'Êx 15:20-21'),
+    ('jetro', 'Jetro', 'conversando com Moisés, apontando com a mão aberta como quem dá conselho', 'homem idoso e sábio, sacerdote de Midiã, de barba branca e turbante', 'entrada de tenda no deserto ao entardecer', 'Êx 18:13-24'),
+    ('josue', 'Josué', 'de pé na entrada de uma tenda, esperando com atenção, segurando um cajado', 'homem jovem e forte, com túnica e cinto de couro', 'acampamento no deserto com a tenda do encontro', 'Êx 33:11'),
+    ('bezalel', 'Bezalel', 'trabalhando com cuidado numa peça de ouro com ferramentas de artesão', 'homem adulto, artesão habilidoso, avental de couro', 'oficina simples com tecidos coloridos, madeira e metais', 'Êx 31:2-5'),
+    ('nadabe', 'Nadabe e Abiú', 'segurando cada um um incensário com fumaça, de pé diante de uma tenda', 'dois jovens sacerdotes com túnicas brancas', 'entrada da tenda do encontro, com céu cinzento ao fundo; cena calma, sem fogo sobre pessoas', 'Lv 10:1'),
+    ('eleazar', 'Eleazar', 'recebendo as vestes de sacerdote, com Moisés colocando-as sobre seus ombros', 'homem adulto, filho de Arão', 'alto de um monte com vista do deserto', 'Nm 20:25-28'),
+    ('calebe', 'Calebe', 'ajudando a carregar numa vara, com outro homem, um cacho de uvas enorme', 'homem forte, de barba, olhar confiante', 'vale verde de Escol com videiras', 'Nm 13:23,30'),
+    ('core', 'Corá', 'de pé, com a mão erguida, falando em tom de protesto diante de outros homens', 'homem adulto, levita, com túnica', 'acampamento no deserto; cena tensa, sem destruição', 'Nm 16:1-3'),
+    ('balaao', 'Balaão', 'montado numa jumenta que vira a cabeça para ele e fala, Balaão espantado', 'homem de meia-idade, adivinho, com manto', 'caminho estreito entre vinhas e muros de pedra', 'Nm 22:23-28'),
+    ('fineias', 'Fineias', 'de pé diante da tenda, sereno, com luz suave sobre ele', 'homem jovem, sacerdote, com túnica branca e cinto azul', 'acampamento no deserto ao entardecer; sem armas', 'Nm 25:11-13'),
+    ('filhas-zelofeade', 'Filhas de Zelofeade', 'cinco irmãs de pé lado a lado, firmes e respeitosas, diante de um ancião', 'cinco moças jovens com véus de cores diferentes', 'entrada da tenda do encontro', 'Nm 27:1-7'),
 ]
 
 # ─────────────────────────── SELOS (objetos e palavras-chave) ───────────────────────────
@@ -111,6 +129,19 @@ SELOS = [
     ('espiga', 'Espigas', 'sete espigas de trigo cheias e douradas, amarradas em feixe', 'Gn 41:5-7,26'),
     ('ouro', 'Ouro provado', 'uma barra de ouro puro, brilhante e polida, refletindo luz', 'Jó 23:10'),
     ('redemoinho', 'Redemoinho', 'um redemoinho de vento e nuvens girando, com uma luz forte e serena no centro', 'Jó 38:1'),
+    # ── Era 2: Moisés ──
+    ('sarca', 'Sarça ardente', 'um pequeno arbusto do deserto envolto em chamas douradas, com os galhos e folhas inteiros, sem queimar', 'Êx 3:2'),
+    ('pao', 'Pão sem fermento', 'um pão achatado e redondo, sem fermento, com marcas de forno, sobre um pano', 'Êx 12:8,15'),
+    ('coluna', 'Coluna de nuvem e fogo', 'uma coluna alta de nuvem branca que se torna fogo dourado na parte de baixo', 'Êx 13:21-22'),
+    ('cajado', 'Cajado erguido', 'um cajado de pastor de madeira, em pé, com ondas do mar se abrindo dos dois lados', 'Êx 14:16,21'),
+    ('mana', 'Maná', 'pequenos grãos brancos e redondos espalhados como geada sobre a areia, com brilho suave', 'Êx 16:14,31'),
+    ('arcaalianca', 'Arca da aliança', 'uma caixa retangular de madeira coberta de ouro, com dois querubins de ouro de asas abertas sobre a tampa e varas de transporte nas laterais', 'Êx 25:10-22'),
+    ('tabuas', 'Tábuas da Lei', 'duas tábuas de pedra lisas, arredondadas no alto, lado a lado, sem letras', 'Êx 31:18; 34:1'),
+    ('trombetas', 'Trombetas de prata', 'duas trombetas longas e retas de prata batida, cruzadas', 'Nm 10:1-2'),
+    ('uvas', 'Cacho de Escol', 'um cacho de uvas enorme pendurado numa vara de madeira', 'Nm 13:23'),
+    ('vara', 'Vara que floresceu', 'uma vara de madeira com brotos, flores brancas e amêndoas', 'Nm 17:8'),
+    ('serpente', 'Serpente de bronze', 'uma serpente de bronze enrolada no alto de uma haste de madeira, com aparência serena, não assustadora', 'Nm 21:8-9'),
+    ('nebo', 'Monte Nebo', 'um monte com o cume iluminado e, ao longe, um vale verde com um rio', 'Dt 34:1-4'),
 ]
 
 
@@ -183,7 +214,7 @@ if __name__ == '__main__':
     with open('PROMPTS-AVATARES.md', 'a', encoding='utf-8') as f:
         f.write("---\n\n## Opcional: o começo da jornada\n\n" + bloco('po.png', 'Pó da terra (todos começam assim)', 'Gn 2:7', po))
     escrever('PROMPTS-CARTAS.md', 'Prompts das cartas (pessoas da Bíblia)',
-             'Uma carta para cada pessoa que aparece nas sessões. A arte é a cena completa, com fundo ilustrado.',
+             'Uma carta para cada pessoa que aparece nas sessões (eras 1 e 2). A arte é a cena completa, com fundo ilustrado.',
              'noe.png', 'Cartas', CARTAS, prompt_carta, lambda c: c[1])
     escrever('PROMPTS-SELOS.md', 'Prompts dos Selos da Palavra',
              'Os selos são objetos e palavras-chave do texto. A imagem é só o objeto, em fundo branco; '
