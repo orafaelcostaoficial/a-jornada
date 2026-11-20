@@ -249,8 +249,17 @@ if __name__ == '__main__':
               "CORES: rocha cinza e bege, sol laranja e ouro, grama verde, contorno marrom-escuro forte. "
               "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
               f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    pentecostes = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Pentecostes 2027\". "
+                   "OBJETO: várias chamas pequenas em forma de língua de fogo (laranja, vermelho e amarelo-ouro), pairando no ar em leque, "
+                   "acima de faixas curvas de vento azul-claro que giram por baixo delas como um sopro forte (At 2:2-3). "
+                   "SEM pessoas, SEM pomba, SEM texto e SEM fogueira (o fogo não sai de lenha: são línguas de fogo no ar). "
+                   "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+                   "CORES: laranja, vermelho e ouro das chamas; azul-claro e branco do vento; contorno marrom-escuro forte. "
+                   "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+                   f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
     with open('PROMPTS-SELOS.md', 'a', encoding='utf-8') as f:
         f.write("---\n\n## Selos especiais (desafios sazonais)\n\nGanhos ao completar um desafio; aparecem na aba Eventos do Álbum.\n\n"
                 + bloco('natal-2026.png', 'Natal 2026 — A promessa cumprida', 'Lc 2:7,12; Mt 2:9-10', natal)
                 + bloco('ano-novo-2027.png', 'Ano novo 2027 — Recomeços', 'Lm 3:22-23; Is 43:19', anonovo)
-                + bloco('pascoa-2027.png', 'Páscoa 2027 — A última semana de Jesus', 'Mt 27:60; 28:1-6', pascoa))
+                + bloco('pascoa-2027.png', 'Páscoa 2027 — A última semana de Jesus', 'Mt 27:60; 28:1-6', pascoa)
+                + bloco('pentecostes-2027.png', 'Pentecostes 2027 — O vento e o fogo', 'At 2:1-4', pentecostes))
