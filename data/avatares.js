@@ -18,6 +18,16 @@ export const AVATARES = [
 ];
 
 export const AVATARES_COM_IMAGEM = new Set([
+  'davi', 'davi-meio', 'davi-final',
+  'ester', 'ester-meio', 'ester-final',
+  'daniel', 'daniel-meio', 'daniel-final',
+  'rute', 'rute-meio', 'rute-final',
+  'sansao', 'sansao-meio', 'sansao-final',
+  'debora', 'debora-meio', 'debora-final',
+  'moises', 'moises-meio', 'moises-final',
+  'miria', 'miria-meio', 'miria-final',
+  'gideao', 'gideao-meio', 'gideao-final',
+  'ana', 'ana-meio', 'ana-final',
 ]);
 
 export const avatarPorId = (id) => AVATARES.find((a) => a.id === id);

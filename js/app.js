@@ -10,7 +10,7 @@ import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v10';
+const VERSAO_APP = 'v11';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
