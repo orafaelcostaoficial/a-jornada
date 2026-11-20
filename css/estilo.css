@@ -616,3 +616,8 @@ body.tema-natal { background: linear-gradient(#f6ece6, #f3efe6 420px); }
 .ev-txt b { font-family: var(--display); font-size: 1.35rem; line-height: 1.1; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
 .ev-txt em { font-style: normal; font-size: .82rem; opacity: .9; }
 .abas-topo a .ico { flex: none; }
+/* Selos com imagem: o objeto fica sobre a medalha */
+.selo-disco { position: relative; }
+.selo-img { position: absolute; left: 50%; top: 50%; width: 74%; height: 74%; object-fit: contain; transform: translate(-50%, -50%); filter: drop-shadow(0 3px 4px rgba(0,0,0,.3)); }
+.selo-disco.arte.com-img .arte-centro { display: none; }
+.selo-disco.arte .selo-img { width: 56%; height: 56%; top: 46%; }

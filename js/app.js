@@ -1,5 +1,5 @@
 import { ERAS, LIVROS, linkNAA } from '../data/plano.js';
-import { COM_IMAGEM } from '../data/imagens.js';
+import { COM_IMAGEM, SELOS_COM_IMAGEM } from '../data/imagens.js';
 import * as store from './store.js';
 import * as J from './jogo.js';
 import { ico } from './icones.js';
@@ -474,7 +474,8 @@ function telaResultado(res) {
 function selo(id, { aberta = true, grande = false } = {}) {
   const s = J.SELOS[id] || J.SELOS_ESPECIAIS[id];
   if (!aberta) return `<div class="selo-p bloq">${ico('lock-keyhole')}<span>???</span></div>`;
-  return `<a class="selo-p ${grande ? 'grande' : ''}" href="#/selo/${id}"><span class="selo-disco ${s.arte ? 'arte' : ''}">${s.arte ? ARTE_SELO[s.arte] : ico(s.icone)}</span><span>${esc(s.nome)}</span></a>`;
+  const img = SELOS_COM_IMAGEM.has(id) ? `<img class="selo-img" src="img/selos/${id}.webp" alt="" loading="lazy">` : '';
+  return `<a class="selo-p ${grande ? 'grande' : ''}" href="#/selo/${id}"><span class="selo-disco ${s.arte ? 'arte' : ''} ${img ? 'com-img' : ''}">${s.arte ? ARTE_SELO[s.arte] : img ? '' : ico(s.icone)}${img}</span><span>${esc(s.nome)}</span></a>`;
 }
 
 function abrirCartas(lista, i = 0) {

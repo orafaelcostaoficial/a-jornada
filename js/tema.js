@@ -39,8 +39,8 @@ export const ARTE_SELO = {
     <path d="M28 70c6-6 14-8 22-6s16 0 22 6" fill="none" stroke="#3f7a4a" stroke-width="3" stroke-linecap="round"/>
     <path d="M30 70c1-5 4-8 8-9m24 9c-1-5-4-8-8-9" stroke="#3f7a4a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
     <circle cx="35" cy="66" r="2.2" fill="#e6b445"/><circle cx="65" cy="66" r="2.2" fill="#e6b445"/>
-    <path d="M50 22l4.6 11.4L66 38l-11.4 4.6L50 54l-4.6-11.4L34 38l11.4-4.6z" fill="url(#oN)"/>
-    <path d="M50 28l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#fff8de"/>
+<g class="arte-centro"><path d="M50 22l4.6 11.4L66 38l-11.4 4.6L50 54l-4.6-11.4L34 38l11.4-4.6z" fill="url(#oN)"/>
+    <path d="M50 28l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#fff8de"/></g>
     <text x="50" y="84" text-anchor="middle" font-family="Georgia,serif" font-size="8" font-weight="700" fill="#fff3c4" letter-spacing="1">2026</text>
   </svg>`,
 };
