@@ -123,7 +123,7 @@ SELOS = [
     ('arcoiris', 'Arco nas nuvens', 'um arco-íris completo sobre nuvens brancas e fofas, com gotas de chuva brilhando', 'Gn 9:13-15'),
     ('estrelas', 'Estrelas', 'um grupo de estrelas douradas de vários tamanhos, brilhando, agrupadas de forma harmoniosa, sem lua e sem céu ao fundo', 'Gn 15:5'),
     ('carneiro', 'Carneiro', 'um carneiro de lã clara com chifres curvos presos num arbusto', 'Gn 22:13-14'),
-    ('poco', 'Poço', 'um poço redondo de pedras com um cântaro de barro apoiado na borda e água brilhando lá dentro', 'Gn 24:11-20'),
+    ('poco', 'Poço', 'um poço antigo do Oriente Próximo: só uma mureta baixa e redonda de pedras, rente ao chão, com um cântaro de barro apoiado na borda e água azul brilhando lá dentro; ao lado, um cocho comprido de pedra (bebedouro) com um pouco de água. SEM telhado, SEM manivela, SEM balde e SEM estrutura de madeira por cima (isso é de poço europeu, não da época de Rebeca)', 'Gn 24:11-20'),
     ('escada', 'Escada', 'uma escada de luz que sobe da terra até as nuvens, com pequenas figuras de anjos de luz subindo e descendo', 'Gn 28:12-15'),
     ('tunica', 'Túnica', 'uma túnica longa e especial, de mangas compridas, bem ornamentada, estendida como se estivesse pendurada', 'Gn 37:3'),
     ('espiga', 'Espigas', 'sete espigas de trigo cheias e douradas, amarradas em feixe', 'Gn 41:5-7,26'),
