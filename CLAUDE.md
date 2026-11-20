@@ -4,6 +4,12 @@ Projeto pessoal do Rafael, usado em casa com as crianças e com famílias amigas
 PWA estático (HTML/CSS/JS puro, **sem build**), publicado no GitHub Pages e instalado no celular.
 **As evoluções são pedidas pelo celular**: o Claude clona, edita, testa sozinho e publica no canal de teste.
 
+## Arquivos fora do código (Drive)
+Originais das imagens, prompts, documentos e backups ficam no Google Drive em **Projetos/A_Jornada**
+(pasta id `1PErWB2Sjs_gOhi6wfgJnVGuJ4COTy9L7`): `01_Imagens/{Avatares,Cartas,Outras}`, `02_Prompts`, `03_Documentos`,
+`04_Backups` e o doc `00_LEIA-ME`. Para encaixar imagens: baixar daí, `ferramentas/recortar.py`, listar em
+`data/avatares.js` / `data/imagens.js`, testar e subir para `teste`.
+
 ## Fluxo de trabalho (obrigatório)
 1. Trabalhar sempre na branch `teste`. Ela publica em `https://orafaelcostaoficial.github.io/a-jornada/teste/`.
 2. Antes de subir, testar localmente: `python3 -m http.server 8765` na raiz e rodar um roteiro Playwright
