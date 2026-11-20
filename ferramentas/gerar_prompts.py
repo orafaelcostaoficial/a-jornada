@@ -228,7 +228,7 @@ if __name__ == '__main__':
              'Os selos são objetos e palavras-chave do texto. A imagem é só o objeto, em fundo branco; '
              'o app coloca sobre uma medalha dourada.', 'luz.png', 'Selos', SELOS, prompt_selo, lambda s: s[1])
     natal = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Natal 2026\". "
-             "OBJETO: uma manjedoura simples de madeira cheia de feno, com um pequeno pano branco dobrado sobre o feno (sem bebê visível), "
+             "OBJETO: uma manjedoura simples de madeira cheia de feno dourado, VAZIA: sem pano, sem lençol, sem trouxinha e sem nenhum volume ou forma deitada sobre o feno (nada que pareça um corpo coberto), "
              "e acima dela uma estrela dourada de oito pontas brilhando com raios suaves; um raminho verde com duas frutinhas douradas na base. "
              "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas. "
              "CORES: madeira quente, feno dourado, estrela dourada brilhante, verde do ramo. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
