@@ -36,6 +36,13 @@ Revisão em quiz com repetição espaçada (Leitner). Meta semanal 5 de 7 dias (
 - Texto dentro do app: Bíblia Livre (BLIVRE), CC BY 4.0 BR, em `data/biblia/blivre/<n>.json` (n = ordem canônica,
   formato `{cap: {verso: texto}}`). O crédito aparece no leitor — manter sempre.
 
+## Tamanho das sessões (decidido: opção C)
+Meta: a Bíblia inteira em ~260 sessões = 1 ano no ritmo da meta (5 dias/semana); 7/sem ≈ 9 meses; 2–3/sem ≈ 2 anos.
+Média 4–5 capítulos por sessão, variando pelo tipo de texto (narrativa densa 2–3; Salmos de 5 em 5; Provérbios 3–4;
+listas/paralelos em blocos maiores); nenhuma sessão passa de ~25–30 min. A era 1 fica com 35 sessões (entrada leve).
+Alvo por era: Moisés 30 · Josué/Juízes 11 · Reino Unido 67 · Reino Dividido 49 · Exílio 14 · Depois do Exílio 12 ·
+Jesus 19 · Igreja 31 · Fim do Século I 6.
+
 ## Ordem e conteúdo
 Cronológica por livro (imagem @abibliadoprincipioaofim): 66 livros em 10 eras (`data/plano.js`).
 Conteúdo escrito: era 1 (Gênesis + Jó) em `data/era-principio.js` — INTRODUCOES, SESSOES, PERSONAGENS,
