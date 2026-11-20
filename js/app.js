@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v18';
+const VERSAO_APP = 'v19';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -290,6 +290,8 @@ function telaHoje() {
 // ─── Desafios sazonais ───
 const fmtDia = (d) => { const [, m, dd] = d.split('-'); return `${Number(dd)}/${Number(m)}`; };
 const refTrecho = ([l, c, a, b]) => `${LIVROS[l].nome} ${c}:${a}${b && b !== a ? `-${b}` : ''}`;
+// Medalha do selo especial: arte desenhada + imagem do objeto (quando houver) no lugar da estrela.
+const arteEspecial = (s) => `<span class="selo-disco arte ${SELOS_COM_IMAGEM.has(s.id) ? 'com-img' : ''}">${ARTE_SELO[s.arte]}${SELOS_COM_IMAGEM.has(s.id) ? `<img class="selo-img" src="img/selos/${s.id}.webp" alt="">` : ''}</span>`;
 function trilhaEstrelas(d, feitos, prox) {
   return `<div class="trilha-est">${d.sessoes.map((x, i) => `<span class="${feitos[i] ? 'ok' : ''} ${i === prox ? 'prox' : ''}">${ico('star')}</span>`).join('')}</div>`;
 }
@@ -319,7 +321,7 @@ function telaDesafio(id) {
       return `<a class="janela ${feito ? 'feito' : ''} ${livre && !feito ? 'prox' : ''} ${livre ? '' : 'bloq'} c${i % 3}" ${livre ? `href="#/dsessao/${d.id}.${i}"` : ''}>
         <span class="jn-n">${i + 1}</span><span class="jn-ico">${ico(feito ? 'star' : livre ? x.icone : 'lock-keyhole')}</span><b>${esc(x.titulo)}</b></a>`;
     }).join('')}</div>
-    <a class="selo-premio ${pr.completo ? 'ok' : ''}" ${pr.completo ? `href="#/selo/${d.selo.id}"` : ''}><span class="sp-arte">${ARTE_SELO[d.selo.arte]}</span>
+    <a class="selo-premio ${pr.completo ? 'ok' : ''}" ${pr.completo ? `href="#/selo/${d.selo.id}"` : ''}><span class="sp-arte">${arteEspecial(d.selo)}</span>
       <span><small>${pr.completo ? 'Selo conquistado' : 'Ao completar os 12 dias'}</small><b>Selo ${esc(d.selo.nome)}</b><em>${esc(d.selo.ref)}</em></span></a>`;
   return `<header class="cab-sessao" style="--c:${d.cor}"><a class="voltar" href="#/hoje">${ico('chevron-left')}</a>
     <div><small>Desafio de ${esc(d.tipo)} · ${fmtDia(d.inicio)} a ${fmtDia(d.fim)}</small><h2>${esc(d.nome)}</h2></div></header>
@@ -679,7 +681,7 @@ function telaCartas(aba = 'pessoas') {
     const fim = (d) => Object.values(p.desafios[d.id]).map((x) => x.data).sort().pop();
     return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">Cada desafio completado abre aqui a sua página, com o selo daquele evento.</p>
     ${eventos.sort((a, b) => fim(b).localeCompare(fim(a))).map((d) => `<a class="evento ${d.tema ? `t-${d.tema}` : ''}" href="#/selo/${d.selo.id}" style="--c:${d.cor}">
-      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? ARTE_SELO[d.selo.arte] : `<span class="selo-disco">${ico(d.selo.icone)}</span>`}</span>
+      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? arteEspecial(d.selo) : `<span class="selo-disco">${ico(d.selo.icone)}</span>`}</span>
       <span class="ev-txt"><small>${esc(d.tipo)} · concluído em ${fmtData(fim(d))}</small><b>${esc(d.nome)}</b><em>${d.sessoes.length} de ${d.sessoes.length} dias · Selo ${esc(d.selo.nome)}</em></span></a>`).join('')}`;
   }
   if (aba === 'selos') {
