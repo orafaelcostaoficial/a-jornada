@@ -8,7 +8,7 @@
 export const ERAS = [
   { id: 'principio', quando: 'Origens sem data · patriarcas c. 2100–1800 a.C.', nome: 'Princípio e Patriarcas', conteudo: true, livros: [
     ['gn', 'Gênesis', 50, 'gn'], ['jo', 'Jó', 42, 'jó']] },
-  { id: 'moises', quando: 'Êxodo c. 1446 ou c. 1260 a.C.', nome: 'Moisés', livros: [
+  { id: 'moises', quando: 'Êxodo c. 1446 ou c. 1260 a.C.', nome: 'Moisés', conteudo: true, livros: [
     ['ex', 'Êxodo', 40], ['lv', 'Levítico', 27], ['nm', 'Números', 36], ['dt', 'Deuteronômio', 34]] },
   { id: 'juizes', quando: 'c. 1400/1200 – 1050 a.C.', nome: 'Josué e Juízes', livros: [
     ['js', 'Josué', 24], ['jz', 'Juízes', 21], ['rt', 'Rute', 4]] },

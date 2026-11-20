@@ -94,23 +94,54 @@ CARTAS = [
     ('bildade', 'Bildade', 'sentado no chão, falando com gestos firmes', 'homem idoso', 'chão de terra com outros amigos sentados em círculo, só contornos', 'Jó 2:11; 8:1'),
     ('zofar', 'Zofar', 'sentado no chão, apontando o dedo enquanto fala', 'homem de expressão severa', 'chão de terra ao entardecer', 'Jó 2:11; 11:1'),
     ('eliu', 'Eliú', 'de pé, falando com energia, com a mão erguida', 'homem jovem, o mais novo do grupo', 'nuvens de tempestade e relâmpagos ao longe', 'Jó 32:6; 37:1-5'),
+    # ── Era 2: Moisés ──
+    ('joquebede', 'Joquebede', 'colocando com cuidado um bebê num cesto de juncos à beira do rio, entre os juncos', 'mulher hebreia jovem, mãe carinhosa', 'margem do Nilo com juncos altos ao amanhecer', 'Êx 2:2-3'),
+    ('filha-farao', 'Filha de Faraó', 'segurando nos braços um bebê que acabou de tirar de um cesto de juncos, com ternura', 'princesa egípcia com vestido de linho branco e joias simples', 'margem do Nilo com servas ao fundo', 'Êx 2:5-6,10'),
+    ('moises', 'Moisés', 'descendo do monte com duas tábuas de pedra lisas nos braços, o rosto resplandecendo de luz suave', 'homem idoso de barba branca longa', 'encosta rochosa do monte Sinai com nuvens', 'Êx 34:29'),
+    ('zipora', 'Zípora', 'à entrada de uma tenda, segurando um cântaro, com ovelhas ao lado', 'mulher jovem midianita, pastora', 'deserto de Midiã com um poço e ovelhas', 'Êx 2:16,21'),
+    ('arao', 'Arão', 'segurando uma vara de madeira da qual brotam flores e amêndoas', 'homem idoso de barba, vestido de sumo sacerdote com peitoral de pedras coloridas e turbante', 'interior iluminado de uma tenda de tecido', 'Êx 28:1-4; Nm 17:8'),
+    ('farao-exodo', 'Faraó', 'sentado no trono, de braços cruzados e olhar teimoso, com rãs pequenas no chão do salão', 'rei egípcio com coroa e trajes reais egípcios', 'salão egípcio com colunas pintadas', 'Êx 5:2; 8:2-6'),
+    ('miria', 'Miriã', 'tocando um tamborim erguido e dançando de alegria, com mulheres dançando atrás', 'mulher madura, profetisa, véu claro e manto rosa', 'margem do mar ao sol, com ondas calmas', 'Êx 15:20-21'),
+    ('jetro', 'Jetro', 'conversando com Moisés, apontando com a mão aberta como quem dá conselho', 'homem idoso e sábio, sacerdote de Midiã, de barba branca e turbante', 'entrada de tenda no deserto ao entardecer', 'Êx 18:13-24'),
+    ('josue', 'Josué', 'de pé na entrada de uma tenda, esperando com atenção, segurando um cajado', 'homem jovem e forte, com túnica e cinto de couro', 'acampamento no deserto com a tenda do encontro', 'Êx 33:11'),
+    ('bezalel', 'Bezalel', 'trabalhando com cuidado numa peça de ouro com ferramentas de artesão', 'homem adulto, artesão habilidoso, avental de couro', 'oficina simples com tecidos coloridos, madeira e metais', 'Êx 31:2-5'),
+    ('nadabe', 'Nadabe e Abiú', 'segurando cada um um incensário com fumaça, de pé diante de uma tenda', 'dois jovens sacerdotes com túnicas brancas', 'entrada da tenda do encontro, com céu cinzento ao fundo; cena calma, sem fogo sobre pessoas', 'Lv 10:1'),
+    ('eleazar', 'Eleazar', 'recebendo as vestes de sacerdote, com Moisés colocando-as sobre seus ombros', 'homem adulto, filho de Arão', 'alto de um monte com vista do deserto', 'Nm 20:25-28'),
+    ('calebe', 'Calebe', 'ajudando a carregar numa vara, com outro homem, um cacho de uvas enorme', 'homem forte, de barba, olhar confiante', 'vale verde de Escol com videiras', 'Nm 13:23,30'),
+    ('core', 'Corá', 'de pé, com a mão erguida, falando em tom de protesto diante de outros homens', 'homem adulto, levita, com túnica', 'acampamento no deserto; cena tensa, sem destruição', 'Nm 16:1-3'),
+    ('balaao', 'Balaão', 'montado numa jumenta que vira a cabeça para ele e fala, Balaão espantado', 'homem de meia-idade, adivinho, com manto', 'caminho estreito entre vinhas e muros de pedra', 'Nm 22:23-28'),
+    ('fineias', 'Fineias', 'de pé diante da tenda, sereno, com luz suave sobre ele', 'homem jovem, sacerdote, com túnica branca e cinto azul', 'acampamento no deserto ao entardecer; sem armas', 'Nm 25:11-13'),
+    ('filhas-zelofeade', 'Filhas de Zelofeade', 'cinco irmãs de pé lado a lado, firmes e respeitosas, diante de um ancião', 'cinco moças jovens com véus de cores diferentes', 'entrada da tenda do encontro', 'Nm 27:1-7'),
 ]
 
 # ─────────────────────────── SELOS (objetos e palavras-chave) ───────────────────────────
 # (arquivo, nome, objeto detalhado, referência)
 SELOS = [
-    ('luz', 'Luz', 'um ponto de luz muito brilhante no centro, com raios dourados e brancos se abrindo em todas as direções, como uma explosão suave de luz', 'Gn 1:3-4'),
-    ('arvore', 'Árvore da vida', 'uma árvore frondosa e cheia de frutos, de tronco forte e raízes visíveis, com folhas verdes brilhantes', 'Gn 2:9; 3:24'),
+    ('luz', 'Luz', 'um sol-estrela estilizado: um círculo central amarelo-ouro intenso com um pequeno centro branco, e 12 raios pontudos alternando laranja forte e amarelo-ouro, todos com contorno marrom-escuro, como um emblema de luz rompendo; ao redor, 4 pequenas faíscas em forma de estrela de quatro pontas, também com contorno', 'Gn 1:3-4'),
+    ('arvore', 'Árvore da vida', 'uma árvore frondosa de tronco forte e raízes visíveis, copa verde arredondada; entre as folhas, 7 ou 8 frutos que são pequenas esferas lisas de OURO brilhante, com um pontinho de luz branca em cada uma, SEM cabinho, SEM folhinha e SEM manchas, parecendo joias e não frutas comuns. PROIBIDO: maçãs, laranjas, cerejas, peras ou qualquer fruta conhecida (o texto bíblico não diz qual era o fruto)', 'Gn 2:9; 3:24'),
     ('arca', 'Arca', 'um grande barco de madeira em forma de caixa, com um telhado, uma porta na lateral e uma abertura no alto, flutuando sobre ondas calmas', 'Gn 6:14-16'),
     ('arcoiris', 'Arco nas nuvens', 'um arco-íris completo sobre nuvens brancas e fofas, com gotas de chuva brilhando', 'Gn 9:13-15'),
     ('estrelas', 'Estrelas', 'um grupo de estrelas douradas de vários tamanhos, brilhando, agrupadas de forma harmoniosa, sem lua e sem céu ao fundo', 'Gn 15:5'),
     ('carneiro', 'Carneiro', 'um carneiro de lã clara com chifres curvos presos num arbusto', 'Gn 22:13-14'),
-    ('poco', 'Poço', 'um poço redondo de pedras com um cântaro de barro apoiado na borda e água brilhando lá dentro', 'Gn 24:11-20'),
-    ('escada', 'Escada', 'uma escada de luz que sobe da terra até as nuvens, com pequenas figuras de anjos de luz subindo e descendo', 'Gn 28:12-15'),
+    ('poco', 'Poço', 'um poço antigo do Oriente Próximo: só uma mureta baixa e redonda de pedras, rente ao chão, com um cântaro de barro apoiado na borda e água azul brilhando lá dentro; ao lado, um cocho comprido de pedra (bebedouro) com um pouco de água. SEM telhado, SEM manivela, SEM balde e SEM estrutura de madeira por cima (isso é de poço europeu, não da época de Rebeca)', 'Gn 24:11-20'),
+    ('escada', 'Escada', 'uma escada dourada, alta e estreita, quase vertical, com a base apoiada num chão de pedras e o topo entrando nas nuvens; nela, 3 pequenas silhuetas de luz branca e dourada, simples, sem rosto, uma subindo e duas descendo. As silhuetas NÃO têm asas, NÃO têm auréola e NÃO são bebês nem crianças (o texto só diz que os anjos de Deus subiam e desciam). Poucos elementos, forma clara em tamanho pequeno', 'Gn 28:12-15'),
     ('tunica', 'Túnica', 'uma túnica longa e especial, de mangas compridas, bem ornamentada, estendida como se estivesse pendurada', 'Gn 37:3'),
-    ('espiga', 'Espigas', 'sete espigas de trigo cheias e douradas, amarradas em feixe', 'Gn 41:5-7,26'),
-    ('ouro', 'Ouro provado', 'uma barra de ouro puro, brilhante e polida, refletindo luz', 'Jó 23:10'),
-    ('redemoinho', 'Redemoinho', 'um redemoinho de vento e nuvens girando, com uma luz forte e serena no centro', 'Jó 38:1'),
+    ('espiga', 'Espigas', 'EXATAMENTE 7 (sete) espigas de trigo cheias e douradas, bem separadas em leque para dar para contar uma a uma, amarradas em feixe na base. O número sete importa (Gn 41: sete espigas, sete anos): não desenhar 5, 6 nem 8', 'Gn 41:5-7,26'),
+    ('ouro', 'Ouro provado', 'um cadinho antigo de barro (pequeno pote grosso, cor terracota) sobre brasas vermelhas e chamas laranja, com ouro derretido brilhando dentro; ao lado do cadinho, três pepitas de ouro já purificadas. É o ouro provado no fogo (Jó 23:10). SEM barras de ouro modernas, SEM moedas', 'Jó 23:10'),
+    ('redemoinho', 'Redemoinho', 'um redemoinho de vento VISTO DE LADO, em forma de funil: largo em cima, entre nuvens escuras de tempestade, e afinando até tocar o chão de areia, com faixas de vento girando em volta e poeira levantando na base; dentro do funil, uma luz forte e serena brilhando. NÃO desenhar visto de cima (espiral de galáxia ou furacão)', 'Jó 38:1'),
+    # ── Era 2: Moisés ──
+    ('sarca', 'Sarça ardente', 'um pequeno arbusto do deserto envolto em chamas douradas, com os galhos e folhas inteiros, sem queimar', 'Êx 3:2'),
+    ('pao', 'Pão sem fermento', 'uma pilha de 3 pães MUITO finos e achatados, sem fermento (finos como uma folha, quase como uma panqueca seca e crocante, com bolhinhas tostadas), sobre um pano de linho dobrado, e ao lado um pequeno maço de ervas verdes (ervas amargas, Êx 12:8). NÃO desenhar pão grosso, fofo, estufado ou de padaria: sem fermento o pão não cresce', 'Êx 12:8,15'),
+    ('coluna', 'Coluna de nuvem e fogo', 'um emblema dividido ao meio na vertical, em formato de cápsula alta: na metade da ESQUERDA é dia (céu azul-claro) e sobe do deserto uma coluna alta e reta de nuvem branca, como um pilar; na metade da DIREITA é noite (céu azul-escuro com estrelinhas) e sobe uma coluna alta e reta de fogo laranja, também como um pilar. Embaixo, uma faixa de areia com 2 ou 3 tendas pequenas. As colunas são finas, retas e altas, do chão até o alto. NÃO desenhar fogueira, NÃO desenhar fumaça saindo do fogo e NÃO desenhar nuvem em forma de cogumelo', 'Êx 13:21-22'),
+    ('cajado', 'Cajado erguido', 'um cajado de pastor de madeira, em pé, com ondas do mar se abrindo dos dois lados', 'Êx 14:16,21'),
+    ('mana', 'Maná', 'pequenos grãos brancos e redondos espalhados como geada sobre a areia, com brilho suave', 'Êx 16:14,31'),
+    ('arcaalianca', 'Arca da aliança', 'um baú retangular de ouro, mais comprido que alto, com uma argola de ouro em cada um dos quatro pés e duas varas compridas também douradas passando pelas argolas dos lados. Na tampa, nas duas pontas, dois querubins de ouro AJOELHADOS um de frente para o outro, de rosto inclinado para baixo olhando a tampa, com as asas grandes abertas para cima e para a frente, as pontas quase se tocando sobre o centro (Êx 25:18-20). Os querubins são figuras adultas e estilizadas, NÃO são bebês, NÃO são anjinhos gorduchos de igreja e NÃO se dão as mãos. Contorno escuro forte para o ouro se destacar', 'Êx 25:10-22'),
+    ('tabuas', 'Tábuas da Lei', 'duas tábuas de pedra lado a lado, de topo arredondado, em pedra clara cor de areia (bege e ocre, NÃO cinza), soltas e em pé, sem chão, sem grama e sem pedras em volta; cada tábua com várias linhas de sinais gravados, pequenos traços abstratos que lembram escrita antiga (escritas pelo dedo de Deus, Êx 31:18), sem letras legíveis e SEM números romanos. Bordas lisas, SEM rachaduras. NÃO pode parecer lápide de cemitério', 'Êx 31:18; 34:1'),
+    ('trombetas', 'Trombetas de prata', 'duas trombetas de prata batida, longas e retas, cruzadas em X. CADA trombeta tem uma boca larga (campana) em UMA ponta só e um bocal pequeno e estreito na outra ponta, como trombeta de verdade: as duas campanas viradas para cima, os dois bocais para baixo. NÃO desenhar campana nas duas pontas do mesmo tubo. Sem válvulas e sem curvas (trombeta antiga, reta)', 'Nm 10:1-2'),
+    ('uvas', 'Cacho de Escol', 'um cacho de uvas enorme pendurado numa vara de madeira', 'Nm 13:23'),
+    ('vara', 'Vara que floresceu', 'uma vara de madeira com brotos, flores brancas e amêndoas', 'Nm 17:8'),
+    ('serpente', 'Serpente de bronze', 'uma serpente feita de METAL (bronze polido, cor cobre-esverdeada com reflexos), como uma estátua rígida, enrolada no alto de uma haste de madeira comprida e reta, fincada na areia do deserto. A haste é UM pau só, vertical, SEM travessa: NÃO desenhar cruz. A serpente NÃO é um bicho vivo nem fofo: sem olhos expressivos, sem sorriso, sem cara de desenho animado; é um objeto de metal moldado (Nm 21:8-9)', 'Nm 21:8-9'),
+    ('nebo', 'Monte Nebo', 'um monte com o cume iluminado e, ao longe, um vale verde com um rio', 'Dt 34:1-4'),
 ]
 
 
@@ -144,7 +175,9 @@ def prompt_selo(s):
     return (f"Crie uma {ESTILO}, como um ícone-emblema para um selo colecionável chamado \"{nome}\". "
             f"OBJETO: {objeto}. COMPOSIÇÃO: só o objeto, centralizado, ocupando cerca de 75% da imagem, "
             "forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas (a não ser que estejam descritas acima). "
-            "CORES: vivas e quentes, com brilho dourado suave. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
+            "CORES: saturadas e fortes, com contorno marrom-escuro bem definido em volta de tudo, para destacar sobre uma medalha dourada "
+            "(evite amarelo-claro e branco como cor principal). SEM brilho difuso, sem halo e sem névoa em volta do objeto: as bordas "
+            "terminam limpas no branco. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
             f"(o app coloca o objeto sobre uma medalha dourada). EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
 
 
@@ -176,15 +209,30 @@ if __name__ == '__main__':
              '**mediana** (`-meio`, níveis 8–19) e **final** (`-final`, nível 20+). O app desenha atrás o cenário '
              'de cada estágio, por isso o fundo é branco liso.', 'davi-meio.png', 'Avatares',
              AVATARES, prompt_avatar, lambda a: f"{a[1]} ({a[2]})")
-    po = (f"Crie uma {ESTILO}. Um pequeno monte de barro avermelhado e macio, sem rosto e sem forma humana, "
-          "com pequenas partículas de pó ao redor e um brilho suave e dourado descendo sobre ele, como se estivesse "
-          "prestes a receber vida. COMPOSIÇÃO: o monte centralizado na parte de baixo, ocupando metade da largura. "
-          f"FUNDO: branco liso e puro (#FFFFFF), sem chão e sem sombra. EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    po = (f"Crie uma {ESTILO}. Gênesis 2:7, o instante antes do fôlego de vida: uma figura humana ADULTA (proporções de um "
+          "homem jovem, ombros e braços de adulto, não de bebê nem de criança), modelada em barro avermelhado e terra úmida, "
+          "sentada com os joelhos dobrados junto ao peito e os braços envolvendo as pernas, cabeça levemente inclinada para baixo, "
+          "olhos fechados, rosto simples e sereno, sem cabelo definido (é só barro). Ainda sem vida: todo o corpo é de terra, com "
+          "textura de barro alisado à mão, pequenas rachaduras finas, marcas de dedos e alguns grãos de pó se soltando das bordas. "
+          "Sem roupa visível porque é só uma forma de barro, sem nenhum detalhe anatômico. "
+          "SEM raio de luz, sem brilho e sem halo ao redor (o app desenha a luz e o cenário). "
+          "CORES: terracota, ocre e marrom quente. COMPOSIÇÃO: enquadramento fechado, a figura ocupa cerca de 85% da altura da imagem, "
+          "centralizada, encostada na parte de baixo, sem espaço vazio em cima. Não mostrar Deus, mãos divinas nem rosto no céu. "
+          f"FUNDO: branco liso e puro (#FFFFFF), sem chão e sem sombra no chão. EVITE: {EVITE}, bebê, criança. FORMATO: quadrado 1:1, alta resolução.")
     with open('PROMPTS-AVATARES.md', 'a', encoding='utf-8') as f:
         f.write("---\n\n## Opcional: o começo da jornada\n\n" + bloco('po.png', 'Pó da terra (todos começam assim)', 'Gn 2:7', po))
     escrever('PROMPTS-CARTAS.md', 'Prompts das cartas (pessoas da Bíblia)',
-             'Uma carta para cada pessoa que aparece nas sessões. A arte é a cena completa, com fundo ilustrado.',
+             'Uma carta para cada pessoa que aparece nas sessões (eras 1 e 2). A arte é a cena completa, com fundo ilustrado.',
              'noe.png', 'Cartas', CARTAS, prompt_carta, lambda c: c[1])
     escrever('PROMPTS-SELOS.md', 'Prompts dos Selos da Palavra',
              'Os selos são objetos e palavras-chave do texto. A imagem é só o objeto, em fundo branco; '
              'o app coloca sobre uma medalha dourada.', 'luz.png', 'Selos', SELOS, prompt_selo, lambda s: s[1])
+    natal = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Natal 2026\". "
+             "OBJETO: uma manjedoura simples de madeira cheia de feno dourado, VAZIA: sem pano, sem lençol, sem trouxinha e sem nenhum volume ou forma deitada sobre o feno (nada que pareça um corpo coberto), "
+             "e acima dela uma estrela dourada de oito pontas brilhando com raios suaves; um raminho verde com duas frutinhas douradas na base. "
+             "COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas. "
+             "CORES: madeira quente, feno dourado, estrela dourada brilhante, verde do ramo. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
+             f"(o app coloca o emblema sobre uma medalha vermelha com borda dourada). EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    with open('PROMPTS-SELOS.md', 'a', encoding='utf-8') as f:
+        f.write("---\n\n## Selos especiais (desafios sazonais)\n\nGanhos ao completar um desafio; aparecem na aba Eventos do Álbum.\n\n"
+                + bloco('natal-2026.png', 'Natal 2026 — A promessa cumprida', 'Lc 2:7,12; Mt 2:9-10', natal))

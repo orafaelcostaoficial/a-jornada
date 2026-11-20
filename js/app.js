@@ -1,5 +1,5 @@
 import { ERAS, LIVROS, linkNAA } from '../data/plano.js';
-import { COM_IMAGEM } from '../data/imagens.js';
+import { COM_IMAGEM, SELOS_COM_IMAGEM } from '../data/imagens.js';
 import * as store from './store.js';
 import * as J from './jogo.js';
 import { ico } from './icones.js';
@@ -8,9 +8,11 @@ import { AVATARES, AVATARES_COM_IMAGEM } from '../data/avatares.js';
 import * as N from './nuvem.js';
 import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
+import { bannerNatal, ARTE_SELO } from './tema.js';
+import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v11';
+const VERSAO_APP = 'v19';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -131,13 +133,20 @@ function overlay(html, aoFechar) {
 // ─── Componentes ───
 function topo() {
   const p = P(); const nv = J.nivel(p.xp);
-  return `<header class="topbar">
-    <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>Nível ${nv.n} · ${J.estagio(nv.n).nome}</small></span></a>
+  return `${CANAL_TESTE ? `<a class="faixa-teste" href="../#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
+    <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>${rotNivel(p)} · ${nomeEstagio(p)}</small></span></a>
     <span class="xp-chip">${ico('sparkles')} ${p.xp} XP</span>
   </header>`;
 }
 
+// Antes do fôlego de vida (sem personagem) o viajante é Pó da terra, nível 0 (Gn 2:7).
+const ehPo = (p) => !p.avatar?.personagem;
+const nomeEstagio = (p) => (ehPo(p) ? 'Pó da terra' : J.estagio(J.nivel(p.xp).n).nome);
+const rotNivel = (p) => (ehPo(p) ? 'Nível 0' : `Nível ${J.nivel(p.xp).n}`);
 function barraXP(p) {
+  if (ehPo(p)) return `<div class="xpbar"><div class="xpbar-top"><b>Nível 0</b><span>${p.xp} XP</span></div>
+    <div class="barra"><i style="width:0%"></i></div>
+    <small>${J.concluidas(p).length ? 'Receba o fôlego de vida: vire <b>Peregrino</b>' : 'A 1ª sessão traz o fôlego de vida (Gn 2:7)'}</small></div>`;
   const nv = J.nivel(p.xp);
   const prox = J.ESTAGIOS.find((e) => e.nivel > nv.n);
   return `<div class="xpbar"><div class="xpbar-top"><b>Nível ${nv.n}</b><span>${p.xp - nv.ini}/${nv.fim - nv.ini} XP</span></div>
@@ -225,9 +234,16 @@ function folegoDeVida(perfilId, depois) {
     ev.stopPropagation();
     alvo.avatar = { personagem: btn.dataset.v }; alvo.editado = new Date().toISOString(); salvar();
     const a = AVATARES.find((x) => x.id === btn.dataset.v);
-    o.querySelector('.overlay-in').innerHTML = `<div class="folego ok"><div class="folego-cena">${avatarHTML(alvo.avatar, J.itensAte(J.nivel(alvo.xp).n), 160)}</div>
-      <h2>${esc(a.nome)}</h2><p>${esc(a.frase)} <i>${esc(a.ref)}</i></p><button class="btn grande" data-fechar>Seguir a jornada</button></div>`;
-    confete(60);
+    const graos = Array.from({ length: 22 }, (_, k) => `<i class="grao" style="--dx:${Math.round((Math.random() - .5) * 180)}px;--dy:${Math.round(-60 - Math.random() * 120)}px;--t:${(1.1 + Math.random() * .7).toFixed(2)}s;left:${30 + Math.random() * 40}%;top:${45 + Math.random() * 35}%"></i>`).join('');
+    const box = o.querySelector('.overlay-in');
+    box.innerHTML = `<div class="folego ok transforma">
+      <div class="tf-cena"><span class="tf-luz"></span><span class="tf-po">${avatarHTML({}, [], 170)}</span><span class="tf-pers">${avatarHTML(alvo.avatar, J.itensAte(J.nivel(alvo.xp).n), 170)}</span>${graos}<span class="tf-flash"></span></div>
+      <p class="tf-verso">“…e assoprou em seu nariz sopro de vida; e foi o homem em alma vivente.” <i>Gn 2:7 (Bíblia Livre)</i></p>
+      <div class="tf-fim"><h2>${esc(a.nome)}</h2><p>${esc(a.frase)} <i>${esc(a.ref)}</i></p><button class="btn grande" data-fechar>Seguir a jornada</button></div></div>`;
+    const f = box.querySelector('.transforma');
+    requestAnimationFrame(() => f.classList.add('passo1'));
+    setTimeout(() => f.classList.add('passo2'), 2200);
+    setTimeout(() => { f.classList.add('passo3'); confete(60); }, 3300);
   }));
   const obs = new MutationObserver(() => { if (!document.body.contains(o)) { obs.disconnect(); render(); depois?.(); } });
   obs.observe(document.body, { childList: true });
@@ -252,7 +268,7 @@ function telaHoje() {
   return `${topo()}
   <section class="hero" style="--c:${prox ? COR_ERA[eraDe(prox)] : '#d29a2c'}">
     <div class="hero-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 110)}</div>
-    <div class="hero-info"><small>${est.nome}</small><h2>${esc(p.nome)}</h2>${barraXP(p)}</div>
+    <div class="hero-info"><small>${nomeEstagio(p)}</small><h2>${esc(p.nome)}</h2>${barraXP(p)}</div>
   </section>
   ${!p.avatar?.personagem && J.concluidas(p).length ? `<button class="aviso grande-aviso" data-acao="escolher-personagem">${ico('sparkles')}<span><b>Receba o fôlego de vida</b><br>Escolha o personagem que vai te acompanhar.</span>${ico('chevron-right')}</button>` : ''}
   ${cartaoInstalar(true)}
@@ -262,12 +278,109 @@ function telaHoje() {
       <div class="missao-tit">${esc(prox.titulo)}</div>
       <div class="missao-go">Começar ${ico('chevron-right')}</div>
     </a>`
-    : `<section class="bloco"><b>Era concluída!</b><p>Você terminou o conteúdo disponível. A próxima era, Moisés, é a próxima a ser escrita.</p></section>`}
+    : `<section class="bloco"><b>Você chegou ao fim do conteúdo escrito!</b><p>A próxima era está sendo preparada. Enquanto isso, revise as perguntas e releia as sessões.</p></section>`}
+  ${J.desafiosVisiveis(CANAL_TESTE).map((d) => cartaoDesafio(p, d)).join('')}
   <section class="bloco"><div class="bloco-tit"><span>Missões</span></div>
     ${missoes.map((m) => `<a class="mis ${m.feito ? 'feito' : ''}" ${m.href && !m.feito ? `href="${m.href}"` : ''}>
       <span class="mis-ico">${ico(m.feito ? 'circle-check' : m.ico)}</span><span class="mis-txt">${esc(m.txt)}</span><span class="mis-xp">${m.xp}</span></a>`).join('')}
   </section>
   ${semana(p)}`;
+}
+
+// ─── Desafios sazonais ───
+const fmtDia = (d) => { const [, m, dd] = d.split('-'); return `${Number(dd)}/${Number(m)}`; };
+const refTrecho = ([l, c, a, b]) => `${LIVROS[l].nome} ${c}:${a}${b && b !== a ? `-${b}` : ''}`;
+// Medalha do selo especial: arte desenhada + imagem do objeto (quando houver) no lugar da estrela.
+const arteEspecial = (s) => `<span class="selo-disco arte ${SELOS_COM_IMAGEM.has(s.id) ? 'com-img' : ''}">${ARTE_SELO[s.arte]}${SELOS_COM_IMAGEM.has(s.id) ? `<img class="selo-img" src="img/selos/${s.id}.webp" alt="">` : ''}</span>`;
+function trilhaEstrelas(d, feitos, prox) {
+  return `<div class="trilha-est">${d.sessoes.map((x, i) => `<span class="${feitos[i] ? 'ok' : ''} ${i === prox ? 'prox' : ''}">${ico('star')}</span>`).join('')}</div>`;
+}
+function cartaoDesafio(p, d) {
+  const pr = J.progressoDesafio(p, d);
+  const antes = store.hoje() < d.inicio;
+  if (d.tema === 'natal') return `<a class="desafio-card natal" href="#/desafio/${d.id}">${bannerNatal(150)}
+    <span class="dn-txt"><small>Desafio de ${esc(d.tipo)}${antes ? ` · começa em ${fmtDia(d.inicio)}` : ''}</small><b>${esc(d.nome)}</b>
+    ${trilhaEstrelas(d, p.desafios?.[d.id] || {}, pr.proxima)}<em>${pr.completo ? 'Completo! Selo conquistado' : pr.feitos ? `${pr.feitos} de ${pr.total} dias · continuar` : `${pr.total} dias até o Natal · começar`}</em></span>
+    <span class="dn-seta">${ico('chevron-right')}</span></a>`;
+  return `<a class="desafio-card" href="#/desafio/${d.id}" style="--c:${d.cor}">
+    <span class="desafio-ico">${ico(d.icone)}</span>
+    <span class="desafio-txt"><small>Desafio de ${esc(d.tipo)}${antes ? ` · começa em ${fmtDia(d.inicio)}` : ''}</small><b>${esc(d.nome)}</b>
+    <span class="desafio-barra"><i style="width:${Math.round((pr.feitos / pr.total) * 100)}%"></i></span><em>${pr.completo ? 'Completo!' : `${pr.feitos} de ${pr.total} dias`}</em></span>
+    ${ico('chevron-right')}</a>`;
+}
+function telaDesafio(id) {
+  const d = J.desafioPorId(id); const p = P();
+  if (!d) return telaHoje();
+  const pr = J.progressoDesafio(p, d); const feitos = p.desafios?.[d.id] || {};
+  if (d.tema === 'natal') return `<header class="hero-natal">${bannerNatal(230)}<a class="voltar" href="#/hoje">${ico('chevron-left')}</a>
+      <div class="hn-txt"><small>Desafio de ${esc(d.tipo)} · ${fmtDia(d.inicio)} a ${fmtDia(d.fim)}</small><h2>${esc(d.nome)}</h2><p>${esc(d.desc)}</p></div></header>
+    <section class="bloco natal-prog">${trilhaEstrelas(d, feitos, pr.proxima)}<p class="sub"><b>${pr.feitos} de ${pr.total} estrelas</b>${pr.completo ? ' · selo conquistado!' : ''}</p>
+      <p class="dica">Corre em paralelo à jornada: não atrasa nem trava as suas sessões. Uma leitura por dia é o ideal, mas você pode fazer no seu ritmo até ${fmtDia(d.fim)}.</p></section>
+    <div class="advento">${d.sessoes.map((x, i) => {
+      const feito = !!feitos[i]; const livre = feito || i === pr.proxima;
+      return `<a class="janela ${feito ? 'feito' : ''} ${livre && !feito ? 'prox' : ''} ${livre ? '' : 'bloq'} c${i % 3}" ${livre ? `href="#/dsessao/${d.id}.${i}"` : ''}>
+        <span class="jn-n">${i + 1}</span><span class="jn-ico">${ico(feito ? 'star' : livre ? x.icone : 'lock-keyhole')}</span><b>${esc(x.titulo)}</b></a>`;
+    }).join('')}</div>
+    <a class="selo-premio ${pr.completo ? 'ok' : ''}" ${pr.completo ? `href="#/selo/${d.selo.id}"` : ''}><span class="sp-arte">${arteEspecial(d.selo)}</span>
+      <span><small>${pr.completo ? 'Selo conquistado' : 'Ao completar os 12 dias'}</small><b>Selo ${esc(d.selo.nome)}</b><em>${esc(d.selo.ref)}</em></span></a>`;
+  return `<header class="cab-sessao" style="--c:${d.cor}"><a class="voltar" href="#/hoje">${ico('chevron-left')}</a>
+    <div><small>Desafio de ${esc(d.tipo)} · ${fmtDia(d.inicio)} a ${fmtDia(d.fim)}</small><h2>${esc(d.nome)}</h2></div></header>
+  <section class="bloco"><p>${esc(d.desc)}</p><p class="dica">Corre em paralelo à jornada: não atrasa nem trava as suas sessões. Uma leitura por dia é o ideal, mas você pode fazer no seu ritmo até ${fmtDia(d.fim)}.</p>
+    <div class="desafio-barra grande"><i style="width:${Math.round((pr.feitos / pr.total) * 100)}%"></i></div><p class="sub">${pr.feitos} de ${pr.total} dias${pr.completo ? ' · selo conquistado!' : ''}</p></section>
+  <section class="bloco lista-desafio">${d.sessoes.map((x, i) => {
+    const feito = !!feitos[i]; const livre = feito || i === pr.proxima;
+    return `<a class="dd ${feito ? 'feito' : ''} ${livre ? '' : 'bloq'}" ${livre ? `href="#/dsessao/${d.id}.${i}"` : ''}>
+      <span class="dd-n">${feito ? ico('check') : i + 1}</span><span class="dd-txt"><b>${esc(x.titulo)}</b><small>${esc(x.trechos.map(refTrecho).join('; '))}</small></span>${livre && !feito ? ico('chevron-right') : feito ? '' : ico('lock-keyhole')}</a>`;
+  }).join('')}</section>
+  ${pr.completo ? `<a class="btn sec" href="#/selo/${d.selo.id}">${ico('award')} Ver o selo ${esc(d.selo.nome)}</a>` : ''}`;
+}
+function telaDSessao(arg, passo = 0) {
+  const [did, si] = String(arg).split('.'); const d = J.desafioPorId(did); const i = Number(si); const x = d?.sessoes[i]; const p = P();
+  if (!x) return telaHoje();
+  const feito = p.desafios?.[d.id]?.[i];
+  const pr = J.progressoDesafio(p, d);
+  if (!feito && i !== pr.proxima) return telaDesafio(d.id);
+  const r = rascunho(arg); const crianca = p.tipo === 'crianca';
+  const temCriancas = perfis().some((o) => o.tipo === 'crianca');
+  const cab = d.tema === 'natal'
+    ? `<header class="hero-natal curto">${bannerNatal(150)}<a class="voltar" href="#/desafio/${d.id}">${ico('chevron-left')}</a>
+      <div class="hn-txt"><span class="hn-dia">${ico(x.icone)}<i>${i + 1}</i></span><div><small>${esc(d.tipo)} · dia ${i + 1} de ${d.sessoes.length}</small><h2>${esc(x.titulo)}</h2><em>${esc(x.trechos.map(refTrecho).join('; '))}</em></div></div></header>`
+    : `<header class="cab-sessao" style="--c:${d.cor}"><a class="voltar" href="#/desafio/${d.id}">${ico('chevron-left')}</a>
+    <div><small>${esc(d.tipo)} · dia ${i + 1} de ${d.sessoes.length} · ${esc(x.trechos.map(refTrecho).join('; '))}</small><h2>${esc(x.titulo)}</h2></div></header>`;
+  if (feito) return `${cab}<section class="bloco"><div class="rot">O que entendi</div><p>${esc(feito.entendi)}</p>${feito.aplicacao ? `<div class="rot">Minha aplicação</div><p>${esc(feito.aplicacao)}</p>` : ''}<p class="dica">Concluído em ${fmtData(feito.data)}.</p></section><a class="btn sec" href="#/desafio/${d.id}">Voltar ao desafio</a>`;
+  const passos = ['Leitura', 'Entendi'];
+  const barra = `<div class="passos">${passos.map((t, k) => `<span class="${k < passo ? 'ok' : ''} ${k === passo ? 'atual' : ''}"><i>${k < passo ? ico('check') : k + 1}</i>${t}</span>`).join('')}</div>`;
+  let corpo;
+  if (passo === 0) {
+    corpo = `<section class="folha"><div class="rot">Contexto</div><p>${esc(x.contexto)}</p>
+      <div class="rot">Notas</div><ul class="notas">${x.notas.map(([ref, t]) => `<li><b>${esc(ref)}</b><span>${esc(t)}</span></li>`).join('')}</ul></section>
+    ${(temCriancas || crianca) && x.crianca ? `<section class="kids">${ico('users-round')}<div><b>Para as crianças</b><p>${esc(x.crianca)}</p></div></section>` : ''}
+    ${x.trechos.map((t) => `<section class="leitor trecho" data-trecho='${JSON.stringify(t)}'><h3>${esc(refTrecho(t))}</h3><div class="versos"><p class="dica">Carregando o texto…</p></div></section>`).join('')}
+    <p class="credito">Texto: Bíblia Livre (BLIVRE) © Diego Santos, Mario Sérgio e Marco Teles, 2018 · <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" target="_blank" rel="noopener">CC BY 4.0</a></p>
+    <label class="check"><input type="checkbox" id="li" ${r.li ? 'checked' : ''}><span>Li ${x.trechos.length > 1 ? 'todos os trechos' : 'o texto'}</span></label>
+    <button class="btn grande" data-acao="passo" data-passo="1" id="btn-li" ${r.li ? '' : 'disabled'}>Continuar ${ico('chevron-right')}</button>`;
+  } else {
+    const outros = perfis().filter((o) => o.id !== p.id && !o.desafios?.[d.id]?.[i]);
+    corpo = `<section class="bloco">
+      <label class="rot" for="entendi">${crianca ? 'O que eu aprendi' : 'O que eu entendi'}</label>
+      <textarea id="entendi" rows="3" placeholder="Uma frase já basta.">${esc(r.entendi || '')}</textarea>
+      <div class="rot">Para pensar</div><p class="pergunta">${esc(crianca && x.crianca ? x.crianca : x.pergunta)}</p>
+      <label class="rot" for="aplicacao">${crianca ? 'O que eu vou fazer' : 'Minha aplicação'} <em>opcional · +${J.XP.aplicacao} XP</em></label>
+      <textarea id="aplicacao" rows="3">${esc(r.aplicacao || '')}</textarea></section>
+    ${outros.length ? `<section class="bloco"><div class="rot">Estudaram junto</div>
+      <div class="juntos">${outros.map((o) => `<button class="junto ${r.juntos?.includes(o.id) ? 'on' : ''}" data-acao="junto" data-p="${o.id}">${avatarHTML(o.avatar, J.itensAte(J.nivel(o.xp).n), 30)}<span>${esc(o.nome)}</span></button>`).join('')}</div></section>` : ''}
+    <button class="btn grande ouro" data-acao="dconcluir" id="btn-entendi" ${r.entendi?.trim() ? '' : 'disabled'}>Concluir o dia ${i + 1}</button>`;
+  }
+  return cab + barra + `<div class="anima">${corpo}</div>`;
+}
+async function carregarTrechos() {
+  for (const el of document.querySelectorAll('.leitor.trecho')) {
+    const [l, c, a, b] = JSON.parse(el.dataset.trecho);
+    try {
+      const vs = (await textoLivro(LIVROS[l]))[c] || {};
+      el.querySelector('.versos').innerHTML = Object.entries(vs).filter(([v]) => Number(v) >= a && Number(v) <= (b || a)).map(([v, txt]) => `<span class="v"><sup>${v}</sup>${esc(txt)} </span>`).join('');
+    } catch { el.querySelector('.versos').innerHTML = '<p class="dica">Não consegui carregar o texto agora.</p>'; }
+  }
 }
 
 function cabSessao(s, sub) {
@@ -357,7 +470,7 @@ function telaResultado(res) {
   const total = res.ganhos.reduce((a, [, x]) => a + x, 0);
   return `<div class="resultado">
     <div class="selo"><b>+${total}</b><span>XP</span></div>
-    <h2>Sessão concluída!</h2>
+    <h2>${res.desafio ? 'Dia concluído!' : 'Sessão concluída!'}</h2>
     <ul class="ganhos">${res.ganhos.map(([t, x]) => `<li><span>${esc(t)}</span><b>+${x}</b></li>`).join('')}</ul>
     ${res.juntos?.length ? `<p class="dica">Também concluíram: ${res.juntos.map(esc).join(', ')}</p>` : ''}
     ${res.abertas ? `<a class="btn grande sec" href="#/cartas">${ico('layers')} Ver no álbum</a>` : res.novosP.length + (res.novosS?.length || 0) ? `<button class="btn grande ouro pacote" data-acao="abrir-cartas">${ico('layers')} Abrir ${[res.novosP.length ? `${res.novosP.length} carta${res.novosP.length > 1 ? 's' : ''}` : '', res.novosS?.length ? `${res.novosS.length} selo${res.novosS.length > 1 ? 's' : ''}` : ''].filter(Boolean).join(' e ')}</button>` : ''}
@@ -368,17 +481,18 @@ function telaResultado(res) {
 }
 
 function selo(id, { aberta = true, grande = false } = {}) {
-  const s = J.SELOS[id];
+  const s = J.SELOS[id] || J.SELOS_ESPECIAIS[id];
   if (!aberta) return `<div class="selo-p bloq">${ico('lock-keyhole')}<span>???</span></div>`;
-  return `<a class="selo-p ${grande ? 'grande' : ''}" href="#/selo/${id}"><span class="selo-disco">${ico(s.icone)}</span><span>${esc(s.nome)}</span></a>`;
+  const img = SELOS_COM_IMAGEM.has(id) ? `<img class="selo-img" src="img/selos/${id}.webp" alt="" loading="lazy">` : '';
+  return `<a class="selo-p ${grande ? 'grande' : ''}" href="#/selo/${id}"><span class="selo-disco ${s.arte ? 'arte' : ''} ${img ? 'com-img' : ''}">${s.arte ? ARTE_SELO[s.arte] : img ? '' : ico(s.icone)}${img}</span><span>${esc(s.nome)}</span></a>`;
 }
 
 function abrirCartas(lista, i = 0) {
   if (i >= lista.length) { if (ultimoResultado) ultimoResultado.abertas = true; render(); return; }
   if (lista[i].startsWith('selo:')) {
-    const id = lista[i].slice(5); const s = J.SELOS[id];
+    const id = lista[i].slice(5); const s = J.SELOS[id] || J.SELOS_ESPECIAIS[id];
     const o = overlay(`<div class="revelar r-epica"><div class="revelar-selo">${selo(id, { grande: true })}</div>
-      <div class="revelar-txt"><small>Selo da Palavra</small><b>${esc(s.nome)}</b></div><p class="selo-txt">${esc(s.texto)} <i>${esc(s.ref)}</i></p>
+      <div class="revelar-txt"><small>${J.SELOS_ESPECIAIS[id] ? 'Selo especial' : 'Selo da Palavra'}</small><b>${esc(s.nome)}</b></div><p class="selo-txt">${esc(s.texto)} <i>${esc(s.ref)}</i></p>
       <button class="btn grande" data-fechar>${i + 1 < lista.length ? `Próximo (${i + 2}/${lista.length})` : 'Guardar no álbum'}</button></div>`, () => abrirCartas(lista, i + 1));
     setTimeout(() => o.querySelector('.revelar-selo').classList.add('on'), 200);
     return;
@@ -551,7 +665,7 @@ function telaLivro(id) {
     </div>
     <div class="rot">Cenário</div><p>${esc(it.cenario)}</p>
     <div class="rot">Tema</div><p>${esc(it.tema)}</p>
-    <div class="rot">Texto-chave</div><p><a class="link" href="${linkNAA(l, cap)}" target="_blank" rel="noopener">${esc(it.chave)} ${ico('external-link')}</a></p>
+    <div class="rot">Texto-chave</div><p>${linkNAA(l, cap) ? `<a class="link" href="${linkNAA(l, cap)}" target="_blank" rel="noopener">${esc(it.chave)} ${ico('external-link')}</a>` : esc(it.chave)}</p>
     <div class="rot">Estrutura</div><p>${esc(it.estrutura)}</p>
     <div class="rot">Esboço</div>
     <div class="esboco">${it.esboco.map(([c, t]) => `<div><b>${esc(c)}</b><span>${esc(t)}</span></div>`).join('')}</div>
@@ -561,10 +675,18 @@ function telaLivro(id) {
 
 function telaCartas(aba = 'pessoas') {
   const p = P();
-  const abas = `<div class="seg abas-topo"><a class="${aba === 'pessoas' ? 'on' : ''}" href="#/cartas">${ico('layers')} Pessoas</a><a class="${aba === 'selos' ? 'on' : ''}" href="#/selos">${ico('award')} Selos</a></div>`;
+  const eventos = DESAFIOS.filter((d) => J.progressoDesafio(p, d).completo);
+  const abas = `<div class="seg abas-topo"><a class="${aba === 'pessoas' ? 'on' : ''}" href="#/cartas">${ico('layers')} Pessoas</a><a class="${aba === 'selos' ? 'on' : ''}" href="#/selos">${ico('award')} Selos</a>${eventos.length ? `<a class="${aba === 'eventos' ? 'on' : ''}" href="#/eventos">${ico('trophy')} Eventos</a>` : ''}</div>`;
+  if (aba === 'eventos' && eventos.length) {
+    const fim = (d) => Object.values(p.desafios[d.id]).map((x) => x.data).sort().pop();
+    return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">Cada desafio completado abre aqui a sua página, com o selo daquele evento.</p>
+    ${eventos.sort((a, b) => fim(b).localeCompare(fim(a))).map((d) => `<a class="evento ${d.tema ? `t-${d.tema}` : ''}" href="#/selo/${d.selo.id}" style="--c:${d.cor}">
+      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? arteEspecial(d.selo) : `<span class="selo-disco">${ico(d.selo.icone)}</span>`}</span>
+      <span class="ev-txt"><small>${esc(d.tipo)} · concluído em ${fmtData(fim(d))}</small><b>${esc(d.nome)}</b><em>${d.sessoes.length} de ${d.sessoes.length} dias · Selo ${esc(d.selo.nome)}</em></span></a>`).join('')}`;
+  }
   if (aba === 'selos') {
     const lib = J.selosLiberados(p);
-    return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${Object.keys(J.SELOS).length} Selos da Palavra nesta era · palavras e objetos que marcam a história</p>
+    return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${Object.keys(J.SELOS).length} Selos da Palavra · palavras e objetos que marcam a história</p>
     <div class="grade-selos">${Object.keys(J.SELOS).map((id) => selo(id, { aberta: lib.has(id) })).join('')}</div>`;
   }
   const lib = J.personagensLiberados(p);
@@ -576,6 +698,13 @@ function telaCartas(aba = 'pessoas') {
 }
 
 function telaSelo(id) {
+  if (J.SELOS_ESPECIAIS[id]) {
+    const e = J.SELOS_ESPECIAIS[id]; if (!J.selosEspeciaisDe(P()).includes(id)) return telaCartas('eventos');
+    return `<header class="topo-sec"><a class="voltar" href="#/eventos">${ico('chevron-left')}</a><h2>Selo especial</h2></header>
+    <div class="selo-grande-wrap">${selo(id, { grande: true })}</div>
+    <section class="folha"><div class="rot">Sobre este selo</div><p>${esc(e.texto)}</p><div class="rot">Onde conferir</div><p class="refs">${esc(e.ref)}</p></section>
+    <a class="btn sec" href="#/desafio/${id}">Ver o desafio</a>`;
+  }
   const s = J.SELOS[id];
   if (!s || !J.selosLiberados(P()).has(id)) return telaCartas('selos');
   const ses = J.sessaoPorId(s.sessao);
@@ -615,7 +744,7 @@ function telaPerfil() {
   const aplic = Object.values(p.sessoes).filter((s) => s.revisao).length;
   return `${topo()}
   <section class="perfil-hero"><div>${avatarHTML(p.avatar, J.itensAte(nv.n), 120)}</div>
-    <div><h2>${esc(p.nome)}</h2><small>${J.estagio(nv.n).nome} · ${p.tipo === 'crianca' ? 'Criança' : 'Adulto'}</small>${barraXP(p)}
+    <div><h2>${esc(p.nome)}</h2><small>${nomeEstagio(p)} · ${p.tipo === 'crianca' ? 'Criança' : 'Adulto'}</small>${barraXP(p)}
     <a class="link" href="#/editar/${p.id}">Editar viajante</a></div></section>
   <div class="stats">
     <div><b>${J.concluidas(p).length}</b><small>sessões</small></div>
@@ -633,7 +762,7 @@ function telaPerfil() {
     <p class="dica">Os dados de todos os viajantes ficam neste aparelho. Exporte de vez em quando e guarde o arquivo, ou use para passar o progresso para outro celular.</p>
     <div class="linha-btns"><button class="btn sec" data-acao="exportar">${ico('download')} Exportar</button>
     <label class="btn sec">${ico('upload')} Importar<input type="file" accept="application/json" id="importar" hidden></label></div></section>
-  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}</p>`;
+  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}${CANAL_TESTE ? ' · canal de teste' : ` · <a href="./teste/#/hoje">abrir o canal de teste</a>`}</p>`;
 }
 
 // ─── Rascunho da sessão ───
@@ -649,7 +778,7 @@ function capturar(id) {
 // ─── Roteamento ───
 let passoAtual = {};
 let ultimoResultado = null;
-const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jornada', cartas: 'cartas', carta: 'cartas', selos: 'cartas', selo: 'cartas', linha: 'jornada', amigos: 'amigos', perfil: 'perfil', editar: 'perfil', 'novo-perfil': 'perfil', revisao: 'hoje', aplicacao: 'hoje', resultado: 'hoje' };
+const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jornada', cartas: 'cartas', carta: 'cartas', selos: 'cartas', eventos: 'cartas', selo: 'cartas', linha: 'jornada', amigos: 'amigos', perfil: 'perfil', editar: 'perfil', 'novo-perfil': 'perfil', revisao: 'hoje', aplicacao: 'hoje', resultado: 'hoje', desafio: 'hoje', dsessao: 'hoje' };
 
 function render() {
   const [, rota = 'hoje', arg] = (location.hash || '#/hoje').split('/');
@@ -659,6 +788,8 @@ function render() {
     case 'novo-perfil': html = telaPerfilForm(null); break;
     case 'editar': html = telaPerfilForm(arg); break;
     case 'sessao': html = telaSessao(arg, passoAtual[arg] || 0); break;
+    case 'desafio': html = telaDesafio(arg); break;
+    case 'dsessao': html = telaDSessao(arg, passoAtual[arg] || 0); break;
     case 'resultado': html = ultimoResultado ? telaResultado(ultimoResultado) : telaHoje(); break;
     case 'aplicacao': html = telaAplicacao(arg); break;
     case 'revisao': html = telaRevisao(); break;
@@ -666,6 +797,7 @@ function render() {
     case 'livro': html = telaLivro(arg); break;
     case 'cartas': html = telaCartas(); break;
     case 'selos': html = telaCartas('selos'); break;
+    case 'eventos': html = telaCartas('eventos'); break;
     case 'selo': html = telaSelo(arg); break;
     case 'carta': html = telaCarta(arg); break;
     case 'linha': html = telaLinha(); break;
@@ -674,12 +806,15 @@ function render() {
     default: html = telaHoje();
   }
   $app.innerHTML = html;
-  document.body.classList.toggle('sem-nav', !P() || ['novo-perfil', 'editar', 'sessao', 'resultado', 'revisao', 'aplicacao'].includes(rota));
+  const dTema = ['desafio', 'dsessao'].includes(rota) ? J.desafioPorId(String(arg).split('.')[0])?.tema : null;
+  document.body.classList.toggle('tema-natal', dTema === 'natal');
+  document.body.classList.toggle('sem-nav', !P() || ['novo-perfil', 'editar', 'sessao', 'dsessao', 'resultado', 'revisao', 'aplicacao'].includes(rota));
   document.querySelectorAll('nav a').forEach((a) => a.classList.toggle('on', a.dataset.r === NAV[rota]));
   if (rota === 'jornada') document.querySelector('.no.atual')?.scrollIntoView({ block: 'center' });
   else window.scrollTo(0, 0);
   const leitor = document.getElementById('leitor');
   if (leitor) carregarLeitor(leitor);
+  if (rota === 'dsessao') carregarTrechos();
 }
 
 async function carregarLeitor(el) {
@@ -694,14 +829,14 @@ async function carregarLeitor(el) {
 }
 
 window.addEventListener('hashchange', () => {
-  if (!location.hash.startsWith('#/sessao')) { passoAtual = {}; Object.keys(EDITANDO).forEach((k) => delete EDITANDO[k]); }
+  if (!location.hash.startsWith('#/sessao') && !location.hash.startsWith('#/dsessao')) { passoAtual = {}; Object.keys(EDITANDO).forEach((k) => delete EDITANDO[k]); }
   if (!location.hash.startsWith('#/novo-perfil') && !location.hash.startsWith('#/editar')) FORM = null;
   render();
 });
 
 $app.addEventListener('input', (ev) => {
   if (ev.target.id === 'nome' && FORM) { FORM.nome = ev.target.value; return; }
-  if (!location.hash.startsWith('#/sessao')) return;
+  if (!location.hash.startsWith('#/sessao') && !location.hash.startsWith('#/dsessao')) return;
   const r = capturar(location.hash.split('/')[2]);
   const b1 = document.getElementById('btn-li'); if (b1) b1.disabled = !r.li;
   const b2 = document.getElementById('btn-entendi'); if (b2) b2.disabled = !r.entendi?.trim();
@@ -787,6 +922,18 @@ ${location.origin}${location.pathname}`;
     const semPersonagem = !p.avatar?.personagem;
     if (semPersonagem) setTimeout(() => folegoDeVida(p.id, () => ultimoResultado.subiu && subiuNivel(ultimoResultado.subiu)), 900);
     else if (ultimoResultado.subiu) setTimeout(() => subiuNivel(ultimoResultado.subiu), 700);
+  }
+  if (acao === 'dconcluir') {
+    const r = capturar(id); const [did, si] = id.split('.'); const d = J.desafioPorId(did); const i = Number(si); const p = P();
+    if (!d || p.desafios?.[did]?.[i] || !r.entendi?.trim()) return;
+    const dados = { entendi: r.entendi.trim(), aplicacao: r.aplicacao?.trim() || '' };
+    ultimoResultado = J.concluirDesafio(p, d, i, dados);
+    const juntos = [];
+    for (const pid of r.juntos || []) { const o = RAIZ.perfis[pid]; if (o && !o.desafios?.[did]?.[i]) { J.concluirDesafio(o, d, i, { ...dados, familia: true }); juntos.push(o.nome); } }
+    ultimoResultado.juntos = juntos;
+    salvar(); delete RASC[id]; passoAtual = {};
+    ir('#/resultado'); confete(ultimoResultado.novosS.length ? 90 : 40);
+    if (ultimoResultado.subiu) setTimeout(() => subiuNivel(ultimoResultado.subiu), 700);
   }
   if (acao === 'abrir-cartas' && !ultimoResultado.abertas && !document.querySelector('.overlay')) abrirCartas([...ultimoResultado.novosP, ...(ultimoResultado.novosS || []).map((x) => 'selo:' + x)]);
 

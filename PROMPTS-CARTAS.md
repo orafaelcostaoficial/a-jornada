@@ -1,6 +1,6 @@
 # Prompts das cartas (pessoas da Bíblia) — A Jornada
 
-Uma carta para cada pessoa que aparece nas sessões. A arte é a cena completa, com fundo ilustrado.
+Uma carta para cada pessoa que aparece nas sessões (eras 1 e 2). A arte é a cena completa, com fundo ilustrado.
 
 **Como usar:** copie um bloco inteiro e cole no Gemini. Cada prompt já traz o estilo, a composição e o fundo.
 Salve a imagem com o nome exato do título (ex.: `noe.png`) na pasta **Projetos/A_Jornada/01_Imagens/Cartas** do Drive.
@@ -293,5 +293,124 @@ Conferir: Jó 32:6; 37:1-5
 
 ```
 Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Eliú, homem jovem, o mais novo do grupo, de pé, falando com energia, com a mão erguida. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: nuvens de tempestade e relâmpagos ao longe, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `joquebede.png` — Joquebede
+Conferir: Êx 2:2-3
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Joquebede, mulher hebreia jovem, mãe carinhosa, colocando com cuidado um bebê num cesto de juncos à beira do rio, entre os juncos. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: margem do Nilo com juncos altos ao amanhecer, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `filha-farao.png` — Filha de Faraó
+Conferir: Êx 2:5-6,10
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Filha de Faraó, princesa egípcia com vestido de linho branco e joias simples, segurando nos braços um bebê que acabou de tirar de um cesto de juncos, com ternura. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: margem do Nilo com servas ao fundo, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `moises.png` — Moisés
+Conferir: Êx 34:29
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Moisés, homem idoso de barba branca longa, descendo do monte com duas tábuas de pedra lisas nos braços, o rosto resplandecendo de luz suave. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: encosta rochosa do monte Sinai com nuvens, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `zipora.png` — Zípora
+Conferir: Êx 2:16,21
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Zípora, mulher jovem midianita, pastora, à entrada de uma tenda, segurando um cântaro, com ovelhas ao lado. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: deserto de Midiã com um poço e ovelhas, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `arao.png` — Arão
+Conferir: Êx 28:1-4; Nm 17:8
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Arão, homem idoso de barba, vestido de sumo sacerdote com peitoral de pedras coloridas e turbante, segurando uma vara de madeira da qual brotam flores e amêndoas. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: interior iluminado de uma tenda de tecido, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `farao-exodo.png` — Faraó
+Conferir: Êx 5:2; 8:2-6
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Faraó, rei egípcio com coroa e trajes reais egípcios, sentado no trono, de braços cruzados e olhar teimoso, com rãs pequenas no chão do salão. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: salão egípcio com colunas pintadas, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `miria.png` — Miriã
+Conferir: Êx 15:20-21
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Miriã, mulher madura, profetisa, véu claro e manto rosa, tocando um tamborim erguido e dançando de alegria, com mulheres dançando atrás. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: margem do mar ao sol, com ondas calmas, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `jetro.png` — Jetro
+Conferir: Êx 18:13-24
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Jetro, homem idoso e sábio, sacerdote de Midiã, de barba branca e turbante, conversando com Moisés, apontando com a mão aberta como quem dá conselho. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: entrada de tenda no deserto ao entardecer, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `josue.png` — Josué
+Conferir: Êx 33:11
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Josué, homem jovem e forte, com túnica e cinto de couro, de pé na entrada de uma tenda, esperando com atenção, segurando um cajado. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: acampamento no deserto com a tenda do encontro, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `bezalel.png` — Bezalel
+Conferir: Êx 31:2-5
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Bezalel, homem adulto, artesão habilidoso, avental de couro, trabalhando com cuidado numa peça de ouro com ferramentas de artesão. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: oficina simples com tecidos coloridos, madeira e metais, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `nadabe.png` — Nadabe e Abiú
+Conferir: Lv 10:1
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Nadabe e Abiú, dois jovens sacerdotes com túnicas brancas, segurando cada um um incensário com fumaça, de pé diante de uma tenda. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: entrada da tenda do encontro, com céu cinzento ao fundo; cena calma, sem fogo sobre pessoas, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `eleazar.png` — Eleazar
+Conferir: Nm 20:25-28
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Eleazar, homem adulto, filho de Arão, recebendo as vestes de sacerdote, com Moisés colocando-as sobre seus ombros. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: alto de um monte com vista do deserto, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `calebe.png` — Calebe
+Conferir: Nm 13:23,30
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Calebe, homem forte, de barba, olhar confiante, ajudando a carregar numa vara, com outro homem, um cacho de uvas enorme. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: vale verde de Escol com videiras, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `core.png` — Corá
+Conferir: Nm 16:1-3
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Corá, homem adulto, levita, com túnica, de pé, com a mão erguida, falando em tom de protesto diante de outros homens. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: acampamento no deserto; cena tensa, sem destruição, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `balaao.png` — Balaão
+Conferir: Nm 22:23-28
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Balaão, homem de meia-idade, adivinho, com manto, montado numa jumenta que vira a cabeça para ele e fala, Balaão espantado. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: caminho estreito entre vinhas e muros de pedra, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `fineias.png` — Fineias
+Conferir: Nm 25:11-13
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Fineias, homem jovem, sacerdote, com túnica branca e cinto azul, de pé diante da tenda, sereno, com luz suave sobre ele. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: acampamento no deserto ao entardecer; sem armas, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `filhas-zelofeade.png` — Filhas de Zelofeade
+Conferir: Nm 27:1-7
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças, para a arte de uma carta colecionável. PERSONAGEM: Filhas de Zelofeade, cinco moças jovens com véus de cores diferentes, cinco irmãs de pé lado a lado, firmes e respeitosas, diante de um ancião. Trajes simples do antigo oriente próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. CENÁRIO: entrada da tenda do encontro, com profundidade e luz quente dourada. COMPOSIÇÃO: uma figura central, da cintura para cima ou de corpo inteiro, bem enquadrada, com o rosto no terço superior; cena completa, com fundo ilustrado. Deus nunca aparece como figura humana; quando houver presença divina, só luz. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
 ```
 
