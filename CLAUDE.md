@@ -6,9 +6,12 @@ PWA estático (HTML/CSS/JS puro, **sem build**), publicado no GitHub Pages e ins
 
 ## Arquivos fora do código (Drive)
 Originais das imagens, prompts, documentos e backups ficam no Google Drive em **Projetos/A_Jornada**
-(pasta id `1PErWB2Sjs_gOhi6wfgJnVGuJ4COTy9L7`): `01_Imagens/{Avatares,Cartas,Outras}`, `02_Prompts`, `03_Documentos`,
+(pasta id `1PErWB2Sjs_gOhi6wfgJnVGuJ4COTy9L7`): `01_Imagens/{Avatares,Cartas,Selos,Outras}`, `02_Prompts`, `03_Documentos`,
 `04_Backups` e o doc `00_LEIA-ME`. Para encaixar imagens: baixar daí, `ferramentas/recortar.py`, listar em
 `data/avatares.js` / `data/imagens.js`, testar e subir para `teste`.
+
+Os prompts (um por imagem) são gerados por `python3 ferramentas/gerar_prompts.py` → `PROMPTS-*.md`;
+ao mudar personagens/cartas/selos, atualizar a lista ali, gerar de novo e subir os docs para `02_Prompts`.
 
 ## Fluxo de trabalho (obrigatório)
 1. Trabalhar sempre na branch `teste`. Ela publica em `https://orafaelcostaoficial.github.io/a-jornada/teste/`.

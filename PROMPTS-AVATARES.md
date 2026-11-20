@@ -1,79 +1,230 @@
 # Prompts dos personagens do jogador — A Jornada
 
-Toda jornada começa no **pó da terra** (Gn 2:7), desenhado pelo próprio app. Ao concluir a primeira
-sessão (Gênesis 1–2), o viajante recebe o fôlego de vida e escolhe um destes 10 personagens.
-Cada personagem tem **três imagens**, que seguem a ordem da história da própria pessoa:
+Toda jornada começa no pó da terra (Gn 2:7), desenhado pelo próprio app. Ao concluir a primeira sessão, o viajante escolhe um destes 10 personagens. Cada um tem três imagens: **inicial** (níveis 1–7), **mediana** (`-meio`, níveis 8–19) e **final** (`-final`, nível 20+). O app desenha atrás o cenário de cada estágio, por isso o fundo é branco liso.
 
-1. **Inicial** (`<id>.png`): níveis 1 a 7 (Peregrino, Andarilho, Viajante).
-2. **Mediana** (`<id>-meio.png`): níveis 8 a 19 (Pastor, Guardião, Sábio).
-3. **Final** (`<id>-final.png`): nível 20 em diante (Ancião). O app coloca atrás uma luz dourada.
-
-Atrás das imagens o app desenha um cenário que muda a cada estágio (amanhecer, estrada, deserto,
-pastos, noite com lamparina, muralhas), além da moldura e do selo. Por isso as imagens vêm **sem cenário**.
-
-## Como usar no Gemini
-1. Cole o **estilo base** e, em seguida, a descrição da imagem.
-2. Formato **quadrado (1:1)**. O personagem do peito para cima, centralizado, com espaço acima da cabeça.
-3. **Fundo branco liso**, sem nada. Eu removo o fundo, então não pode ter chão, sombra nem cenário.
-4. Faça as 30 imagens na mesma conversa para manter o traço. Se o estilo variar, cole o estilo base de novo.
-5. Salve com o nome indicado e me mande. Eu recorto, converto e encaixo.
-
-## Regras de fidelidade
-- Cada descrição usa só o que o texto bíblico diz (referência ao lado).
-- A Bíblia quase nunca descreve rosto ou roupa: traços simples e trajes do antigo Oriente Próximo.
-  A única descrição física usada é a de Davi, porque o texto dá (1Sm 16:12).
-- Nada de violência: sem armas, sem inimigos, sem sangue.
-- Sem texto, letras ou molduras.
+**Como usar:** copie um bloco inteiro e cole no Gemini. Cada prompt já traz o estilo, a composição e o fundo.
+Salve a imagem com o nome exato do título (ex.: `davi-meio.png`) na pasta **Projetos/A_Jornada/01_Imagens/Avatares** do Drive.
+Gere todas na mesma conversa do Gemini para manter o traço igual. **Conferir** mostra onde a cena está no texto bíblico.
 
 ---
 
-## Estilo base (colar sempre antes da descrição)
+### `davi.png` — Davi (inicial)
+Conferir: 1Sm 16:11-12,23
 
-> Ilustração de avatar para um app bíblico infantil e familiar. Desenho simples e bonito, estilo cartoon plano
-> (flat) com sombreado suave, contorno limpo e arredondado, cores quentes e alegres. Personagem do peito para
-> cima, centralizado, expressão serena e simpática. FUNDO BRANCO LISO, sem cenário, sem chão e sem sombra no
-> fundo. Trajes simples do antigo Oriente Próximo. Sem texto, sem letras, sem moldura. Formato quadrado 1:1.
-> O mesmo estilo para todos os personagens da série.
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Davi (inicial da jornada). PERSONAGEM: um jovem pastor de cabelo ruivo, olhos bonitos e boa aparência, segurando uma pequena harpa de madeira junto ao peito; uma ovelha branca encosta a cabeça no ombro dele. EXPRESSÃO: sorriso leve e tranquilo. ROUPA E CORES: túnica bege com faixa âmbar, cajado apoiado no ombro; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `davi-meio.png` — Davi (mediano)
+Conferir: 1Sm 17:40,45
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Davi (mediano da jornada). PERSONAGEM: o mesmo jovem pastor ruivo segurando uma funda de couro na mão direita e, a tiracolo, uma bolsa de pastor aberta com cinco pedras lisas à mostra; nenhum gigante, nenhuma luta, nenhum inimigo na imagem. EXPRESSÃO: olhar firme e confiante, como quem confia em Deus. ROUPA E CORES: túnica bege com faixa âmbar; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `davi-final.png` — Davi (final)
+Conferir: 2Sm 5:3; 6:14-15
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Davi (final da jornada). PERSONAGEM: Davi adulto, já rei, com uma coroa simples de ouro, dançando de alegria com os braços erguidos para o alto, o manto girando com o movimento. EXPRESSÃO: alegria radiante, olhos voltados para cima. ROUPA E CORES: manto real vermelho-escuro sobre túnica clara; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `ester.png` — Ester (inicial)
+Conferir: Et 2:7
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Ester (inicial da jornada). PERSONAGEM: uma jovem judia de aparência bonita, roupas simples e um véu leve sobre os cabelos escuros, mãos cruzadas à frente. EXPRESSÃO: olhar tranquilo e gentil. ROUPA E CORES: tons de lilás claro e creme; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `ester-meio.png` — Ester (mediano)
+Conferir: Et 4:16
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Ester (mediano da jornada). PERSONAGEM: Ester, já rainha, usando vestes simples de jejum, sem coroa, de olhos fechados e mãos juntas em oração. EXPRESSÃO: serenidade e coragem, concentrada na oração. ROUPA E CORES: tons de roxo suave e cinza claro; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `ester-final.png` — Ester (final)
+Conferir: Et 2:17; 5:1-2
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Ester (final da jornada). PERSONAGEM: Ester rainha, com coroa real delicada e vestes nobres, estendendo a mão direita para tocar a ponta de um cetro de ouro que aparece entrando pela lateral da imagem (só o cetro, sem mostrar o rei). EXPRESSÃO: confiança serena. ROUPA E CORES: vestido púrpura com detalhes dourados; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `daniel.png` — Daniel (inicial)
+Conferir: Dn 1:3-6,12
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Daniel (inicial da jornada). PERSONAGEM: um jovem nobre judeu segurando uma tigela de legumes numa mão e um copo de água na outra, recusando com gentileza a comida do rei. EXPRESSÃO: sorriso educado e decidido. ROUPA E CORES: túnica azul-clara de corte nobre, faixa branca; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `daniel-meio.png` — Daniel (mediano)
+Conferir: Dn 6:10
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Daniel (mediano da jornada). PERSONAGEM: Daniel adulto, de joelhos, mãos juntas em oração, olhando para cima, com o contorno de uma janela aberta logo atrás dele. EXPRESSÃO: paz e fidelidade. ROUPA E CORES: túnica azul e manto azul-marinho; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `daniel-final.png` — Daniel (final)
+Conferir: Dn 6:22
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Daniel (final da jornada). PERSONAGEM: Daniel mais velho, de barba grisalha, de pé e sereno, com dois leões grandes deitados e quietos aos seus pés, de olhos fechados como se descansassem. EXPRESSÃO: calma profunda, um leve sorriso. ROUPA E CORES: manto azul-marinho com borda dourada; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `rute.png` — Rute (inicial)
+Conferir: Rt 1:14-16
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Rute (inicial da jornada). PERSONAGEM: uma jovem moabita abraçando com carinho a sogra idosa, Noemi, que aparece de perfil ao lado dela. EXPRESSÃO: decisão e ternura no olhar. ROUPA E CORES: túnica cor de trigo e véu creme; Noemi com manto cinza; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `rute-meio.png` — Rute (mediano)
+Conferir: Rt 2:2,17
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Rute (mediano da jornada). PERSONAGEM: Rute segurando junto ao peito um feixe de espigas de cevada douradas. EXPRESSÃO: sorriso trabalhador e grato. ROUPA E CORES: túnica cor de trigo, lenço amarelado na cabeça; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `rute-final.png` — Rute (final)
+Conferir: Rt 4:13,17
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Rute (final da jornada). PERSONAGEM: Rute sorrindo, segurando no colo o filho bebê, Obede, enrolado num pano claro. EXPRESSÃO: alegria e gratidão. ROUPA E CORES: vestido dourado-claro e manto creme; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `sansao.png` — Sansão (inicial)
+Conferir: Jz 13:5,24
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Sansão (inicial da jornada). PERSONAGEM: um menino de cabelo comprido, nunca cortado, solto até os ombros, alegre e forte para a idade, de braços na cintura. EXPRESSÃO: sorriso largo e travesso. ROUPA E CORES: túnica terracota; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `sansao-meio.png` — Sansão (mediano)
+Conferir: Jz 16:13,17
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Sansão (mediano da jornada). PERSONAGEM: Sansão jovem e muito forte, com o cabelo bem longo preso em sete tranças, de braços cruzados. EXPRESSÃO: sorriso confiante. ROUPA E CORES: túnica terracota sem mangas, cinto de couro; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `sansao-final.png` — Sansão (final)
+Conferir: Jz 16:28-29
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Sansão (final da jornada). PERSONAGEM: Sansão de cabelo longo, com as duas mãos apoiadas em duas colunas grossas de pedra, uma de cada lado, olhos fechados e rosto erguido, orando ao Senhor; sem pessoas ao redor e sem destruição. EXPRESSÃO: entrega e oração. ROUPA E CORES: túnica terracota gasta; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `debora.png` — Débora (inicial)
+Conferir: Jz 4:4-5
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Débora (inicial da jornada). PERSONAGEM: uma mulher madura e sábia, profetisa e juíza, sentada, segurando um rolo de pergaminho no colo, com folhas de palmeira aparecendo atrás do ombro. EXPRESSÃO: olhar sábio e acolhedor. ROUPA E CORES: túnica verde-oliva e véu bege; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `debora-meio.png` — Débora (mediano)
+Conferir: Jz 4:6,14
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Débora (mediano da jornada). PERSONAGEM: Débora de pé, apontando com o braço estendido para a frente, como quem chama alguém para seguir. EXPRESSÃO: firmeza e coragem. ROUPA E CORES: túnica verde-oliva, manto verde-escuro; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `debora-final.png` — Débora (final)
+Conferir: Jz 5:1-3
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Débora (final da jornada). PERSONAGEM: Débora com os dois braços erguidos, cantando de alegria um cântico ao Senhor. EXPRESSÃO: alegria e gratidão, boca aberta cantando. ROUPA E CORES: túnica verde com detalhes dourados; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `moises.png` — Moisés (inicial)
+Conferir: Êx 3:1-5
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Moisés (inicial da jornada). PERSONAGEM: um homem adulto com cajado de pastor, descalço, olhando com espanto para um pequeno arbusto em chamas ao seu lado, que queima sem se consumir. EXPRESSÃO: espanto e reverência. ROUPA E CORES: túnica marrom-clara, manto de pastor marrom; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `moises-meio.png` — Moisés (mediano)
+Conferir: Êx 14:16,21
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Moisés (mediano da jornada). PERSONAGEM: Moisés com o cajado erguido na mão e o braço estendido para a frente, o vento forte soprando o manto e a barba. EXPRESSÃO: determinação e fé. ROUPA E CORES: manto marrom sobre túnica bege; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `moises-final.png` — Moisés (final)
+Conferir: Êx 34:29
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Moisés (final da jornada). PERSONAGEM: Moisés idoso de barba branca longa, segurando junto ao peito duas tábuas de pedra lisas, com o rosto resplandecendo de luz suave. EXPRESSÃO: serenidade e luz no rosto. ROUPA E CORES: manto branco-marfim e túnica marrom; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `miria.png` — Miriã (inicial)
+Conferir: Êx 2:3-4
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Miriã (inicial da jornada). PERSONAGEM: uma menina olhando atenta de longe, com a mão sobre os olhos, cuidando do irmão bebê que não aparece na imagem. EXPRESSÃO: atenção e cuidado. ROUPA E CORES: túnica rosa-antigo e lenço claro; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `miria-meio.png` — Miriã (mediano)
+Conferir: Êx 2:7-8
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Miriã (mediano da jornada). PERSONAGEM: a mesma menina falando com coragem, com uma mão no peito e a outra apontando para o lado, oferecendo ajuda. EXPRESSÃO: coragem e esperteza. ROUPA E CORES: túnica rosa-antigo; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `miria-final.png` — Miriã (final)
+Conferir: Êx 15:20-21
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Miriã (final da jornada). PERSONAGEM: Miriã adulta, profetisa, dançando e tocando um tamborim erguido acima da cabeça. EXPRESSÃO: alegria contagiante. ROUPA E CORES: túnica rosa e manto vinho esvoaçante; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `gideao.png` — Gideão (inicial)
+Conferir: Jz 6:11-12
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Gideão (inicial da jornada). PERSONAGEM: um homem jovem segurando um punhado de trigo, olhando para cima surpreso, como quem ouviu alguém chamar. EXPRESSÃO: surpresa e timidez. ROUPA E CORES: túnica verde-musgo e lenço na cabeça; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `gideao-meio.png` — Gideão (mediano)
+Conferir: Jz 6:37-38
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Gideão (mediano da jornada). PERSONAGEM: Gideão segurando com as duas mãos um velo de lã molhado, torcendo-o, com gotas de água caindo. EXPRESSÃO: admiração. ROUPA E CORES: túnica verde-musgo; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `gideao-final.png` — Gideão (final)
+Conferir: Jz 7:16,20
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Gideão (final da jornada). PERSONAGEM: Gideão tocando uma trombeta de chifre de carneiro com uma mão e erguendo uma tocha acesa com a outra; sem armas. EXPRESSÃO: coragem e confiança. ROUPA E CORES: túnica verde-oliva e manto marrom; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `ana.png` — Ana (inicial)
+Conferir: 1Sm 1:10-11
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Ana (inicial da jornada). PERSONAGEM: uma mulher jovem em oração, de mãos juntas e olhos fechados, com uma lágrima escorrendo no rosto. EXPRESSÃO: tristeza com esperança. ROUPA E CORES: túnica azul-petróleo e véu claro; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `ana-meio.png` — Ana (mediano)
+Conferir: 1Sm 1:20
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Ana (mediano da jornada). PERSONAGEM: Ana sorrindo, segurando nos braços o bebê Samuel enrolado num pano claro. EXPRESSÃO: alegria e gratidão. ROUPA E CORES: túnica azul-petróleo; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
+
+### `ana-final.png` — Ana (final)
+Conferir: 1Sm 1:27-28; 2:19
+
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Avatar do personagem bíblico Ana (final da jornada). PERSONAGEM: Ana de mãos dadas com o menino Samuel, que veste uma pequena túnica; os dois de frente, ela levemente inclinada para ele. EXPRESSÃO: ternura e entrega. ROUPA E CORES: túnica azul-petróleo; Samuel de túnica branca; trajes simples do antigo Oriente Próximo (túnicas e mantos de linho e lã, sandálias), sem adereços modernos. COMPOSIÇÃO: retrato do peito para cima, personagem centralizado e de frente, ocupando cerca de 70% da altura, com espaço livre acima da cabeça; pensado para ser recortado em círculo. FUNDO: branco liso e puro (#FFFFFF), sem cenário, sem chão, sem sombra projetada e sem degradê. O mesmo traço e a mesma paleta suave usados para todos os personagens da série. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
 
 ---
 
-## Imagens
+## Opcional: o começo da jornada
 
-| Arquivo | Personagem | O que pedir | Conferir |
-|---|---|---|---|
-| `davi.png` | Davi (inicial) | Jovem pastor ruivo, de olhos bonitos e boa aparência, segurando uma pequena harpa; uma ovelha encostada no ombro. | 1Sm 16:11-12,23 |
-| `davi-meio.png` | Davi (mediano) | Jovem com uma funda de pastor na mão e uma bolsa de pastor com cinco pedras lisas, olhar confiante. Sem gigante, sem luta. | 1Sm 17:40,45 |
-| `davi-final.png` | Davi (final) | Davi adulto como rei, com coroa simples, braços erguidos de alegria, dançando e louvando. | 2Sm 5:3; 6:14-15 |
-| `ester.png` | Ester (inicial) | Jovem de aparência bonita, roupas simples, um véu leve, olhar tranquilo. | Et 2:7 |
-| `ester-meio.png` | Ester (mediano) | Ester rainha, com vestes simples de jejum, mãos juntas em oração, olhos fechados. | Et 4:16 |
-| `ester-final.png` | Ester (final) | Ester rainha, com coroa real e vestes nobres, estendendo a mão para tocar a ponta de um cetro de ouro. | Et 2:17; 5:1-2 |
-| `daniel.png` | Daniel (inicial) | Jovem nobre judeu segurando uma tigela de legumes e um copo de água, recusando com gentileza a comida do rei. | Dn 1:3-6,12 |
-| `daniel-meio.png` | Daniel (mediano) | Daniel adulto de joelhos, mãos juntas em oração, olhando para cima, diante de uma janela aberta. | Dn 6:10 |
-| `daniel-final.png` | Daniel (final) | Daniel de pé e sereno, com leões deitados e quietos ao seu redor. | Dn 6:22 |
-| `rute.png` | Rute (inicial) | Jovem moabita abraçada à sogra idosa Noemi, numa estrada, com carinho e decisão no olhar. | Rt 1:14-16 |
-| `rute-meio.png` | Rute (mediano) | Rute segurando um feixe de espigas de cevada junto ao peito. | Rt 2:2,17 |
-| `rute-final.png` | Rute (final) | Rute sorrindo, com o filho bebê Obede no colo. | Rt 4:13,17 |
-| `sansao.png` | Sansão (inicial) | Menino de cabelo comprido, nunca cortado, sorrindo, alegre e forte para a idade. | Jz 13:5,24 |
-| `sansao-meio.png` | Sansão (mediano) | Homem jovem e forte, cabelo muito longo preso em sete tranças, braços cruzados, sorriso confiante. | Jz 16:13,17 |
-| `sansao-final.png` | Sansão (final) | Sansão de cabelo longo, com as mãos apoiadas em duas colunas de pedra, olhos fechados, orando ao Senhor. | Jz 16:28-29 |
-| `debora.png` | Débora (inicial) | Mulher madura e sábia, profetisa e juíza, sentada, segurando um rolo, com uma folha de palmeira ao lado. | Jz 4:4-5 |
-| `debora-meio.png` | Débora (mediano) | Débora de pé, apontando o caminho com firmeza, como quem chama alguém para seguir. | Jz 4:6,14 |
-| `debora-final.png` | Débora (final) | Débora com os braços erguidos, cantando de alegria um cântico ao Senhor. | Jz 5:1-3 |
-| `moises.png` | Moisés (inicial) | Homem com cajado de pastor, descalço, olhando com espanto para um pequeno arbusto em chamas que não se queima. | Êx 3:1-5 |
-| `moises-meio.png` | Moisés (mediano) | Moisés com o cajado erguido e o braço estendido para a frente, com o vento soprando o manto. | Êx 14:16,21 |
-| `moises-final.png` | Moisés (final) | Moisés idoso de barba branca, segurando duas tábuas de pedra, com o rosto resplandecendo. | Êx 34:29 |
-| `miria.png` | Miriã (inicial) | Menina olhando atenta de longe, cuidando do irmão bebê. | Êx 2:3-4 |
-| `miria-meio.png` | Miriã (mediano) | Menina falando com coragem, apontando para o lado, oferecendo ajuda. | Êx 2:7-8 |
-| `miria-final.png` | Miriã (final) | Miriã adulta, profetisa, dançando e tocando tamborim com alegria. | Êx 15:20-21 |
-| `gideao.png` | Gideão (inicial) | Homem jovem segurando um punhado de trigo, olhando para cima surpreso. | Jz 6:11-12 |
-| `gideao-meio.png` | Gideão (mediano) | Gideão segurando um velo de lã molhado, torcendo-o com as mãos, com gotas caindo. | Jz 6:37-38 |
-| `gideao-final.png` | Gideão (final) | Gideão tocando uma trombeta de chifre, com uma tocha acesa erguida na outra mão. Sem armas. | Jz 7:16,20 |
-| `ana.png` | Ana (inicial) | Mulher jovem em oração, mãos juntas, olhos fechados, com uma lágrima no rosto. | 1Sm 1:10-11 |
-| `ana-meio.png` | Ana (mediano) | Ana sorrindo, com o bebê Samuel nos braços. | 1Sm 1:20 |
-| `ana-final.png` | Ana (final) | Ana segurando a mão do menino Samuel, que veste uma pequena túnica. | 1Sm 1:27-28; 2:19 |
+### `po.png` — Pó da terra (todos começam assim)
+Conferir: Gn 2:7
 
-## Opcional: o pó da terra
-
-O app já desenha o pó. Se quiser uma versão mais bonita, peça no mesmo estilo:
-`po.png` — Um pequeno monte de barro avermelhado, sem rosto, com um brilho suave por cima, como se fosse
-receber vida. Fundo branco liso. (Gn 2:7)
+```
+Crie uma ilustração digital para um app bíblico infantil e familiar, estilo livro ilustrado moderno: cartoon plano (flat) com sombreado suave, contorno limpo e arredondado, formas simples e bonitas, expressões serenas e simpáticas, adequado para crianças. Um pequeno monte de barro avermelhado e macio, sem rosto e sem forma humana, com pequenas partículas de pó ao redor e um brilho suave e dourado descendo sobre ele, como se estivesse prestes a receber vida. COMPOSIÇÃO: o monte centralizado na parte de baixo, ocupando metade da largura. FUNDO: branco liso e puro (#FFFFFF), sem chão e sem sombra. EVITE: texto, letras, números, assinatura, moldura, marca d'água, cenas de luta ou violência, sangue, arma apontada para alguém, nudez, estilo fotográfico realista, rostos assustadores. FORMATO: quadrado 1:1, alta resolução.
+```
