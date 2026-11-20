@@ -6,6 +6,7 @@
 export const DESAFIOS = [
   {
     id: 'natal-2026',
+    serie: 'natal', ciclo: 1,
     nome: 'A promessa cumprida',
     tipo: 'Natal',
     inicio: '2026-12-14',
@@ -142,6 +143,90 @@ export const DESAFIOS = [
         ],
         pergunta: 'Os magos trouxeram o melhor que tinham. O que você quer oferecer a Jesus neste Natal?',
         crianca: 'Quais foram os três presentes dos magos?' },
+    ],
+  },
+  {
+    id: 'ano-novo-2027',
+    serie: 'ano-novo', ciclo: 1,
+    nome: 'Recomeços',
+    tipo: 'Ano novo',
+    inicio: '2027-01-01',
+    fim: '2027-01-31',
+    icone: 'sunrise',
+    cor: '#2f7a8a',
+    desc: '7 dias sobre como Deus faz começar de novo: da primeira luz à promessa de todas as coisas novas.',
+    selo: { id: 'ano-novo-2027', nome: 'Ano novo 2027', icone: 'sunrise', ref: 'Lm 3:22-23', texto: 'As misericórdias do Senhor se renovam a cada manhã. Selo de quem completou o desafio de Ano novo de 2027.' },
+    sessoes: [
+      { titulo: 'No princípio, a luz', icone: 'sun', trechos: [['gn', 1, 1, 5]],
+        contexto: 'A Bíblia começa com a terra sem forma e vazia, coberta de trevas. A primeira palavra de Deus traz luz e o primeiro dia.',
+        notas: [
+          ['Gn 1:2', 'A terra estava desordenada e vazia, e as trevas cobriam o abismo; o Espírito de Deus se movia sobre as águas.'],
+          ['Gn 1:3', 'Deus disse: haja luz. E houve luz.'],
+          ['Gn 1:5', 'Houve tarde e manhã: o primeiro dia.'],
+        ],
+        pergunta: 'O que está "desordenado e vazio" na sua vida que você quer entregar a Deus neste começo de ano?',
+        crianca: 'Qual foi a primeira coisa que Deus criou falando?' },
+
+      { titulo: 'Depois do dilúvio', icone: 'rainbow', trechos: [['gn', 8, 15, 22], ['gn', 9, 12, 16]],
+        contexto: 'Quando as águas baixam, Noé e sua família saem da arca para começar tudo de novo numa terra lavada.',
+        notas: [
+          ['Gn 8:20', 'A primeira coisa que Noé fez fora da arca foi edificar um altar ao Senhor.'],
+          ['Gn 8:22', 'Enquanto a terra durar, plantio e colheita, frio e calor, verão e inverno, dia e noite não vão cessar.'],
+          ['Gn 9:13', 'O arco nas nuvens é o sinal da aliança de Deus com a terra.'],
+        ],
+        pergunta: 'Noé começou a vida nova com um altar. Como você pode começar este ano colocando Deus em primeiro lugar?',
+        crianca: 'Qual sinal Deus colocou nas nuvens?' },
+
+      { titulo: 'Novas a cada manhã', icone: 'sunrise', trechos: [['lm', 3, 19, 26]],
+        contexto: 'Lamentações chora a destruição de Jerusalém (Lm 1:1). No meio da dor, o autor decide lembrar de algo que lhe dá esperança.',
+        notas: [
+          ['Lm 3:21', 'Isto trarei de volta à memória, por isso terei esperança.'],
+          ['Lm 3:22-23', 'As misericórdias do Senhor não têm fim; elas se renovam a cada manhã. Grande é a tua fidelidade.'],
+          ['Lm 3:26', 'É bom esperar em silêncio a salvação do Senhor.'],
+          ['Tradição', 'A tradição atribui Lamentações a Jeremias. O próprio livro não diz quem o escreveu.'],
+        ],
+        pergunta: 'Quando o dia começa difícil, o que você pode "trazer à memória" para ter esperança?',
+        crianca: 'De quanto em quanto tempo as misericórdias de Deus se renovam?' },
+
+      { titulo: 'Uma coisa nova', icone: 'sprout', trechos: [['is', 43, 16, 21]],
+        contexto: 'Deus lembra ao povo o caminho que abriu no mar e diz que vai fazer algo ainda novo: caminho no deserto e rios na terra seca.',
+        notas: [
+          ['Is 43:16', 'O Senhor é aquele que preparou no mar um caminho, nas águas impetuosas uma vereda.'],
+          ['Is 43:18-19', 'Não fiquem presos às coisas passadas: eis que farei uma coisa nova; já está surgindo.'],
+          ['Is 43:21', 'Deus formou esse povo para anunciar o seu louvor.'],
+        ],
+        pergunta: 'Que coisa do ano passado você precisa deixar para trás para enxergar o que Deus está fazendo de novo?',
+        crianca: 'Onde Deus prometeu abrir um caminho e fazer correr rios?' },
+
+      { titulo: 'A segunda vez', icone: 'waves', trechos: [['jn', 3, 1, 10]],
+        contexto: 'Jonas fugiu de Deus, foi engolido por um grande peixe e orou lá de dentro (Jn 1:17; 2:1). Agora Deus fala com ele de novo.',
+        notas: [
+          ['Jn 3:1', 'A palavra do Senhor veio a Jonas pela segunda vez.'],
+          ['Jn 3:5', 'Os ninivitas creram em Deus, do maior ao menor.'],
+          ['Jn 3:10', 'Deus viu que se converteram do mau caminho e não fez o mal que tinha anunciado.'],
+        ],
+        pergunta: 'Deus deu uma segunda chance a Jonas e a Nínive. A quem você pode dar uma segunda chance este ano?',
+        crianca: 'Quantas vezes Deus mandou Jonas ir a Nínive?' },
+
+      { titulo: 'Nova criatura', icone: 'sparkles', trechos: [['2co', 5, 14, 21]],
+        contexto: 'Paulo explica aos coríntios o que muda em quem está unido a Cristo, que morreu e ressuscitou por todos.',
+        notas: [
+          ['2Co 5:15', 'Ele morreu por todos para que os que vivem não vivam mais para si.'],
+          ['2Co 5:17', 'Se alguém está em Cristo, é nova criatura: as coisas velhas passaram, tudo se fez novo.'],
+          ['2Co 5:18', 'Tudo isso vem de Deus, que nos reconciliou consigo por meio de Cristo.'],
+        ],
+        pergunta: 'O que significa, no seu dia a dia, que "as coisas velhas já passaram"?',
+        crianca: 'Quem está em Cristo se torna o quê?' },
+
+      { titulo: 'Todas as coisas novas', icone: 'star', trechos: [['ap', 21, 1, 7]],
+        contexto: 'No fim da Bíblia, João vê o recomeço definitivo: novo céu, nova terra e Deus morando com o seu povo.',
+        notas: [
+          ['Ap 21:1', 'João viu um novo céu e uma nova terra.'],
+          ['Ap 21:4', 'Deus limpará toda lágrima; não haverá mais morte, nem pranto, nem dor.'],
+          ['Ap 21:5', 'Aquele que está no trono diz: eis que faço novas todas as coisas.'],
+        ],
+        pergunta: 'Qual promessa de Apocalipse 21 mais te dá esperança para o ano que começa?',
+        crianca: 'O que Deus vai limpar dos olhos do seu povo?' },
     ],
   },
 ];

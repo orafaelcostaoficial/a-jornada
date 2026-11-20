@@ -120,6 +120,29 @@ data para começar e terminar e dá um **selo exclusivo** daquele ano (ex.: "Pá
 
 A Páscoa muda de data todo ano; o app calcula sozinho.
 
+### Ciclo de 5 anos (decidido em 20/11/2026)
+
+Cada época tem **5 trilhas diferentes** (ciclos 1 a 5) que se revezam; depois do ciclo 5, volta o 1.
+Uma criança que faz o Natal com 8 anos refaz a mesma trilha com 13, e reencontra o que escreveu.
+
+- **A trilha é a do ano do calendário, não a do tempo de cada pessoa no app**: em cada ano, a família e o
+  grupo inteiro fazem a mesma trilha juntos (2026 = ciclo 1, 2027 = ciclo 2 … 2031 = ciclo 1 de novo).
+  Exceção: os desafios de janeiro (Ano novo) pertencem ao ano em que acontecem (Ano novo 2027 = ciclo 1 da série).
+- **Reencontro**: quando a trilha volta, cada dia mostra "O que você entendeu em 20XX" (a resposta antiga do
+  próprio perfil). Só funciona se o perfil estiver salvo na nuvem: reforçar a sincronização da família antes de 2031.
+- **Selo novo a cada ano**, com arte própria; a aba Eventos do Álbum vai juntando os anos.
+- Cada desafio traz `serie` (natal, ano-novo, pascoa…) e `ciclo` (1–5) em `data/desafios.js`.
+- Produção: ciclo 1 de todas as épocas primeiro; os ciclos seguintes ao longo do ano anterior, com a mesma
+  conferência no texto.
+
+| Época | Ciclo 1 | Ciclo 2 | Ciclo 3 | Ciclo 4 | Ciclo 5 |
+|---|---|---|---|---|---|
+| Natal | A promessa cumprida (pronto) | Quem estava lá (Lc 1–2; Mt 2) | O Verbo se fez carne (Jo 1; Gl 4; Fp 2; Cl 1; Hb 1) | a definir | a definir |
+| Ano novo | Recomeços (pronto) | Salmos para começar | Promessas para o caminho | a definir | a definir |
+| Páscoa | A última semana de Jesus | As palavras na cruz | O Cordeiro (Êx 12 → Ap 5) | a definir | a definir |
+| Pentecostes | O vento e o fogo | O fruto do Espírito | A igreja que nasce (At 2–4) | a definir | a definir |
+| Mães / Pais / Crianças | personagens já listados | novos personagens a cada ciclo | | | |
+
 ---
 
 ## 8. Cada ano de jornada, uma camada nova

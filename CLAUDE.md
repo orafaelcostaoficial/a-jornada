@@ -61,6 +61,8 @@ Nova era: criar `data/era-<id>.js` no mesmo formato, importar em `js/jogo.js`, m
 - Cartas: imagens do Gemini (prompts em `PROMPTS-CARTAS.md`) em `img/cartas/<id>.webp`, listadas em `data/imagens.js`.
 - Mapa estilo Duolingo com cenários por trecho (`js/cenario.js`) e amigos/família no ponto onde estão.
 - Selos da Palavra (`SELOS` na era): objetos/palavras-chave ganhos na sessão em que aparecem; Álbum tem abas Pessoas/Selos.
+- Desafios sazonais (`data/desafios.js`): ciclo de 5 anos por época (`serie` + `ciclo`), trilha escolhida pelo ano do
+  calendário, selo novo por ano; ver PLANO.md §7.
 - Cronologia: `quando` em cada era (`plano.js`) e cena (`cenario.js`), sempre "aproximado"; sem data onde o texto não permite
   (origens, Jó, Apocalipse). Divisor a.C./d.C. antes da era Jesus.
 
