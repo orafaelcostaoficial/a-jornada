@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v17';
+const VERSAO_APP = 'v18';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -134,12 +134,19 @@ function overlay(html, aoFechar) {
 function topo() {
   const p = P(); const nv = J.nivel(p.xp);
   return `${CANAL_TESTE ? `<a class="faixa-teste" href="../#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
-    <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>Nível ${nv.n} · ${J.estagio(nv.n).nome}</small></span></a>
+    <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>${rotNivel(p)} · ${nomeEstagio(p)}</small></span></a>
     <span class="xp-chip">${ico('sparkles')} ${p.xp} XP</span>
   </header>`;
 }
 
+// Antes do fôlego de vida (sem personagem) o viajante é Pó da terra, nível 0 (Gn 2:7).
+const ehPo = (p) => !p.avatar?.personagem;
+const nomeEstagio = (p) => (ehPo(p) ? 'Pó da terra' : J.estagio(J.nivel(p.xp).n).nome);
+const rotNivel = (p) => (ehPo(p) ? 'Nível 0' : `Nível ${J.nivel(p.xp).n}`);
 function barraXP(p) {
+  if (ehPo(p)) return `<div class="xpbar"><div class="xpbar-top"><b>Nível 0</b><span>${p.xp} XP</span></div>
+    <div class="barra"><i style="width:0%"></i></div>
+    <small>${J.concluidas(p).length ? 'Receba o fôlego de vida: vire <b>Peregrino</b>' : 'A 1ª sessão traz o fôlego de vida (Gn 2:7)'}</small></div>`;
   const nv = J.nivel(p.xp);
   const prox = J.ESTAGIOS.find((e) => e.nivel > nv.n);
   return `<div class="xpbar"><div class="xpbar-top"><b>Nível ${nv.n}</b><span>${p.xp - nv.ini}/${nv.fim - nv.ini} XP</span></div>
@@ -261,7 +268,7 @@ function telaHoje() {
   return `${topo()}
   <section class="hero" style="--c:${prox ? COR_ERA[eraDe(prox)] : '#d29a2c'}">
     <div class="hero-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 110)}</div>
-    <div class="hero-info"><small>${est.nome}</small><h2>${esc(p.nome)}</h2>${barraXP(p)}</div>
+    <div class="hero-info"><small>${nomeEstagio(p)}</small><h2>${esc(p.nome)}</h2>${barraXP(p)}</div>
   </section>
   ${!p.avatar?.personagem && J.concluidas(p).length ? `<button class="aviso grande-aviso" data-acao="escolher-personagem">${ico('sparkles')}<span><b>Receba o fôlego de vida</b><br>Escolha o personagem que vai te acompanhar.</span>${ico('chevron-right')}</button>` : ''}
   ${cartaoInstalar(true)}
@@ -735,7 +742,7 @@ function telaPerfil() {
   const aplic = Object.values(p.sessoes).filter((s) => s.revisao).length;
   return `${topo()}
   <section class="perfil-hero"><div>${avatarHTML(p.avatar, J.itensAte(nv.n), 120)}</div>
-    <div><h2>${esc(p.nome)}</h2><small>${J.estagio(nv.n).nome} · ${p.tipo === 'crianca' ? 'Criança' : 'Adulto'}</small>${barraXP(p)}
+    <div><h2>${esc(p.nome)}</h2><small>${nomeEstagio(p)} · ${p.tipo === 'crianca' ? 'Criança' : 'Adulto'}</small>${barraXP(p)}
     <a class="link" href="#/editar/${p.id}">Editar viajante</a></div></section>
   <div class="stats">
     <div><b>${J.concluidas(p).length}</b><small>sessões</small></div>
