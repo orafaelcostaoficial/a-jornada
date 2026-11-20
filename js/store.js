@@ -49,6 +49,11 @@ export function mesclarPerfil(a, b) {
     m.revisao = sa.revisao || sb.revisao || null;
     r.sessoes[id] = m;
   }
+  r.desafios = { ...(a.desafios || {}) };
+  for (const [d, sb] of Object.entries(b.desafios || {})) {
+    r.desafios[d] = { ...(r.desafios[d] || {}) };
+    for (const [i, x] of Object.entries(sb)) if (!r.desafios[d][i] || x.data < r.desafios[d][i].data) r.desafios[d][i] = x;
+  }
   r.quiz = { ...a.quiz };
   for (const [k, qb] of Object.entries(b.quiz || {})) {
     const qa = r.quiz[k];

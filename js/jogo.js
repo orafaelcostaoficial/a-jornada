@@ -2,6 +2,7 @@
 import { ERAS, LIVROS } from '../data/plano.js';
 import * as E1 from '../data/era-principio.js';
 import * as E2 from '../data/era-moises.js';
+import { DESAFIOS } from '../data/desafios.js';
 import { hoje, somarDias, diasEntre } from './store.js';
 
 // Quando escrever novas eras, importar aqui e somar nas listas.
@@ -126,7 +127,7 @@ export function semanaAtual(e) {
   const dow = (d.getDay() + 6) % 7;
   const seg = somarDias(hoje(), -dow);
   const dias = Array.from({ length: 7 }, (_, i) => somarDias(seg, i));
-  const ativos = new Set(e.log.filter((l) => l.tipo === 'sessao').map((l) => l.data));
+  const ativos = new Set(e.log.filter((l) => l.tipo === 'sessao' || l.tipo === 'desafio').map((l) => l.data));
   return { dias, ativos, feitos: dias.filter((x) => ativos.has(x)).length };
 }
 
@@ -178,6 +179,30 @@ export function concluirSessao(e, s, dados) {
   const novasC = verificarConquistas(e);
   const nivelDepois = nivel(e.xp).n;
   return { ganhos, novosP, novosS, novosM, novasC, subiu: nivelDepois > nivelAntes ? nivelDepois : null };
+}
+
+// ─── Desafios sazonais (em paralelo à jornada) ───
+export { DESAFIOS };
+export const desafioPorId = (id) => DESAFIOS.find((d) => d.id === id);
+// Visíveis na data; no canal de teste, também antes de começar (para conferir o conteúdo).
+export const desafiosVisiveis = (teste = false) => DESAFIOS.filter((d) => (teste || d.inicio <= hoje()) && hoje() <= d.fim);
+export const SELOS_ESPECIAIS = Object.fromEntries(DESAFIOS.map((d) => [d.selo.id, d.selo]));
+export function progressoDesafio(e, d) {
+  const feitos = e.desafios?.[d.id] || {};
+  const n = d.sessoes.filter((_, i) => feitos[i]).length;
+  return { feitos: n, total: d.sessoes.length, completo: n === d.sessoes.length, proxima: d.sessoes.findIndex((_, i) => !feitos[i]) };
+}
+export const selosEspeciaisDe = (e) => DESAFIOS.filter((d) => progressoDesafio(e, d).completo).map((d) => d.selo.id);
+export function concluirDesafio(e, d, i, dados) {
+  e.desafios ||= {}; e.desafios[d.id] ||= {};
+  const ganhos = []; const nivelAntes = nivel(e.xp).n;
+  e.desafios[d.id][i] = { data: hoje(), ...dados };
+  ganhar(e, 'desafio', XP.sessao, `${d.id}:${i}`); ganhos.push([`${d.tipo}: dia ${i + 1}`, XP.sessao]);
+  if (dados.aplicacao) { ganhar(e, 'bonus', XP.aplicacao, `${d.id}:${i}`); ganhos.push(['Aplicação escrita', XP.aplicacao]); }
+  for (const g of bonusSemana(e)) { ganhar(e, 'bonus', g[1], g[2]); ganhos.push([g[0], g[1]]); }
+  const fim = progressoDesafio(e, d).completo;
+  if (fim) { ganhar(e, 'desafio-fim', XP.livro, d.id); ganhos.push([`Desafio "${d.nome}" completo`, XP.livro]); }
+  return { ganhos, novosP: [], novosS: fim ? [d.selo.id] : [], novosM: [], novasC: verificarConquistas(e), subiu: nivel(e.xp).n > nivelAntes ? nivel(e.xp).n : null, desafio: d.id };
 }
 
 export function revisarAplicacao(e, s, texto) {

@@ -485,3 +485,27 @@ body.sem-nav nav { visibility: hidden; }
 .divisor-ac span { font-weight: 800; font-size: .8rem; color: var(--tx-2); }
 .divisor-ac b { flex: 1; text-align: center; padding: 8px; border-radius: 999px; background: linear-gradient(135deg, #f0c25a, #d29a2c); color: #fff; font-size: .85rem; display: flex; gap: 6px; align-items: center; justify-content: center; }
 .linha-div { margin-left: -26px; }
+
+/* ─── Desafios sazonais ─── */
+.desafio-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin-bottom: 14px; border-radius: 20px; color: #fff;
+  background: linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 60%, #2a1a10)); box-shadow: var(--sombra); text-decoration: none; }
+.desafio-card > .ico { flex: none; opacity: .8; }
+.desafio-ico { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(255,255,255,.18); }
+.desafio-ico .ico { width: 26px; height: 26px; color: #ffe39a; }
+.desafio-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.desafio-txt small { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.desafio-txt b { font-family: var(--serif, Georgia, serif); font-size: 19px; }
+.desafio-txt em { font-style: normal; font-size: 12px; opacity: .9; }
+.desafio-barra { display: block; height: 6px; border-radius: 6px; background: rgba(255,255,255,.25); overflow: hidden; }
+.desafio-barra i { display: block; height: 100%; background: #ffe39a; border-radius: 6px; }
+.desafio-barra.grande { height: 10px; margin-top: 10px; background: color-mix(in srgb, var(--c, #b8323f) 15%, #eee); }
+.desafio-barra.grande i { background: #b8323f; }
+.lista-desafio { display: flex; flex-direction: column; gap: 8px; }
+.lista-desafio .dd { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; background: var(--fundo, #faf6ee); color: inherit; text-decoration: none; }
+.lista-desafio .dd.bloq { opacity: .5; }
+.lista-desafio .dd.feito .dd-n { background: #3f8a5a; color: #fff; }
+.dd-n { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; background: #f0e3cf; }
+.dd-n .ico { width: 18px; height: 18px; }
+.dd-txt { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.dd-txt small { opacity: .7; font-size: 12px; }
+.leitor.trecho { margin-bottom: 12px; }
