@@ -241,7 +241,16 @@ if __name__ == '__main__':
                "CORES: laranja e ouro do sol, areia bege, azul do riacho, verde do broto, contorno marrom-escuro forte. "
                "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
                f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    pascoa = (f"Crie uma {ESTILO}, como um emblema para um selo colecionável especial chamado \"Páscoa 2027\". "
+              "OBJETO: um túmulo antigo escavado numa rocha cinza-clara, com a entrada aberta e escura por dentro (VAZIO, sem ninguém), "
+              "e ao lado uma grande pedra redonda e achatada, rolada para fora da entrada; atrás da rocha, o sol nascendo em laranja e "
+              "dourado (ao clarear do primeiro dia da semana, Mt 28:1-6); na base, um pouco de grama verde e duas florzinhas brancas. "
+              "SEM pessoas, SEM anjo, SEM cruz e SEM texto. COMPOSIÇÃO: tudo centralizado, ocupando cerca de 75% da imagem, forma clara mesmo pequena. "
+              "CORES: rocha cinza e bege, sol laranja e ouro, grama verde, contorno marrom-escuro forte. "
+              "FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo (o app coloca o emblema sobre uma medalha). "
+              f"EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
     with open('PROMPTS-SELOS.md', 'a', encoding='utf-8') as f:
         f.write("---\n\n## Selos especiais (desafios sazonais)\n\nGanhos ao completar um desafio; aparecem na aba Eventos do Álbum.\n\n"
                 + bloco('natal-2026.png', 'Natal 2026 — A promessa cumprida', 'Lc 2:7,12; Mt 2:9-10', natal)
-                + bloco('ano-novo-2027.png', 'Ano novo 2027 — Recomeços', 'Lm 3:22-23; Is 43:19', anonovo))
+                + bloco('ano-novo-2027.png', 'Ano novo 2027 — Recomeços', 'Lm 3:22-23; Is 43:19', anonovo)
+                + bloco('pascoa-2027.png', 'Páscoa 2027 — A última semana de Jesus', 'Mt 27:60; 28:1-6', pascoa))
