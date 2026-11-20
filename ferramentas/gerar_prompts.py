@@ -45,9 +45,9 @@ AVATARES = [
     ('gideao', 'Gideão', 'inicial', 'um homem jovem segurando um punhado de trigo, olhando para cima surpreso, como quem ouviu alguém chamar', 'surpresa e timidez', 'túnica verde-musgo e lenço na cabeça', 'Jz 6:11-12'),
     ('gideao-meio', 'Gideão', 'mediano', 'Gideão segurando com as duas mãos um velo de lã molhado, torcendo-o, com gotas de água caindo', 'admiração', 'túnica verde-musgo', 'Jz 6:37-38'),
     ('gideao-final', 'Gideão', 'final', 'Gideão tocando uma trombeta de chifre de carneiro com uma mão e erguendo uma tocha acesa com a outra; sem armas', 'coragem e confiança', 'túnica verde-oliva e manto marrom', 'Jz 7:16,20'),
-    ('ana', 'Ana', 'inicial', 'uma mulher jovem orando em silêncio, olhando para cima com os olhos marejados e uma lágrima no rosto, a mão direita sobre o coração e a mão esquerda aberta com a palma para cima, os lábios entreabertos como quem fala baixinho no coração', 'tristeza com esperança', 'túnica azul-petróleo e véu claro', '1Sm 1:10-13'),
-    ('ana-meio', 'Ana', 'mediano', 'Ana sorrindo, segurando nos braços o bebê Samuel enrolado num pano claro', 'alegria e gratidão', 'túnica azul-petróleo', '1Sm 1:20'),
-    ('ana-final', 'Ana', 'final', 'Ana de mãos dadas com o menino Samuel, que veste uma pequena túnica; os dois de frente, ela levemente inclinada para ele', 'ternura e entrega', 'túnica azul-petróleo; Samuel de túnica branca', '1Sm 1:27-28; 2:19'),
+    ('ana', 'Ana', 'inicial', 'uma mulher jovem orando em silêncio, olhando para cima com os olhos marejados e uma lágrima no rosto, a mão direita sobre o coração e a mão esquerda aberta com a palma para cima, os lábios entreabertos como quem fala baixinho no coração', 'tristeza com esperança', 'túnica verde-azulada e véu terracota com borda bordada dourada', '1Sm 1:10-13'),
+    ('ana-meio', 'Ana', 'mediano', 'Ana sorrindo, segurando nos braços o bebê Samuel enrolado num pano claro', 'alegria e gratidão', 'túnica verde-azulada e véu terracota com borda bordada dourada', '1Sm 1:20'),
+    ('ana-final', 'Ana', 'final', 'Ana de mãos dadas com o menino Samuel, que veste uma pequena túnica; os dois de frente, ela levemente inclinada para ele', 'ternura e entrega', 'túnica verde-azulada e véu terracota com borda bordada dourada; Samuel de túnica branca', '1Sm 1:27-28; 2:19'),
 ]
 
 # ─────────────────────────── CARTAS (pessoas da Bíblia) ───────────────────────────
