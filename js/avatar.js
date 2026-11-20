@@ -42,6 +42,7 @@ export function retrato(id, itens = [], tam = 120) {
 // Antes da primeira sessão todo viajante é pó da terra (Gn 2:7). Ao concluir Gênesis 1–2 ele recebe
 // o fôlego de vida e escolhe o personagem que vai acompanhar a jornada.
 export function poHTML(tam = 120) {
+  if (AVATARES_COM_IMAGEM.has('po')) return `<span class="retrato po com-img" style="--rt:${tam}px"><span class="retrato-in"><svg class="retrato-fundo" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${FUNDOS[0]}</svg><img src="img/avatares/po.webp" alt="Pó da terra"></span></span>`;
   return `<span class="retrato po" style="--rt:${tam}px"><span class="retrato-in"><svg class="retrato-fundo" viewBox="0 0 100 100" aria-hidden="true">${FUNDOS[0]}</svg>
     <svg viewBox="0 0 100 100" class="po-arte" aria-hidden="true"><ellipse cx="50" cy="86" rx="34" ry="6" fill="#000" opacity=".12"/>
     <path d="M18 86c2-14 12-22 20-24 3-12 10-18 14-18 6 0 11 6 13 14 9 2 17 12 17 28z" fill="#a8774a"/>
