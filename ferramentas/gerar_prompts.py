@@ -46,7 +46,7 @@ AVATARES = [
     ('gideao-meio', 'Gideão', 'mediano', 'Gideão segurando com as duas mãos um velo de lã molhado, torcendo-o, com gotas de água caindo', 'admiração', 'túnica verde-musgo', 'Jz 6:37-38'),
     ('gideao-final', 'Gideão', 'final', 'Gideão tocando uma trombeta de chifre de carneiro com uma mão e erguendo uma tocha acesa com a outra; sem armas', 'coragem e confiança', 'túnica verde-oliva e manto marrom', 'Jz 7:16,20'),
     ('ana', 'Ana', 'inicial', 'uma mulher jovem orando em silêncio, olhando para cima com os olhos marejados e uma lágrima no rosto, a mão direita sobre o coração e a mão esquerda aberta com a palma para cima, os lábios entreabertos como quem fala baixinho no coração', 'tristeza com esperança', 'túnica verde-azulada e véu terracota com borda bordada dourada', '1Sm 1:10-13'),
-    ('ana-meio', 'Ana', 'mediano', 'Ana sorrindo, segurando nos braços o bebê Samuel enrolado num pano claro', 'alegria e gratidão', 'túnica verde-azulada e véu terracota com borda bordada dourada', '1Sm 1:20'),
+    ('ana-meio', 'Ana', 'mediano', 'Ana cantando de alegria um cântico ao Senhor, sem bebê e sem outras pessoas: rosto erguido, olhos brilhando, boca aberta cantando, as duas mãos abertas juntas na frente do peito com as palmas para cima, como quem oferece louvor', 'alegria e gratidão', 'túnica verde-azulada e véu terracota com borda bordada dourada', '1Sm 2:1-2'),
     ('ana-final', 'Ana', 'final', 'Ana de mãos dadas com o menino Samuel, que veste uma pequena túnica; os dois de frente, ela levemente inclinada para ele', 'ternura e entrega', 'túnica verde-azulada e véu terracota com borda bordada dourada; Samuel de túnica branca', '1Sm 1:27-28; 2:19'),
 ]
 
