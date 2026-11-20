@@ -117,7 +117,7 @@ CARTAS = [
 # ─────────────────────────── SELOS (objetos e palavras-chave) ───────────────────────────
 # (arquivo, nome, objeto detalhado, referência)
 SELOS = [
-    ('luz', 'Luz', 'um ponto de luz muito brilhante no centro, com raios dourados e brancos se abrindo em todas as direções, como uma explosão suave de luz', 'Gn 1:3-4'),
+    ('luz', 'Luz', 'um sol-estrela estilizado: um círculo central amarelo-ouro intenso com um pequeno centro branco, e 12 raios pontudos alternando laranja forte e amarelo-ouro, todos com contorno marrom-escuro, como um emblema de luz rompendo; ao redor, 4 pequenas faíscas em forma de estrela de quatro pontas, também com contorno', 'Gn 1:3-4'),
     ('arvore', 'Árvore da vida', 'uma árvore frondosa e cheia de frutos, de tronco forte e raízes visíveis, com folhas verdes brilhantes', 'Gn 2:9; 3:24'),
     ('arca', 'Arca', 'um grande barco de madeira em forma de caixa, com um telhado, uma porta na lateral e uma abertura no alto, flutuando sobre ondas calmas', 'Gn 6:14-16'),
     ('arcoiris', 'Arco nas nuvens', 'um arco-íris completo sobre nuvens brancas e fofas, com gotas de chuva brilhando', 'Gn 9:13-15'),
@@ -175,7 +175,9 @@ def prompt_selo(s):
     return (f"Crie uma {ESTILO}, como um ícone-emblema para um selo colecionável chamado \"{nome}\". "
             f"OBJETO: {objeto}. COMPOSIÇÃO: só o objeto, centralizado, ocupando cerca de 75% da imagem, "
             "forma clara e reconhecível mesmo em tamanho pequeno, sem pessoas (a não ser que estejam descritas acima). "
-            "CORES: vivas e quentes, com brilho dourado suave. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
+            "CORES: saturadas e fortes, com contorno marrom-escuro bem definido em volta de tudo, para destacar sobre uma medalha dourada "
+            "(evite amarelo-claro e branco como cor principal). SEM brilho difuso, sem halo e sem névoa em volta do objeto: as bordas "
+            "terminam limpas no branco. FUNDO: branco liso e puro (#FFFFFF), sem moldura e sem círculo "
             f"(o app coloca o objeto sobre uma medalha dourada). EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
 
 
