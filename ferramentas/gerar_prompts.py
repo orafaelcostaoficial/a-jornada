@@ -131,7 +131,7 @@ SELOS = [
     ('redemoinho', 'Redemoinho', 'um redemoinho de vento VISTO DE LADO, em forma de funil: largo em cima, entre nuvens escuras de tempestade, e afinando até tocar o chão de areia, com faixas de vento girando em volta e poeira levantando na base; dentro do funil, uma luz forte e serena brilhando. NÃO desenhar visto de cima (espiral de galáxia ou furacão)', 'Jó 38:1'),
     # ── Era 2: Moisés ──
     ('sarca', 'Sarça ardente', 'um pequeno arbusto do deserto envolto em chamas douradas, com os galhos e folhas inteiros, sem queimar', 'Êx 3:2'),
-    ('pao', 'Pão sem fermento', 'um pão achatado e redondo, sem fermento, com marcas de forno, sobre um pano', 'Êx 12:8,15'),
+    ('pao', 'Pão sem fermento', 'uma pilha de 3 pães MUITO finos e achatados, sem fermento (finos como uma folha, quase como uma panqueca seca e crocante, com bolhinhas tostadas), sobre um pano de linho dobrado, e ao lado um pequeno maço de ervas verdes (ervas amargas, Êx 12:8). NÃO desenhar pão grosso, fofo, estufado ou de padaria: sem fermento o pão não cresce', 'Êx 12:8,15'),
     ('coluna', 'Coluna de nuvem e fogo', 'uma coluna alta de nuvem branca que se torna fogo dourado na parte de baixo', 'Êx 13:21-22'),
     ('cajado', 'Cajado erguido', 'um cajado de pastor de madeira, em pé, com ondas do mar se abrindo dos dois lados', 'Êx 14:16,21'),
     ('mana', 'Maná', 'pequenos grãos brancos e redondos espalhados como geada sobre a areia, com brilho suave', 'Êx 16:14,31'),
