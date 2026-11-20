@@ -18,6 +18,7 @@ export const AVATARES = [
 ];
 
 export const AVATARES_COM_IMAGEM = new Set([
+  'po',
   'davi', 'davi-meio', 'davi-final',
   'ester', 'ester-meio', 'ester-final',
   'daniel', 'daniel-meio', 'daniel-final',

@@ -207,16 +207,16 @@ if __name__ == '__main__':
              '**mediana** (`-meio`, níveis 8–19) e **final** (`-final`, nível 20+). O app desenha atrás o cenário '
              'de cada estágio, por isso o fundo é branco liso.', 'davi-meio.png', 'Avatares',
              AVATARES, prompt_avatar, lambda a: f"{a[1]} ({a[2]})")
-    po = (f"Crie uma {ESTILO}. Gênesis 2:7, o instante antes do fôlego de vida: uma figura humana simples, "
-          "modelada em barro avermelhado e terra úmida, sentada com os joelhos dobrados junto ao peito e os braços "
-          "envolvendo as pernas, cabeça levemente inclinada para baixo, de olhos fechados. Ainda sem vida: "
-          "o corpo é todo de terra, com textura de barro alisado à mão, pequenas rachaduras finas, marcas de dedos e grãos "
-          "de pó soltando-se das bordas. Sem roupa visível porque é só uma forma de barro (sem nenhum detalhe anatômico), "
-          "rosto simples e sereno, sem expressão de dor. Um raio de luz suave e dourado desce de cima e toca o alto da cabeça, "
-          "com partículas de pó brilhando dentro da luz. CORES: terracota, ocre e marrom quente, com o dourado da luz. "
-          "COMPOSIÇÃO: retrato próximo e centralizado, a figura ocupa cerca de 70% da altura, encostada na parte de baixo da imagem, "
-          "nada perto das bordas laterais. Não mostrar Deus, mãos divinas nem rosto no céu. "
-          f"FUNDO: branco liso e puro (#FFFFFF), sem chão e sem sombra. EVITE: {EVITE}. FORMATO: quadrado 1:1, alta resolução.")
+    po = (f"Crie uma {ESTILO}. Gênesis 2:7, o instante antes do fôlego de vida: uma figura humana ADULTA (proporções de um "
+          "homem jovem, ombros e braços de adulto, não de bebê nem de criança), modelada em barro avermelhado e terra úmida, "
+          "sentada com os joelhos dobrados junto ao peito e os braços envolvendo as pernas, cabeça levemente inclinada para baixo, "
+          "olhos fechados, rosto simples e sereno, sem cabelo definido (é só barro). Ainda sem vida: todo o corpo é de terra, com "
+          "textura de barro alisado à mão, pequenas rachaduras finas, marcas de dedos e alguns grãos de pó se soltando das bordas. "
+          "Sem roupa visível porque é só uma forma de barro, sem nenhum detalhe anatômico. "
+          "SEM raio de luz, sem brilho e sem halo ao redor (o app desenha a luz e o cenário). "
+          "CORES: terracota, ocre e marrom quente. COMPOSIÇÃO: enquadramento fechado, a figura ocupa cerca de 85% da altura da imagem, "
+          "centralizada, encostada na parte de baixo, sem espaço vazio em cima. Não mostrar Deus, mãos divinas nem rosto no céu. "
+          f"FUNDO: branco liso e puro (#FFFFFF), sem chão e sem sombra no chão. EVITE: {EVITE}, bebê, criança. FORMATO: quadrado 1:1, alta resolução.")
     with open('PROMPTS-AVATARES.md', 'a', encoding='utf-8') as f:
         f.write("---\n\n## Opcional: o começo da jornada\n\n" + bloco('po.png', 'Pó da terra (todos começam assim)', 'Gn 2:7', po))
     escrever('PROMPTS-CARTAS.md', 'Prompts das cartas (pessoas da Bíblia)',
