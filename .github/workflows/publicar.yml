@@ -1,32 +1,24 @@
-# Publica no GitHub Pages:
-#   branch main  → https://<conta>.github.io/a-jornada/         (app de verdade)
-#   branch teste → https://<conta>.github.io/a-jornada/teste/   (para testar no celular antes)
+# Publica o app oficial no GitHub Pages:
+#   branch main → https://<conta>.github.io/a-jornada/   (app de verdade)
+# O canal de teste é outro app, em outro endereço (https://<conta>.github.io/a-jornada-teste/),
+# publicado a partir da branch `teste` por ferramentas/publicar_teste.sh. Fica fora do endereço do
+# oficial para o Android não tratar os dois como o mesmo app instalado.
+# O endereço antigo /a-jornada/teste/ só redireciona para o novo.
 # Em Settings → Pages, a fonte deve ser "GitHub Actions".
 name: Publicar
 on:
   push:
-    branches: [main, teste]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
-  actions: write
 concurrency:
-  group: pages-${{ github.ref_name }}
+  group: pages-main
   cancel-in-progress: true
 jobs:
-  # O ambiente github-pages só aceita publicar a partir da main. Um push na teste
-  # apenas dispara a publicação na main, que monta o site com as duas branches.
-  disparar:
-    if: github.ref_name != 'main'
-    runs-on: ubuntu-latest
-    steps:
-      - run: gh workflow run publicar.yml --ref main -R "${{ github.repository }}"
-        env:
-          GH_TOKEN: ${{ github.token }}
   publicar:
-    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -36,23 +28,18 @@ jobs:
         with:
           ref: main
           path: _site
-      - name: Canal de teste
+      - name: Endereço antigo do teste redireciona para o novo
         run: |
-          if git ls-remote --exit-code --heads "https://github.com/${{ github.repository }}" teste >/dev/null; then
-            git clone --depth 1 --branch teste "https://github.com/${{ github.repository }}" _teste
-            rm -rf _teste/.git _teste/.github
-            mv _teste _site/teste
-            # O canal de teste vira um app separado, com outro nome e ícone, para não se confundir com o oficial.
-            python3 - <<'PY'
-          import json
-          p = '_site/teste/manifest.webmanifest'
-          m = json.load(open(p, encoding='utf-8'))
-          m.update(name='A Jornada · TESTE', short_name='Jornada TESTE', id='./?canal=teste', theme_color='#c8283a')
-          for i in m['icons']:
-              i['src'] = i['src'].replace('icon-', 'teste-')
-          json.dump(m, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
-          PY
-          fi
+          mkdir -p _site/teste
+          cat > _site/teste/index.html <<'HTML'
+          <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>A Jornada · TESTE mudou de endereço</title>
+          <script>location.replace('https://orafaelcostaoficial.github.io/a-jornada-teste/' + location.hash);</script>
+          </head><body style="font-family:sans-serif;padding:24px">
+          <p>O canal de teste mudou para <a href="https://orafaelcostaoficial.github.io/a-jornada-teste/">orafaelcostaoficial.github.io/a-jornada-teste</a>.</p>
+          </body></html>
+          HTML
           rm -rf _site/.git _site/.github
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

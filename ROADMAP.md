@@ -10,7 +10,7 @@ As decisões de produto e o desenho das funções ficam no `PLANO.md`. As regras
 | Canal | Versão | Link |
 |---|---|---|
 | Oficial (família) | **v31** (branch `main`) | https://orafaelcostaoficial.github.io/a-jornada/ |
-| Teste | v31 + ícone do teste (branch `teste`) | https://orafaelcostaoficial.github.io/a-jornada/teste/ |
+| Teste | branch `teste`, app separado "Jornada TESTE" | https://orafaelcostaoficial.github.io/a-jornada-teste/ |
 
 ### Já está no ar
 - **Conteúdo:**
@@ -58,9 +58,7 @@ As decisões de produto e o desenho das funções ficam no `PLANO.md`. As regras
 
 ## 2. Pendente agora (pequeno)
 
-1. **Separar o app de teste do oficial.** O commit já está na `teste`: nome "Jornada TESTE", ícone com faixa vermelha e `id` próprio no manifesto.
-   - **Falta:** levar a mudança de `.github/workflows/publicar.yml` para a `main`, porque o workflow roda a partir da `main`. Só com o OK do Rafael.
-   - **Depois:** desinstalar do celular o app de teste antigo, que tem o mesmo nome do oficial.
+1. **Teste separado do oficial (feito em 21/11/2026).** O teste agora é outro app, em outro endereço: o repositório `a-jornada-teste`, publicado por `ferramentas/publicar_teste.sh`. O endereço antigo `/a-jornada/teste/` redireciona para o novo. No celular: desinstalar o teste antigo, se ainda existir, e instalar o novo pelo botão.
 2. **Conferir os slugs da NAA** de Êxodo, Levítico, Números e Deuteronômio no site da SBB (`ex`, `lv`, `nm`, `dt`).
 
 ---
@@ -103,7 +101,7 @@ As decisões de produto e o desenho das funções ficam no `PLANO.md`. As regras
 ## 5. Como retomar numa conversa nova
 
 Diga algo como: *"Projeto A Jornada: leia o ROADMAP.md e vamos para a frente X"*.
-O Claude clona o repositório `orafaelcostaoficial/a-jornada` e trabalha na branch `teste`. Ele testa com Playwright a 390×844, nos modos claro e escuro. Depois sobe para o teste e só publica no oficial com o "pode publicar".
+O Claude clona o repositório `orafaelcostaoficial/a-jornada` (e anexa o `a-jornada-teste` para publicar o teste) e trabalha na branch `teste`. Ele testa com Playwright a 390×844, nos modos claro e escuro. Depois sobe para o teste e só publica no oficial com o "pode publicar".
 Os originais das imagens e os prompts ficam no Drive, em **Projetos/A_Jornada**.
 
 Ao terminar uma frente, atualize este arquivo (seções 1 a 3).
