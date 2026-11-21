@@ -1,19 +1,80 @@
 // Cenários do mapa da jornada. Cada trecho da história tem um fundo e enfeites próprios.
 // Para uma nova era: adicionar cenas aqui e mapear as sessões em CENA_DA_SESSAO.
 
+// fundo: paisagem no alto da cena (tipo do horizonte, cores vivas) e chão com textura.
+// ceu = [alto, horizonte]; longe/meio = camadas do horizonte; chao = [perto do horizonte, embaixo].
 export const CENAS = {
-  jardim:     { quando: 'Sem data', nome: 'O jardim do Éden', ceu: ['#d9f1d0', '#a7d98f'], enfeites: ['arvore', 'flor', 'rio', 'arvore', 'flor'] },
-  diluvio:    { quando: 'Sem data', nome: 'O dilúvio', ceu: ['#cfe3f2', '#7fb0d6'], enfeites: ['onda', 'arca', 'onda', 'arcoiris'] },
-  babel:      { quando: 'Sem data', nome: 'Babel', ceu: ['#f4e3c4', '#e0bf86'], enfeites: ['torre', 'tijolo'] },
-  patriarcas: { quando: 'c. 2100–1900 a.C.', nome: 'Os patriarcas', ceu: ['#f8e6c6', '#e8c48d'], enfeites: ['tenda', 'estrelas', 'duna', 'poco', 'tenda', 'palmeira', 'estrelas'] },
-  egito:      { quando: 'c. 1900–1800 a.C.', nome: 'O Egito', ceu: ['#fbe7b5', '#e7b45f'], enfeites: ['piramide', 'palmeira', 'nilo', 'espiga', 'piramide'] },
-  exodo:      { quando: 'Êxodo c. 1446 ou c. 1260 a.C.', nome: 'Escravos no Egito', ceu: ['#fbe7b5', '#d9a24e'], enfeites: ['piramide', 'tijolo', 'nilo', 'palmeira', 'tijolo'] },
-  mar:        { quando: 'Logo depois da saída (Êx 14)', nome: 'O mar se abre', ceu: ['#cfe6f2', '#6fa6cf'], enfeites: ['onda', 'nuvem', 'onda', 'onda'] },
-  deserto:    { quando: 'Os 40 anos no deserto', nome: 'O deserto', ceu: ['#f6e2bf', '#e2b977'], enfeites: ['duna', 'tenda', 'estrelas', 'poco', 'duna', 'nuvem'] },
-  sinai:      { quando: '3º mês depois da saída (Êx 19:1)', nome: 'Ao pé do Sinai', ceu: ['#e3dcef', '#a99bc7'], enfeites: ['nuvem', 'raio', 'tenda', 'duna', 'tenda'] },
-  moabe:      { quando: '40º ano depois da saída (Dt 1:3)', nome: 'As planícies de Moabe', ceu: ['#e9efd2', '#bccb8a'], enfeites: ['palmeira', 'tenda', 'rio', 'palmeira', 'duna'] },
-  uz:         { quando: 'Sem data no texto', nome: 'A terra de Uz', ceu: ['#d9dbe3', '#9aa3b8'], enfeites: ['nuvem', 'raio', 'nuvem', 'sol'] },
+  jardim:     { quando: 'Sem data', nome: 'O jardim do Éden', enfeites: ['arvore', 'flor', 'rio', 'arvore', 'flor'],
+    fundo: { tipo: 'colinas', ceu: ['#5fc2ff', '#c8f0ff'], longe: '#7fd38a', meio: '#4fbf62', chao: ['#5cc95a', '#3fae4c'], textura: 'grama', astro: 'sol' } },
+  diluvio:    { quando: 'Sem data', nome: 'O dilúvio', enfeites: ['onda', 'arca', 'onda', 'arcoiris'],
+    fundo: { tipo: 'mar', ceu: ['#4a78c2', '#9fc4ee'], longe: '#2f7fd0', meio: '#2a6fc0', chao: ['#2f86d8', '#1f63b0'], textura: 'agua', chuva: true } },
+  babel:      { quando: 'Sem data', nome: 'Babel', enfeites: ['torre', 'tijolo'],
+    fundo: { tipo: 'cidade', ceu: ['#ff9f55', '#ffe1a0'], longe: '#d98a4a', meio: '#e9a65c', chao: ['#f0b766', '#dd9a48'], textura: 'areia', astro: 'sol' } },
+  patriarcas: { quando: 'c. 2100–1900 a.C.', nome: 'Os patriarcas', enfeites: ['tenda', 'estrelas', 'duna', 'poco', 'tenda', 'palmeira', 'estrelas'],
+    fundo: { tipo: 'dunas', ceu: ['#2b3a86', '#f59a6a'], longe: '#d9814e', meio: '#eda25a', chao: ['#f6bf6a', '#e9a24c'], textura: 'areia', astro: 'lua', estrelas: true } },
+  egito:      { quando: 'c. 1900–1800 a.C.', nome: 'O Egito', enfeites: ['piramide', 'palmeira', 'nilo', 'espiga', 'piramide'],
+    fundo: { tipo: 'piramides', ceu: ['#45b8f5', '#ffe9a8'], longe: '#e8b35a', meio: '#f2c46c', chao: ['#9fd36a', '#f2c46c'], textura: 'areia', astro: 'sol' } },
+  exodo:      { quando: 'Êxodo c. 1446 ou c. 1260 a.C.', nome: 'Escravos no Egito', enfeites: ['piramide', 'tijolo', 'nilo', 'palmeira', 'tijolo'],
+    fundo: { tipo: 'piramides', ceu: ['#ff8a4c', '#ffd98c'], longe: '#d7863f', meio: '#e59a4c', chao: ['#e8a052', '#cf7f36'], textura: 'areia', astro: 'sol' } },
+  mar:        { quando: 'Logo depois da saída (Êx 14)', nome: 'O mar se abre', enfeites: ['onda', 'nuvem', 'onda', 'onda'],
+    fundo: { tipo: 'mar', ceu: ['#3aa8f0', '#bfe8ff'], longe: '#1f8be0', meio: '#1878cc', chao: ['#e9c27a', '#d9a95c'], textura: 'areia', paredes: true } },
+  deserto:    { quando: 'Os 40 anos no deserto', nome: 'O deserto', enfeites: ['duna', 'tenda', 'estrelas', 'poco', 'duna', 'nuvem'],
+    fundo: { tipo: 'dunas', ceu: ['#ffa53d', '#ffe6a3'], longe: '#e8913c', meio: '#f4ad52', chao: ['#f8c86e', '#eba54e'], textura: 'areia', astro: 'sol' } },
+  sinai:      { quando: '3º mês depois da saída (Êx 19:1)', nome: 'Ao pé do Sinai', enfeites: ['nuvem', 'raio', 'tenda', 'duna', 'tenda'],
+    fundo: { tipo: 'montanha', ceu: ['#4b3f9e', '#b9a8f0'], longe: '#7a68c2', meio: '#5b4796', chao: ['#cf9f6a', '#b9844e'], textura: 'pedra' } },
+  moabe:      { quando: '40º ano depois da saída (Dt 1:3)', nome: 'As planícies de Moabe', enfeites: ['palmeira', 'tenda', 'rio', 'palmeira', 'duna'],
+    fundo: { tipo: 'colinas', ceu: ['#58bdf5', '#dff4ff'], longe: '#b7b06a', meio: '#9fc457', chao: ['#b4d65e', '#93bf47'], textura: 'grama', astro: 'sol', rio: true } },
+  uz:         { quando: 'Sem data no texto', nome: 'A terra de Uz', enfeites: ['nuvem', 'raio', 'nuvem', 'sol'],
+    fundo: { tipo: 'colinas', ceu: ['#5f73b8', '#c9d4f2'], longe: '#8c9ac4', meio: '#7fa66a', chao: ['#9cc26a', '#7fa851'], textura: 'grama', chuva: true } },
 };
+
+// Horizonte (viewBox 400×170): o chão da cena começa na linha de baixo, na cor chao[0].
+const H = 170;
+const astroSVG = (f) => (f.astro === 'sol' ? '<circle cx="320" cy="48" r="26" fill="#ffd84d"/><circle cx="320" cy="48" r="38" fill="#ffe680" opacity=".35"/>'
+  : f.astro === 'lua' ? '<path d="M316 22a19 19 0 1 0 16 30a15 15 0 1 1-16-30Z" fill="#fff4cf"/>' : '')
+  + (f.estrelas ? [[40, 22], [90, 50], [150, 18], [210, 40], [260, 14], [370, 70], [120, 80], [30, 70]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${i % 3 ? 1.6 : 2.4}" fill="#fff" opacity=".9"/>`).join('') : '')
+  + (f.chuva ? '<g stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".45">' + Array.from({ length: 22 }, (_, i) => { const x = (i * 37) % 400, y = (i * 53) % 110; return `<path d="M${x} ${y}l-6 14"/>`; }).join('') + '</g>' : '');
+const CAMADAS = {
+  colinas: (f) => `<path d="M0 105C60 70 120 92 185 80S310 58 400 92V${H}H0Z" fill="${f.longe}"/>
+    <path d="M0 132C80 104 145 128 225 112S345 100 400 124V${H}H0Z" fill="${f.meio}"/>
+    ${f.rio ? `<path d="M140 ${H}C170 150 230 146 270 124" stroke="#5fc8f5" stroke-width="10" fill="none" stroke-linecap="round"/>` : ''}
+    <path d="M0 154C100 140 200 160 300 146S380 144 400 150V${H}H0Z" fill="${f.chao[0]}"/>`,
+  dunas: (f) => `<path d="M0 115C50 92 90 92 140 108S230 84 290 100 370 90 400 104V${H}H0Z" fill="${f.longe}"/>
+    <path d="M0 140C70 112 130 116 190 134S300 112 400 132V${H}H0Z" fill="${f.meio}"/>
+    <path d="M0 158C90 146 180 162 270 150S370 148 400 154V${H}H0Z" fill="${f.chao[0]}"/>`,
+  mar: (f) => `<rect y="104" width="400" height="${H - 104}" fill="${f.longe}"/>
+    <g stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"><path d="M20 118q10-6 20 0t20 0"/><path d="M150 112q10-6 20 0t20 0"/><path d="M280 122q10-6 20 0t20 0"/><path d="M90 140q10-6 20 0t20 0"/><path d="M330 146q10-6 20 0t20 0"/></g>
+    ${f.paredes ? `<path d="M0 ${H}V60C30 40 60 50 80 70C60 90 70 130 110 ${H}Z" fill="${f.meio}"/><path d="M400 ${H}V60C370 40 340 50 320 70C340 90 330 130 290 ${H}Z" fill="${f.meio}"/>
+      <g stroke="#fff" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"><path d="M18 70q14-12 30-2"/><path d="M382 70q-14-12-30-2"/><path d="M14 110q12-8 26 0"/><path d="M386 110q-12-8-26 0"/></g>
+      <path d="M110 ${H}C150 150 250 150 290 ${H}Z" fill="${f.chao[0]}"/>` : `<path d="M0 156C90 148 200 162 300 152S380 150 400 154V${H}H0Z" fill="${f.chao[0]}"/>`}`,
+  cidade: (f) => `<path d="M0 120C80 104 160 116 240 106S350 102 400 112V${H}H0Z" fill="${f.longe}"/>
+    <path d="M150 140V120h100v20ZM165 120v-18h70v18ZM180 102V86h40v16ZM192 86V72h16v14Z" fill="${f.meio}"/><path d="M195 140v-12h10v12Z" fill="${f.longe}"/>
+    <path d="M0 152C100 140 200 158 300 146S380 144 400 150V${H}H0Z" fill="${f.chao[0]}"/>`,
+  piramides: (f) => `<path d="M0 124C80 112 160 122 240 114S350 110 400 118V${H}H0Z" fill="${f.longe}"/>
+    <path d="M40 132L95 72L150 132Z" fill="${f.meio}"/><path d="M95 72L150 132H120Z" fill="#000" opacity=".12"/>
+    <path d="M130 132L170 88L210 132Z" fill="${f.meio}"/><path d="M170 88L210 132H188Z" fill="#000" opacity=".12"/>
+    <path d="M250 136L280 104L310 136Z" fill="${f.meio}"/>
+    <path d="M0 150C90 136 200 156 300 142S380 140 400 146V${H}H0Z" fill="${f.chao[0]}"/>`,
+  montanha: (f) => `<path d="M0 118L50 86L95 108L150 70L205 104L265 80L325 112L400 88V${H}H0Z" fill="${f.longe}"/>
+    <path d="M90 ${H}L230 34L250 46L268 30L400 140V${H}Z" fill="${f.meio}"/><path d="M230 34L250 46L268 30L300 70L260 62L240 74Z" fill="#fff" opacity=".2"/>
+    <g fill="#3d3566" opacity=".9"><circle cx="232" cy="30" r="16"/><circle cx="256" cy="22" r="20"/><circle cx="282" cy="30" r="15"/><rect x="220" y="28" width="76" height="14" rx="7"/></g>
+    <path d="M262 40l-8 16h7l-5 13 14-19h-7l5-10Z" fill="#ffd84d"/>
+    <path d="M0 156C100 146 200 162 300 150S380 148 400 154V${H}H0Z" fill="${f.chao[0]}"/>`,
+};
+export function paisagem(cenaId) {
+  const f = CENAS[cenaId].fundo;
+  return `<svg class="paisagem" viewBox="0 0 400 ${H}" preserveAspectRatio="none" aria-hidden="true">${astroSVG(f)}${CAMADAS[f.tipo](f)}</svg>`;
+}
+const TEX = {
+  grama: '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="56"><g stroke="rgba(10,90,20,.35)" stroke-width="2.2" stroke-linecap="round" fill="none"><path d="M12 34l-3-7M12 34l1-8M12 34l5-6"/><path d="M50 14l-3-6M50 14l1-7M50 14l4-5"/></g><circle cx="34" cy="48" r="2" fill="rgba(255,255,255,.35)"/></svg>',
+  areia: '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="40"><g fill="rgba(140,80,10,.22)"><circle cx="8" cy="10" r="1.6"/><circle cx="30" cy="26" r="1.3"/><circle cx="40" cy="6" r="1"/></g><g fill="rgba(255,255,255,.35)"><circle cx="20" cy="34" r="1.3"/><circle cx="44" cy="20" r="1"/></g><path d="M14 20q5-3 10 0" stroke="rgba(140,80,10,.18)" stroke-width="1.5" fill="none"/></svg>',
+  agua: '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="44"><g stroke="rgba(255,255,255,.4)" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M6 14q8-6 16 0t16 0"/><path d="M44 34q8-6 16 0t16 0"/></g></svg>',
+  pedra: '<svg xmlns="http://www.w3.org/2000/svg" width="60" height="50"><g fill="rgba(90,55,25,.25)"><ellipse cx="12" cy="14" rx="5" ry="3"/><ellipse cx="42" cy="36" rx="4" ry="2.5"/></g><g fill="rgba(255,255,255,.3)"><circle cx="30" cy="10" r="1.5"/><circle cx="52" cy="18" r="1.2"/></g></svg>',
+};
+export function estiloCena(cenaId) {
+  const f = CENAS[cenaId].fundo;
+  return `--ceu1:${f.ceu[0]};--ceu2:${f.ceu[1]};--chao1:${f.chao[0]};--chao2:${f.chao[1]};--tex:url('data:image/svg+xml,${encodeURIComponent(TEX[f.textura])}')`;
+}
 
 export function cenaDaSessao(id) {
   const [l, n] = [id.slice(0, 2), Number(id.slice(3))];

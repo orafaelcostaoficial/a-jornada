@@ -6,13 +6,13 @@ import { ico } from './icones.js';
 import { avatarHTML } from './avatar.js';
 import { AVATARES, AVATARES_COM_IMAGEM } from '../data/avatares.js';
 import * as N from './nuvem.js';
-import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
+import { CENAS, cenaDaSessao, enfeite, paisagem, estiloCena } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v24';
+const VERSAO_APP = 'v25';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -550,14 +550,34 @@ function abasJornada(atual) {
   return `<div class="seg abas-topo"><a class="${atual === 'mapa' ? 'on' : ''}" href="#/jornada">${ico('map')} Mapa</a><a class="${atual === 'linha' ? 'on' : ''}" href="#/linha">${ico('hourglass')} Linha do tempo</a></div>`;
 }
 
+// Caminho de terra ligando as sessões do mapa (curva suave pelos centros dos nós, passando de uma cena para a outra).
+function desenharCaminhos() {
+  document.querySelectorAll('.era-mapa').forEach((era) => {
+    // Uma curva só por era (coordenadas da era); cada cena mostra o seu pedaço, recortado pela própria cena.
+    const re = era.getBoundingClientRect();
+    const P = [...era.querySelectorAll('.cena .no-circ')].map((n) => { const b = n.getBoundingClientRect(); return [b.left + b.width / 2 - re.left, b.top + b.height / 2 - re.top]; });
+    if (!P.length) return;
+    let d = `M${P[0][0]} ${P[0][1]}`;
+    for (let k = 0; k < P.length - 1; k++) {
+      const p0 = P[k - 1] || P[k], p1 = P[k], p2 = P[k + 1], p3 = P[k + 2] || p2;
+      d += `C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]} ${p2[1]}`;
+    }
+    era.querySelectorAll('.cena').forEach((c) => {
+      c.querySelector('.caminho')?.remove();
+      const rc = c.getBoundingClientRect(); const dx = rc.left - re.left, dy = rc.top - re.top;
+      (c.querySelector('.paisagem') || c).insertAdjacentHTML(c.querySelector('.paisagem') ? 'afterend' : 'afterbegin', `<svg class="caminho" width="${c.offsetWidth}" height="${c.offsetHeight}" viewBox="${dx} ${dy} ${c.offsetWidth} ${c.offsetHeight}" aria-hidden="true"><path d="${d}" class="cm-borda"/><path d="${d}" class="cm-terra"/><path d="${d}" class="cm-meio"/></svg>`);
+    });
+  });
+}
+addEventListener('resize', () => { if ((location.hash || '').startsWith('#/jornada')) desenharCaminhos(); });
+
 function telaJornada() {
   const p = P(); const prox = J.proxima(p);
   return `${topo()}<h1 class="tit-tela">Jornada</h1>${abasJornada('mapa')}
   <p class="dica datas-aviso">${ico('hourglass')} Datas aproximadas, estimadas por estudiosos: a Bíblia não usa o nosso calendário. Onde o texto não permite datar, não há data.</p>
-  ${ERAS.map((era) => {
+  ${ERAS.filter((era) => era.conteudo && (J.progressoEra(p, era.id).feitas > 0 || (prox && LIVROS[prox.livro].era === era.id))).map((era) => {
     const pe = J.progressoEra(p, era.id);
     const divisor = era.id === 'jesus' ? `<div class="divisor-ac"><span>a.C.</span><b>${ico('star')} Nascimento de Jesus</b><span>d.C.</span></div>` : '';
-    if (!era.conteudo) return `${divisor}<section class="era-fech" style="--c:${COR_ERA[era.id]}"><div><b>${esc(era.nome)}</b><em>${esc(era.quando)}</em><small>${era.livros.map((l) => esc(l.nome)).join(' · ')}</small></div><span>${ico('lock-keyhole')}</span></section>`;
     const ss = J.SESSOES.filter((s) => LIVROS[s.livro].era === era.id);
     const grupos = [];
     for (const s of ss) {
@@ -566,13 +586,13 @@ function telaJornada() {
       grupos.at(-1).sessoes.push(s);
     }
     let i = 0;
-    return `<section class="era-mapa" style="--c:${COR_ERA[era.id]}">
+    return `${divisor}<section class="era-mapa" style="--c:${COR_ERA[era.id]}">
       <div class="era-banner"><small>Era ${ERAS.indexOf(era) + 1} · ${esc(era.quando)}</small><b>${esc(era.nome)}</b><span>${pe.feitas}/${pe.total}</span><div class="barra fina"><i style="width:${Math.round(pe.feitas / pe.total * 100)}%"></i></div></div>
       ${grupos.map((g) => {
         const cena = CENAS[g.cena];
         const livroIni = g.sessoes[0].livro;
         const ehInicioLivro = J.SESSOES.find((x) => x.livro === livroIni).id === g.sessoes[0].id;
-        return `<div class="cena cena-${g.cena}" style="--ceu1:${cena.ceu[0]};--ceu2:${cena.ceu[1]}">
+        return `<div class="cena cena-${g.cena}" style="${estiloCena(g.cena)}">${paisagem(g.cena)}
           ${ehInicioLivro ? `<a class="livro-banner" href="#/livro/${livroIni}"><span class="ordem">${LIVROS[livroIni].ordem}</span><b>${esc(LIVROS[livroIni].nome)}</b><small>Introdução ${ico('chevron-right')}</small></a>` : ''}
           <div class="cena-nome">${esc(cena.nome)}<em>${esc(cena.quando)}</em></div>
           <div class="trilha">${g.sessoes.map((s, k) => {
@@ -876,7 +896,7 @@ function render() {
   document.body.classList.toggle('tema-natal', dTema === 'natal');
   document.body.classList.toggle('sem-nav', !P() || ['novo-perfil', 'editar', 'sessao', 'dsessao', 'resultado', 'revisao', 'aplicacao'].includes(rota));
   document.querySelectorAll('nav a').forEach((a) => a.classList.toggle('on', a.dataset.r === NAV[rota]));
-  if (rota === 'jornada') document.querySelector('.no.atual')?.scrollIntoView({ block: 'center' });
+  if (rota === 'jornada') { desenharCaminhos(); document.querySelector('.no.atual')?.scrollIntoView({ block: 'center' }); }
   else window.scrollTo(0, 0);
   const leitor = document.getElementById('leitor');
   if (leitor) carregarLeitor(leitor);
