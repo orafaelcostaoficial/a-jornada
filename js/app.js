@@ -597,7 +597,7 @@ function telaJornada() {
           <div class="cena-nome">${esc(cena.nome)}<em>${esc(cena.quando)}</em></div>
           <div class="trilha">${g.sessoes.map((s, k) => {
             const st = J.concluida(p, s.id) ? 'feita' : J.liberada(p, s) ? 'atual' : 'bloq';
-            const off = [0, 64, 96, 64, 0, -64, -96, -64][i++ % 8];
+            const off = g.cena === 'mar' ? (i++, 0) : [0, 64, 96, 64, 0, -64, -96, -64][i++ % 8]; // no mar, o caminho passa pelo meio, no chão seco
             const lado = off > 0 ? 'esq' : 'dir';
             const enf = cena.enfeites[k % cena.enfeites.length];
             return `<div class="passo-mapa" style="--x:${off}px">

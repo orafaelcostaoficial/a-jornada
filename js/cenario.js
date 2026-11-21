@@ -16,7 +16,7 @@ export const CENAS = {
     fundo: { tipo: 'piramides', ceu: ['#45b8f5', '#ffe9a8'], longe: '#e8b35a', meio: '#f2c46c', chao: ['#9fd36a', '#f2c46c'], textura: 'areia', astro: 'sol' } },
   exodo:      { quando: 'Êxodo c. 1446 ou c. 1260 a.C.', nome: 'Escravos no Egito', enfeites: ['piramide', 'tijolo', 'nilo', 'palmeira', 'tijolo'],
     fundo: { tipo: 'piramides', ceu: ['#ff8a4c', '#ffd98c'], longe: '#d7863f', meio: '#e59a4c', chao: ['#e8a052', '#cf7f36'], textura: 'areia', astro: 'sol' } },
-  mar:        { quando: 'Logo depois da saída (Êx 14)', nome: 'O mar se abre', enfeites: ['onda', 'nuvem', 'onda', 'onda'],
+  mar:        { quando: 'Logo depois da saída (Êx 14)', nome: 'O mar se abre', enfeites: ['nuvem'],
     fundo: { tipo: 'mar', ceu: ['#3aa8f0', '#bfe8ff'], longe: '#1f8be0', meio: '#1878cc', chao: ['#e9c27a', '#d9a95c'], textura: 'areia', paredes: true } },
   deserto:    { quando: 'Os 40 anos no deserto', nome: 'O deserto', enfeites: ['duna', 'tenda', 'estrelas', 'poco', 'duna', 'nuvem'],
     fundo: { tipo: 'dunas', ceu: ['#ffa53d', '#ffe6a3'], longe: '#e8913c', meio: '#f4ad52', chao: ['#f8c86e', '#eba54e'], textura: 'areia', astro: 'sol' } },
@@ -42,11 +42,15 @@ const CAMADAS = {
   dunas: (f) => `<path d="M0 115C50 92 90 92 140 108S230 84 290 100 370 90 400 104V${H}H0Z" fill="${f.longe}"/>
     <path d="M0 140C70 112 130 116 190 134S300 112 400 132V${H}H0Z" fill="${f.meio}"/>
     <path d="M0 158C90 146 180 162 270 150S370 148 400 154V${H}H0Z" fill="${f.chao[0]}"/>`,
-  mar: (f) => `<rect y="104" width="400" height="${H - 104}" fill="${f.longe}"/>
-    <g stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"><path d="M20 118q10-6 20 0t20 0"/><path d="M150 112q10-6 20 0t20 0"/><path d="M280 122q10-6 20 0t20 0"/><path d="M90 140q10-6 20 0t20 0"/><path d="M330 146q10-6 20 0t20 0"/></g>
-    ${f.paredes ? `<path d="M0 ${H}V60C30 40 60 50 80 70C60 90 70 130 110 ${H}Z" fill="${f.meio}"/><path d="M400 ${H}V60C370 40 340 50 320 70C340 90 330 130 290 ${H}Z" fill="${f.meio}"/>
-      <g stroke="#fff" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"><path d="M18 70q14-12 30-2"/><path d="M382 70q-14-12-30-2"/><path d="M14 110q12-8 26 0"/><path d="M386 110q-12-8-26 0"/></g>
-      <path d="M110 ${H}C150 150 250 150 290 ${H}Z" fill="${f.chao[0]}"/>` : `<path d="M0 156C90 148 200 162 300 152S380 150 400 154V${H}H0Z" fill="${f.chao[0]}"/>`}`,
+  // Com paredes (Êx 14:21-22): duas muralhas de água e o fundo do mar seco no meio, sem água no caminho.
+  mar: (f) => f.paredes ? `<path d="M0 ${H}V48C25 36 52 42 72 56C92 70 150 98 186 106L100 ${H}Z" fill="${f.longe}"/>
+      <path d="M400 ${H}V48C375 36 348 42 328 56C308 70 250 98 214 106L300 ${H}Z" fill="${f.longe}"/>
+      <g stroke="#fff" stroke-width="3" fill="none" opacity=".55" stroke-linecap="round"><path d="M16 66q14-11 30-1"/><path d="M384 66q-14-11-30-1"/><path d="M20 104q12-8 26 0"/><path d="M380 104q-12-8-26 0"/><path d="M56 132q10-7 22 0"/><path d="M344 132q-10-7-22 0"/></g>
+      <path d="M100 ${H}L186 106H214L300 ${H}Z" fill="${f.chao[0]}"/>
+      <path d="M0 156C90 148 200 162 300 152S380 150 400 154V${H}H0Z" fill="${f.chao[0]}"/>`
+    : `<rect y="104" width="400" height="${H - 104}" fill="${f.longe}"/>
+      <g stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"><path d="M20 118q10-6 20 0t20 0"/><path d="M150 112q10-6 20 0t20 0"/><path d="M280 122q10-6 20 0t20 0"/><path d="M90 140q10-6 20 0t20 0"/><path d="M330 146q10-6 20 0t20 0"/></g>
+      <path d="M0 156C90 148 200 162 300 152S380 150 400 154V${H}H0Z" fill="${f.chao[0]}"/>`,
   cidade: (f) => `<path d="M0 120C80 104 160 116 240 106S350 102 400 112V${H}H0Z" fill="${f.longe}"/>
     <path d="M150 140V120h100v20ZM165 120v-18h70v18ZM180 102V86h40v16ZM192 86V72h16v14Z" fill="${f.meio}"/><path d="M195 140v-12h10v12Z" fill="${f.longe}"/>
     <path d="M0 152C100 140 200 158 300 146S380 144 400 150V${H}H0Z" fill="${f.chao[0]}"/>`,
