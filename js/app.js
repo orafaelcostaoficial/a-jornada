@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v25';
+const VERSAO_APP = 'v26';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -603,8 +603,8 @@ function telaJornada() {
             return `<div class="passo-mapa" style="--x:${off}px">
               <span class="enf ${lado}">${enfeite(enf)}</span>
               <a class="no ${st}" ${st === 'bloq' ? '' : `href="#/sessao/${s.id}"`}>
-                ${st === 'atual' && prox?.id === s.id ? `<span class="no-av">${avatarHTML(p.avatar, J.itensAte(J.nivel(p.xp).n), 44)}</span>` : ''}
-                <span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>
+                ${st === 'atual' && prox?.id === s.id ? `<span class="no-tag">Começar</span><span class="no-circ com-av">${avatarHTML(p.avatar, J.itensAte(J.nivel(p.xp).n), 64)}</span>`
+                  : `<span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>`}
                 <span class="no-lbl">${s.caps[0]}${s.caps[1] !== s.caps[0] ? '–' + s.caps[1] : ''}</span>
                 ${marcadoresNo(s.id, p)}
               </a></div>`;
