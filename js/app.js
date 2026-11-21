@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v31';
+const VERSAO_APP = 'v32';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -67,8 +67,12 @@ const instalado = () => matchMedia('(display-mode: standalone)').matches || navi
 const ehIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 window.addEventListener('beforeinstallprompt', (ev) => { ev.preventDefault(); pedidoInstalar = ev; if (location.hash.match(/hoje|perfil|^$/)) render(); });
 window.addEventListener('appinstalled', () => { pedidoInstalar = null; toast('A Jornada instalada!'); render(); });
+// O Chrome não oferece instalar de novo um app que já está no celular: nesse caso o cartão avisa em vez de oferecer.
+let JA_INSTALADO = false;
+navigator.getInstalledRelatedApps?.().then((l) => { if (l?.length) { JA_INSTALADO = true; render(); } }).catch(() => {});
 function cartaoInstalar(compacto) {
   if (instalado()) return '';
+  if (JA_INSTALADO) return compacto ? '' : `<section class="instalar">${ico('circle-check')}<div><b>Já está instalado neste celular</b><small>Abra pelo ícone A Jornada na tela inicial.</small></div></section>`;
   if (compacto && sessionStorage.getItem('ajornada-instalar-fechado')) return '';
   return `<section class="instalar">${ico('download')}<div><b>Instale A Jornada no celular</b><small>Abre como app, em tela cheia, e funciona sem internet.</small></div>
     <button class="btn ouro" data-acao="instalar">Instalar</button>${compacto ? `<button class="fechar" data-acao="fechar-instalar" aria-label="Fechar">${ico('x')}</button>` : ''}</section>`;
@@ -85,6 +89,7 @@ async function instalar() {
         <li>Abra este endereço no <b>Chrome</b>.</li>
         <li>Toque no menu <b>⋮</b> (canto superior direito).</li>
         <li>Escolha <b>Instalar app</b> (ou <b>Adicionar à tela inicial</b>) e confirme.</li></ol>
+        <p class="dica">Se essa opção não aparecer, o app provavelmente já está instalado: procure o ícone A Jornada na tela inicial.</p>
         <button class="btn grande" data-fechar>Entendi</button></div>`);
 }
 
@@ -133,7 +138,7 @@ function overlay(html, aoFechar) {
 // ─── Componentes ───
 function topo() {
   const p = P(); const nv = J.nivel(p.xp);
-  return `${CANAL_TESTE ? `<a class="faixa-teste" href="../#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
+  return `${CANAL_TESTE ? `<a class="faixa-teste" href="https://orafaelcostaoficial.github.io/a-jornada/#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
     <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>${rotNivel(p)} · ${nomeEstagio(p)}</small></span></a>
     <button class="xp-chip" data-acao="ver-xp" aria-label="Ver como ganhou o XP">${ico('sparkles')} ${p.xp} XP</button>
   </header>`;
@@ -899,7 +904,7 @@ function telaPerfil() {
     <p class="dica">Os dados de todos os viajantes ficam neste aparelho. Exporte de vez em quando e guarde o arquivo, ou use para passar o progresso para outro celular.</p>
     <div class="linha-btns"><button class="btn sec" data-acao="exportar">${ico('download')} Exportar</button>
     <label class="btn sec">${ico('upload')} Importar<input type="file" accept="application/json" id="importar" hidden></label></div></section>
-  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}${CANAL_TESTE ? ' · canal de teste' : ` · <a href="./teste/#/hoje">abrir o canal de teste</a>`}</p>`;
+  <p class="rodape">Texto bíblico: NAA © Sociedade Bíblica do Brasil, aberto no site oficial. Conteúdo de estudo próprio, com referências para conferir. Ícones: Lucide (ISC).<br>Versão ${VERSAO_APP}${CANAL_TESTE ? ' · canal de teste' : ` · <a href="https://orafaelcostaoficial.github.io/a-jornada-teste/#/hoje">abrir o canal de teste</a>`}</p>`;
 }
 
 // ─── Rascunho da sessão ───

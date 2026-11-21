@@ -15,13 +15,15 @@ Os prompts (um por imagem) são gerados por `python3 ferramentas/gerar_prompts.p
 ao mudar personagens/cartas/selos, atualizar a lista ali, gerar de novo e subir os docs para `02_Prompts`.
 
 ## Fluxo de trabalho (obrigatório)
-1. Trabalhar sempre na branch `teste`. Ela publica em `https://orafaelcostaoficial.github.io/a-jornada/teste/`.
+1. Trabalhar sempre na branch `teste`. Ela vira um app separado em `https://orafaelcostaoficial.github.io/a-jornada-teste/`
+   (repositório `orafaelcostaoficial/a-jornada-teste`, anexar com add_repo/push): depois do push na `teste`, rodar
+   `bash ferramentas/publicar_teste.sh` (copia a branch para lá, com nome "Jornada TESTE" e ícone vermelho).
 2. Antes de subir, testar localmente: `python3 -m http.server 8765` na raiz e rodar um roteiro Playwright
    (Chromium, viewport 390×844) que percorre as telas mexidas; zero erro no console. Mandar prints ao Rafael.
 3. Subir para `teste` e avisar o link para ele testar no celular.
 4. **Só fazer merge em `main` (produção) quando o Rafael disser "pode publicar" / "sim, publica".**
 5. Ao mudar arquivos que o app usa offline, subir `VERSAO` em `sw.js` e incluir arquivos novos em `ARQUIVOS`.
-O canal `/teste/` usa dados locais separados (`ajornada.teste.v2`) e não sincroniza com a nuvem
+O canal de teste usa dados locais separados (`ajornada.teste.v2`) e não sincroniza com a nuvem
 (a não ser com `?nuvem=1`), para nunca bagunçar os dados reais da família.
 
 ## Método
@@ -81,4 +83,5 @@ Nova era: criar `data/era-<id>.js` no mesmo formato, importar em `js/jogo.js`, m
 - `js/jogo.js` — regras: progresso, XP, níveis, conquistas, quiz.
 - `js/app.js` — telas (roteamento por hash: hoje, jornada, linha, sessao, livro, cartas, carta, amigos, perfil…).
 - `sw.js` — offline, rede primeiro; caches separados por canal.
-- `.github/workflows/publicar.yml` — publica `main` na raiz e `teste` em `/teste/` (Pages com fonte "GitHub Actions").
+- `.github/workflows/publicar.yml` — publica `main` (Pages com fonte "GitHub Actions"); `/a-jornada/teste/` só redireciona.
+- `ferramentas/publicar_teste.sh` — publica a branch `teste` no repositório `a-jornada-teste` (Pages pela branch `main`).

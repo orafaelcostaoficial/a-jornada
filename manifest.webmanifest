@@ -32,5 +32,11 @@
     "education",
     "books",
     "lifestyle"
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://orafaelcostaoficial.github.io/a-jornada/manifest.webmanifest"
+    }
   ]
 }

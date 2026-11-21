@@ -4,7 +4,7 @@ Estudo bíblico cronológico gamificado para a família: uma sessão por dia (co
 aplicação), cartas colecionáveis, personagem que evolui, mapa da jornada e amigos.
 
 - App: https://orafaelcostaoficial.github.io/a-jornada/
-- Canal de teste: https://orafaelcostaoficial.github.io/a-jornada/teste/
+- Canal de teste: https://orafaelcostaoficial.github.io/a-jornada-teste/
 
 ## Créditos
 - Texto bíblico no app: **Bíblia Livre (BLIVRE)**, Copyright © Diego Santos, Mario Sérgio e Marco Teles,
