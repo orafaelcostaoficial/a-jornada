@@ -222,22 +222,32 @@ export function responderQuiz(e, id, acertou) {
   }
 }
 
+// Medalhas: nível bronze/prata/ouro e ícone. Eras e livros são gerados de plano.js (abaixo).
 export const CONQUISTAS = [
-  { id: 'primeira', nome: 'Primeiro passo', desc: 'Concluir a primeira sessão', ok: (e) => concluidas(e).length >= 1 },
-  { id: 'cinco', nome: 'Pegando o ritmo', desc: 'Concluir 5 sessões', ok: (e) => concluidas(e).length >= 5 },
-  { id: 'quinze', nome: 'Caminhante', desc: 'Concluir 15 sessões', ok: (e) => concluidas(e).length >= 15 },
-  { id: 'semana', nome: 'Semana firme', desc: `Estudar ${META_SEMANA} dias numa mesma semana`, ok: (e) => semanaAtual(e).feitos >= META_SEMANA },
-  { id: 'pers10', nome: 'Rostos conhecidos', desc: 'Desbloquear 10 personagens', ok: (e) => personagensLiberados(e).size >= 10 },
-  { id: 'pers25', nome: 'Árvore da família', desc: 'Desbloquear 25 personagens', ok: (e) => personagensLiberados(e).size >= 25 },
-  { id: 'aplic1', nome: 'Da página para a vida', desc: 'Contar como foi uma aplicação', ok: (e) => Object.values(e.sessoes).some((s) => s.revisao) },
-  { id: 'aplic5', nome: 'Praticante', desc: 'Contar como foram 5 aplicações', ok: (e) => Object.values(e.sessoes).filter((s) => s.revisao).length >= 5 },
-  { id: 'quiz25', nome: 'Memória firme', desc: 'Acertar 25 perguntas de revisão', ok: (e) => e.log.filter((l) => l.tipo === 'acerto').length >= 25 },
-  { id: 'selos6', nome: 'Guardador de selos', desc: 'Reunir 6 Selos da Palavra', ok: (e) => selosLiberados(e).size >= 6 },
-  { id: 'gn', nome: 'No princípio', desc: 'Concluir Gênesis', ok: (e) => progressoLivro(e, 'gn').completo },
-  { id: 'jo', nome: 'Meus olhos te veem', desc: 'Concluir Jó', ok: (e) => progressoLivro(e, 'jo').completo },
-  { id: 'era1', nome: 'Era dos Patriarcas', desc: 'Concluir a era Princípio e Patriarcas', ok: (e) => progressoEra(e, 'principio').completo },
-  { id: 'era2', nome: 'Pelo deserto', desc: 'Concluir a era de Moisés', ok: (e) => progressoEra(e, 'moises').completo },
+  { id: 'primeira', grupo: 'ritmo', nivel: 'bronze', icone: 'footprints', nome: 'Primeiro passo', desc: 'Concluir a primeira sessão', ok: (e) => concluidas(e).length >= 1 },
+  { id: 'cinco', grupo: 'ritmo', nivel: 'prata', icone: 'footprints', nome: 'Pegando o ritmo', desc: 'Concluir 5 sessões', ok: (e) => concluidas(e).length >= 5 },
+  { id: 'quinze', grupo: 'ritmo', nivel: 'ouro', icone: 'footprints', nome: 'Caminhante', desc: 'Concluir 15 sessões', ok: (e) => concluidas(e).length >= 15 },
+  { id: 'semana', grupo: 'ritmo', nivel: 'prata', icone: 'target', nome: 'Semana firme', desc: `Estudar ${META_SEMANA} dias numa mesma semana`, ok: (e) => semanaAtual(e).feitos >= META_SEMANA },
+  { id: 'pers10', grupo: 'colecao', nivel: 'prata', icone: 'users-round', nome: 'Rostos conhecidos', desc: 'Desbloquear 10 personagens', ok: (e) => personagensLiberados(e).size >= 10 },
+  { id: 'pers25', grupo: 'colecao', nivel: 'ouro', icone: 'users-round', nome: 'Árvore da família', desc: 'Desbloquear 25 personagens', ok: (e) => personagensLiberados(e).size >= 25 },
+  { id: 'selos6', grupo: 'colecao', nivel: 'prata', icone: 'stamp', nome: 'Guardador de selos', desc: 'Reunir 6 Selos da Palavra', ok: (e) => selosLiberados(e).size >= 6 },
+  { id: 'aplic1', grupo: 'pratica', nivel: 'bronze', icone: 'hand-helping', nome: 'Da página para a vida', desc: 'Contar como foi uma aplicação', ok: (e) => Object.values(e.sessoes).some((s) => s.revisao) },
+  { id: 'aplic5', grupo: 'pratica', nivel: 'prata', icone: 'hand-helping', nome: 'Praticante', desc: 'Contar como foram 5 aplicações', ok: (e) => Object.values(e.sessoes).filter((s) => s.revisao).length >= 5 },
+  { id: 'quiz25', grupo: 'pratica', nivel: 'prata', icone: 'circle-check', nome: 'Memória firme', desc: 'Acertar 25 perguntas de revisão', ok: (e) => e.log.filter((l) => l.tipo === 'acerto').length >= 25 },
 ];
+
+// Uma conquista por era e por livro. Os ids antigos (era1, era2, gn, jo) ficam iguais para não perder o que já foi ganho.
+const ID_ERA = { principio: 'era1', moises: 'era2' };
+const NOME_ERA = { principio: 'Era dos Patriarcas', moises: 'Pelo deserto' };
+// Ícone próprio de cada era (desenhado em js/icones.js, ligado ao texto bíblico do emblema).
+export const ICONE_ERA = Object.fromEntries(['principio', 'moises', 'juizes', 'reino-unido', 'reino-dividido', 'exilio', 'pos-exilio', 'jesus', 'igreja', 'fim-seculo'].map((id) => [id, `era-${id}`]));
+const NOME_LIVRO = { gn: 'No princípio', jo: 'Meus olhos te veem' };
+for (const era of ERAS) {
+  CONQUISTAS.push({ id: ID_ERA[era.id] || `era-${era.id}`, grupo: 'era', era: era.id, nome: NOME_ERA[era.id] || era.nome, desc: `Concluir a era ${era.nome}`, ok: (e) => progressoEra(e, era.id).completo });
+  for (const l of era.livros) {
+    CONQUISTAS.push({ id: NOME_LIVRO[l.id] ? l.id : `livro-${l.id}`, grupo: 'livro', livro: l.id, nome: NOME_LIVRO[l.id] || l.nome, desc: `Concluir ${l.nome}`, ok: (e) => progressoLivro(e, l.id).completo });
+  }
+}
 
 export function verificarConquistas(e) {
   const novas = [];
