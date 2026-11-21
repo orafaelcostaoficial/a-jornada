@@ -6,13 +6,13 @@ import { ico } from './icones.js';
 import { avatarHTML } from './avatar.js';
 import { AVATARES, AVATARES_COM_IMAGEM } from '../data/avatares.js';
 import * as N from './nuvem.js';
-import { CENAS, cenaDaSessao, enfeite } from './cenario.js';
+import { CENAS, cenaDaSessao, enfeite, paisagem, estiloCena } from './cenario.js';
 import { CANAL_TESTE } from './config.js';
 import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v24';
+const VERSAO_APP = 'v31';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -135,7 +135,7 @@ function topo() {
   const p = P(); const nv = J.nivel(p.xp);
   return `${CANAL_TESTE ? `<a class="faixa-teste" href="../#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
     <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>${rotNivel(p)} · ${nomeEstagio(p)}</small></span></a>
-    <span class="xp-chip">${ico('sparkles')} ${p.xp} XP</span>
+    <button class="xp-chip" data-acao="ver-xp" aria-label="Ver como ganhou o XP">${ico('sparkles')} ${p.xp} XP</button>
   </header>`;
 }
 
@@ -144,14 +144,65 @@ const ehPo = (p) => !p.avatar?.personagem;
 const nomeEstagio = (p) => (ehPo(p) ? 'Pó da terra' : J.estagio(J.nivel(p.xp).n).nome);
 const rotNivel = (p) => (ehPo(p) ? 'Nível 0' : `Nível ${J.nivel(p.xp).n}`);
 function barraXP(p) {
-  if (ehPo(p)) return `<div class="xpbar"><div class="xpbar-top"><b>Nível 0</b><span>${p.xp} XP</span></div>
+  if (ehPo(p)) return `<div class="xpbar" data-acao="ver-xp" role="button"><div class="xpbar-top"><b>Nível 0</b><span>${p.xp} XP</span></div>
     <div class="barra"><i style="width:0%"></i></div>
     <small>${J.concluidas(p).length ? 'Receba o fôlego de vida: vire <b>Peregrino</b>' : 'A 1ª sessão traz o fôlego de vida (Gn 2:7)'}</small></div>`;
   const nv = J.nivel(p.xp);
   const prox = J.ESTAGIOS.find((e) => e.nivel > nv.n);
-  return `<div class="xpbar"><div class="xpbar-top"><b>Nível ${nv.n}</b><span>${p.xp - nv.ini}/${nv.fim - nv.ini} XP</span></div>
+  return `<div class="xpbar" data-acao="ver-xp" role="button"><div class="xpbar-top"><b>Nível ${nv.n}</b><span>${p.xp - nv.ini}/${nv.fim - nv.ini} XP</span></div>
     <div class="barra"><i style="width:${nv.pct}%"></i></div>
     ${prox ? `<small>No nível ${prox.nivel} você vira <b>${prox.nome}</b></small>` : '<small>Estágio máximo alcançado</small>'}</div>`;
+}
+
+// Painel do XP: quanto falta para o próximo nível, de onde veio o XP e os últimos ganhos.
+const NOME_GANHO = { sessao: 'Sessões', aplicacao: 'Aplicações escritas', estudo: 'Anotações de estudo', semana: 'Metas da semana', revisao: '"Como foi?" contado', acerto: 'Acertos no quiz', livro: 'Livros concluídos', era: 'Eras concluídas', desafio: 'Desafios' };
+const ICO_GANHO = { sessao: 'book-open', aplicacao: 'hand-helping', estudo: 'user-pen', semana: 'target', revisao: 'messages-square', acerto: 'circle-check', livro: 'book-open-text', era: 'landmark', desafio: 'star' };
+// bonus: meta da semana (ref semana-/seq-), aplicação (+4) ou anotação de estudo de versões antigas (+3).
+const grupoGanho = (l) => (l.tipo === 'bonus' ? (/^(semana|seq)-/.test(String(l.ref)) ? 'semana' : l.xp === 3 ? 'estudo' : 'aplicacao') : l.tipo === 'desafio-fim' ? 'desafio' : l.tipo);
+function textoGanho(l) {
+  const g = grupoGanho(l); const s = J.sessaoPorId(l.ref);
+  if (g === 'sessao') return s ? `Sessão de ${J.refSessao(s)}` : 'Sessão concluída';
+  if (g === 'aplicacao') return s ? `Aplicação em ${J.refSessao(s)}` : 'Aplicação escrita';
+  if (g === 'revisao') return s ? `Contou como foi: ${J.refSessao(s)}` : 'Contou como foi';
+  if (g === 'estudo') return s ? `Anotação de estudo em ${J.refSessao(s)}` : 'Anotação de estudo';
+  if (g === 'semana') return String(l.ref).startsWith('seq') ? 'Semanas seguidas' : 'Meta da semana';
+  if (g === 'livro') return `${LIVROS[l.ref]?.nome || 'Livro'} concluído`;
+  if (g === 'era') return `Era ${ERAS.find((e) => e.id === l.ref)?.nome || ''} concluída`;
+  if (g === 'desafio') return l.tipo === 'desafio-fim' ? 'Desafio completo' : 'Dia de desafio';
+  return 'XP';
+}
+function abrirXP() {
+  const p = P(); const nv = J.nivel(p.xp); const po = ehPo(p);
+  const falta = nv.fim - p.xp; const est = J.ESTAGIOS.find((e) => e.nivel > nv.n);
+  let faltaEst = 0; if (est) { for (let n = nv.n; n < est.nivel; n++) faltaEst += J.xpParaSubir(n); faltaEst -= p.xp - nv.ini; }
+  const tot = {}; for (const l of p.log) { const g = grupoGanho(l); tot[g] = (tot[g] || 0) + (l.xp || 0); }
+  const maior = Math.max(1, ...Object.values(tot));
+  // Últimos ganhos: junta acertos do mesmo dia numa linha só.
+  const ult = [];
+  for (const l of [...p.log].reverse()) {
+    const g = grupoGanho(l); const u = ult.at(-1);
+    if (g === 'acerto' && u && u.g === 'acerto' && u.data === l.data) { u.xp += l.xp; u.n++; continue; }
+    if (ult.length >= 10) break;
+    ult.push({ g, data: l.data, xp: l.xp, n: 1, txt: textoGanho(l) });
+  }
+  const linhas = Object.keys(NOME_GANHO).filter((g) => tot[g]).sort((a, b) => tot[b] - tot[a]);
+  overlay(`<div class="xp-painel">
+    <div class="xp-topo"><div class="xp-n"><small>Nível</small><b>${po ? 0 : nv.n}</b></div>
+      <div><b>${p.xp} XP</b><small>${po ? 'Pó da terra' : esc(J.estagio(nv.n).nome)} ${p.criadoEm ? ` · desde ${dataCurta(p.criadoEm)}` : ''}</small></div></div>
+    ${po ? '<p class="xp-falta">Conclua a 1ª sessão para receber o fôlego de vida e virar <b>Peregrino</b>.</p>' : `
+    <div class="barra"><i style="width:${nv.pct}%"></i></div>
+    <p class="xp-falta">Faltam <b>${falta} XP</b> para o nível ${nv.n + 1}${est ? (est.nivel === nv.n + 1 ? `, quando você vira <b>${esc(est.nome)}</b>` : ` · <b>${faltaEst} XP</b> para virar <b>${esc(est.nome)}</b> (nível ${est.nivel})`) : ''}</p>`}
+    ${linhas.length ? `<div class="xp-sec">De onde veio</div>
+    <div class="xp-fontes">${linhas.map((g) => `<div class="xp-fonte"><span>${ico(ICO_GANHO[g])}</span><div><b>${NOME_GANHO[g]}</b><i style="width:${Math.round((tot[g] / maior) * 100)}%"></i></div><em>${tot[g]}</em></div>`).join('')}</div>` : ''}
+    ${ult.length ? `<div class="xp-sec">Últimos ganhos</div>
+    <div class="xp-hist">${ult.map((u) => `<div><small>${dataCurta(u.data)}</small><span>${u.g === 'acerto' ? `${u.n} acerto${u.n > 1 ? 's' : ''} no quiz` : esc(u.txt)}</span><b>+${u.xp}</b></div>`).join('')}</div>` : ''}
+    <div class="xp-sec">Como ganhar XP</div>
+    <div class="xp-como">
+      <span>Concluir uma sessão <b>+${J.XP.sessao}</b></span><span>Escrever a aplicação <b>+${J.XP.aplicacao}</b></span>
+      <span>Contar "como foi?" <b>+${J.XP.revisao}</b></span><span>Acerto na revisão <b>+${J.XP.acerto}</b></span>
+      <span>Meta da semana (5 dias) <b>+${J.FAIXAS_SEMANA[0].xp}</b></span><span>Concluir um livro <b>+${J.XP.livro}</b></span>
+      <span>Concluir uma era <b>+${J.XP.era}</b></span><span>Completar um desafio <b>+${J.XP.livro}</b></span></div>
+    <button class="btn grande" data-fechar>Fechar</button></div>`);
 }
 
 function carta(id, { aberta = true, nova = false, verso = false } = {}) {
@@ -550,14 +601,34 @@ function abasJornada(atual) {
   return `<div class="seg abas-topo"><a class="${atual === 'mapa' ? 'on' : ''}" href="#/jornada">${ico('map')} Mapa</a><a class="${atual === 'linha' ? 'on' : ''}" href="#/linha">${ico('hourglass')} Linha do tempo</a></div>`;
 }
 
+// Caminho de terra ligando as sessões do mapa (curva suave pelos centros dos nós, passando de uma cena para a outra).
+function desenharCaminhos() {
+  document.querySelectorAll('.era-mapa').forEach((era) => {
+    // Uma curva só por era (coordenadas da era); cada cena mostra o seu pedaço, recortado pela própria cena.
+    const re = era.getBoundingClientRect();
+    const P = [...era.querySelectorAll('.cena .no-circ')].map((n) => { const b = n.getBoundingClientRect(); return [b.left + b.width / 2 - re.left, b.top + b.height / 2 - re.top]; });
+    if (!P.length) return;
+    let d = `M${P[0][0]} ${P[0][1]}`;
+    for (let k = 0; k < P.length - 1; k++) {
+      const p0 = P[k - 1] || P[k], p1 = P[k], p2 = P[k + 1], p3 = P[k + 2] || p2;
+      d += `C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]} ${p2[1]}`;
+    }
+    era.querySelectorAll('.cena').forEach((c) => {
+      c.querySelector('.caminho')?.remove();
+      const rc = c.getBoundingClientRect(); const dx = rc.left - re.left, dy = rc.top - re.top;
+      (c.querySelector('.paisagem') || c).insertAdjacentHTML(c.querySelector('.paisagem') ? 'afterend' : 'afterbegin', `<svg class="caminho" width="${c.offsetWidth}" height="${c.offsetHeight}" viewBox="${dx} ${dy} ${c.offsetWidth} ${c.offsetHeight}" aria-hidden="true"><path d="${d}" class="cm-borda"/><path d="${d}" class="cm-terra"/><path d="${d}" class="cm-meio"/></svg>`);
+    });
+  });
+}
+addEventListener('resize', () => { if ((location.hash || '').startsWith('#/jornada')) desenharCaminhos(); });
+
 function telaJornada() {
   const p = P(); const prox = J.proxima(p);
   return `${topo()}<h1 class="tit-tela">Jornada</h1>${abasJornada('mapa')}
   <p class="dica datas-aviso">${ico('hourglass')} Datas aproximadas, estimadas por estudiosos: a Bíblia não usa o nosso calendário. Onde o texto não permite datar, não há data.</p>
-  ${ERAS.map((era) => {
+  ${ERAS.filter((era) => era.conteudo && (J.progressoEra(p, era.id).feitas > 0 || (prox && LIVROS[prox.livro].era === era.id))).map((era) => {
     const pe = J.progressoEra(p, era.id);
     const divisor = era.id === 'jesus' ? `<div class="divisor-ac"><span>a.C.</span><b>${ico('star')} Nascimento de Jesus</b><span>d.C.</span></div>` : '';
-    if (!era.conteudo) return `${divisor}<section class="era-fech" style="--c:${COR_ERA[era.id]}"><div><b>${esc(era.nome)}</b><em>${esc(era.quando)}</em><small>${era.livros.map((l) => esc(l.nome)).join(' · ')}</small></div><span>${ico('lock-keyhole')}</span></section>`;
     const ss = J.SESSOES.filter((s) => LIVROS[s.livro].era === era.id);
     const grupos = [];
     for (const s of ss) {
@@ -566,25 +637,25 @@ function telaJornada() {
       grupos.at(-1).sessoes.push(s);
     }
     let i = 0;
-    return `<section class="era-mapa" style="--c:${COR_ERA[era.id]}">
+    return `${divisor}<section class="era-mapa" style="--c:${COR_ERA[era.id]}">
       <div class="era-banner"><small>Era ${ERAS.indexOf(era) + 1} · ${esc(era.quando)}</small><b>${esc(era.nome)}</b><span>${pe.feitas}/${pe.total}</span><div class="barra fina"><i style="width:${Math.round(pe.feitas / pe.total * 100)}%"></i></div></div>
       ${grupos.map((g) => {
         const cena = CENAS[g.cena];
         const livroIni = g.sessoes[0].livro;
         const ehInicioLivro = J.SESSOES.find((x) => x.livro === livroIni).id === g.sessoes[0].id;
-        return `<div class="cena cena-${g.cena}" style="--ceu1:${cena.ceu[0]};--ceu2:${cena.ceu[1]}">
+        return `<div class="cena cena-${g.cena}" style="${estiloCena(g.cena)}">${paisagem(g.cena)}
           ${ehInicioLivro ? `<a class="livro-banner" href="#/livro/${livroIni}"><span class="ordem">${LIVROS[livroIni].ordem}</span><b>${esc(LIVROS[livroIni].nome)}</b><small>Introdução ${ico('chevron-right')}</small></a>` : ''}
           <div class="cena-nome">${esc(cena.nome)}<em>${esc(cena.quando)}</em></div>
           <div class="trilha">${g.sessoes.map((s, k) => {
             const st = J.concluida(p, s.id) ? 'feita' : J.liberada(p, s) ? 'atual' : 'bloq';
-            const off = [0, 64, 96, 64, 0, -64, -96, -64][i++ % 8];
+            const off = g.cena === 'mar' ? (i++, 0) : [0, 64, 96, 64, 0, -64, -96, -64][i++ % 8]; // no mar, o caminho passa pelo meio, no chão seco
             const lado = off > 0 ? 'esq' : 'dir';
             const enf = cena.enfeites[k % cena.enfeites.length];
             return `<div class="passo-mapa" style="--x:${off}px">
               <span class="enf ${lado}">${enfeite(enf)}</span>
               <a class="no ${st}" ${st === 'bloq' ? '' : `href="#/sessao/${s.id}"`}>
-                ${st === 'atual' && prox?.id === s.id ? `<span class="no-av">${avatarHTML(p.avatar, J.itensAte(J.nivel(p.xp).n), 44)}</span>` : ''}
-                <span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>
+                ${st === 'atual' && prox?.id === s.id ? `<span class="no-tag">Começar</span><span class="no-circ com-av">${avatarHTML(p.avatar, J.itensAte(J.nivel(p.xp).n), 64)}</span>`
+                  : `<span class="no-circ">${st === 'feita' ? ico('check') : st === 'bloq' ? ico('lock-keyhole') : ico('star')}</span>`}
                 <span class="no-lbl">${s.caps[0]}${s.caps[1] !== s.caps[0] ? '–' + s.caps[1] : ''}</span>
                 ${marcadoresNo(s.id, p)}
               </a></div>`;
@@ -740,7 +811,7 @@ function telaLinha() {
 }
 
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-const dataCurta = (d) => { const [, m, dd] = d.split('-'); return `${+dd} ${MESES[m - 1]}`; };
+const dataCurta = (d) => { if (!d) return ''; const [, m, dd] = String(d).split('-'); return `${+dd} ${MESES[m - 1]}`; };
 const MEDALHA_NOME = { bronze: 'Medalha de bronze', prata: 'Medalha de prata', ouro: 'Medalha de ouro' };
 function medalhaEra(eraId, cls = '') {
   return `<span class="selo-disco era-em so-ico ${cls}">${ico(J.ICONE_ERA[eraId] || 'landmark')}</span>`;
@@ -876,7 +947,7 @@ function render() {
   document.body.classList.toggle('tema-natal', dTema === 'natal');
   document.body.classList.toggle('sem-nav', !P() || ['novo-perfil', 'editar', 'sessao', 'dsessao', 'resultado', 'revisao', 'aplicacao'].includes(rota));
   document.querySelectorAll('nav a').forEach((a) => a.classList.toggle('on', a.dataset.r === NAV[rota]));
-  if (rota === 'jornada') document.querySelector('.no.atual')?.scrollIntoView({ block: 'center' });
+  if (rota === 'jornada') { desenharCaminhos(); document.querySelector('.no.atual')?.scrollIntoView({ block: 'center' }); }
   else window.scrollTo(0, 0);
   const leitor = document.getElementById('leitor');
   if (leitor) carregarLeitor(leitor);
@@ -924,6 +995,7 @@ document.body.addEventListener('click', (ev) => {
   const acao = b.dataset.acao;
   const id = b.dataset.id || location.hash.split('/')[2];
 
+  if (acao === 'ver-xp' && !document.querySelector('.overlay')) { abrirXP(); return; }
   if (acao === 'f-tipo') { FORM.tipo = b.dataset.v; render(); }
   if (acao === 'f-av') { FORM.avatar[b.dataset.k] = Number(b.dataset.v); render(); }
   if (acao === 'f-personagem') { FORM.nome = document.getElementById('nome')?.value ?? FORM.nome; FORM.avatar = { personagem: b.dataset.v }; render(); }
