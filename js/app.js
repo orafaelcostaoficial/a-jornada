@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v28';
+const VERSAO_APP = 'v29';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -135,7 +135,7 @@ function topo() {
   const p = P(); const nv = J.nivel(p.xp);
   return `${CANAL_TESTE ? `<a class="faixa-teste" href="../#/hoje">Canal de teste · ${VERSAO_APP} · dados separados · voltar ao app</a>` : ''}<header class="topbar">
     <a class="eu" href="#/perfil"><span class="eu-av">${avatarHTML(p.avatar, J.itensAte(nv.n), 34)}</span><span><b>${esc(p.nome)}</b><small>${rotNivel(p)} · ${nomeEstagio(p)}</small></span></a>
-    <span class="xp-chip">${ico('sparkles')} ${p.xp} XP</span>
+    <button class="xp-chip" data-acao="ver-xp" aria-label="Ver como ganhou o XP">${ico('sparkles')} ${p.xp} XP</button>
   </header>`;
 }
 
@@ -144,14 +144,63 @@ const ehPo = (p) => !p.avatar?.personagem;
 const nomeEstagio = (p) => (ehPo(p) ? 'Pó da terra' : J.estagio(J.nivel(p.xp).n).nome);
 const rotNivel = (p) => (ehPo(p) ? 'Nível 0' : `Nível ${J.nivel(p.xp).n}`);
 function barraXP(p) {
-  if (ehPo(p)) return `<div class="xpbar"><div class="xpbar-top"><b>Nível 0</b><span>${p.xp} XP</span></div>
+  if (ehPo(p)) return `<div class="xpbar" data-acao="ver-xp" role="button"><div class="xpbar-top"><b>Nível 0</b><span>${p.xp} XP</span></div>
     <div class="barra"><i style="width:0%"></i></div>
     <small>${J.concluidas(p).length ? 'Receba o fôlego de vida: vire <b>Peregrino</b>' : 'A 1ª sessão traz o fôlego de vida (Gn 2:7)'}</small></div>`;
   const nv = J.nivel(p.xp);
   const prox = J.ESTAGIOS.find((e) => e.nivel > nv.n);
-  return `<div class="xpbar"><div class="xpbar-top"><b>Nível ${nv.n}</b><span>${p.xp - nv.ini}/${nv.fim - nv.ini} XP</span></div>
+  return `<div class="xpbar" data-acao="ver-xp" role="button"><div class="xpbar-top"><b>Nível ${nv.n}</b><span>${p.xp - nv.ini}/${nv.fim - nv.ini} XP</span></div>
     <div class="barra"><i style="width:${nv.pct}%"></i></div>
     ${prox ? `<small>No nível ${prox.nivel} você vira <b>${prox.nome}</b></small>` : '<small>Estágio máximo alcançado</small>'}</div>`;
+}
+
+// Painel do XP: quanto falta para o próximo nível, de onde veio o XP e os últimos ganhos.
+const NOME_GANHO = { sessao: 'Sessões', aplicacao: 'Aplicações escritas', semana: 'Metas da semana', revisao: '"Como foi?" contado', acerto: 'Acertos no quiz', livro: 'Livros concluídos', era: 'Eras concluídas', desafio: 'Desafios' };
+const ICO_GANHO = { sessao: 'book-open', aplicacao: 'hand-helping', semana: 'target', revisao: 'messages-square', acerto: 'circle-check', livro: 'book-open-text', era: 'landmark', desafio: 'star' };
+const grupoGanho = (l) => (l.tipo === 'bonus' ? (String(l.ref).startsWith('semana') ? 'semana' : 'aplicacao') : l.tipo === 'desafio-fim' ? 'desafio' : l.tipo);
+function textoGanho(l) {
+  const g = grupoGanho(l); const s = J.sessaoPorId(l.ref);
+  if (g === 'sessao') return s ? `Sessão de ${J.refSessao(s)}` : 'Sessão concluída';
+  if (g === 'aplicacao') return s ? `Aplicação em ${J.refSessao(s)}` : 'Aplicação escrita';
+  if (g === 'revisao') return s ? `Contou como foi: ${J.refSessao(s)}` : 'Contou como foi';
+  if (g === 'semana') return 'Meta da semana';
+  if (g === 'livro') return `${LIVROS[l.ref]?.nome || 'Livro'} concluído`;
+  if (g === 'era') return `Era ${ERAS.find((e) => e.id === l.ref)?.nome || ''} concluída`;
+  if (g === 'desafio') return l.tipo === 'desafio-fim' ? 'Desafio completo' : 'Dia de desafio';
+  return 'XP';
+}
+function abrirXP() {
+  const p = P(); const nv = J.nivel(p.xp); const po = ehPo(p);
+  const falta = nv.fim - p.xp; const est = J.ESTAGIOS.find((e) => e.nivel > nv.n);
+  let faltaEst = 0; if (est) { for (let n = nv.n; n < est.nivel; n++) faltaEst += J.xpParaSubir(n); faltaEst -= p.xp - nv.ini; }
+  const tot = {}; for (const l of p.log) { const g = grupoGanho(l); tot[g] = (tot[g] || 0) + (l.xp || 0); }
+  const maior = Math.max(1, ...Object.values(tot));
+  // Últimos ganhos: junta acertos do mesmo dia numa linha só.
+  const ult = [];
+  for (const l of [...p.log].reverse()) {
+    const g = grupoGanho(l); const u = ult.at(-1);
+    if (g === 'acerto' && u && u.g === 'acerto' && u.data === l.data) { u.xp += l.xp; u.n++; continue; }
+    if (ult.length >= 10) break;
+    ult.push({ g, data: l.data, xp: l.xp, n: 1, txt: textoGanho(l) });
+  }
+  const linhas = Object.keys(NOME_GANHO).filter((g) => tot[g]).sort((a, b) => tot[b] - tot[a]);
+  overlay(`<div class="xp-painel">
+    <div class="xp-topo"><div class="xp-n"><small>Nível</small><b>${po ? 0 : nv.n}</b></div>
+      <div><b>${p.xp} XP</b><small>${po ? 'Pó da terra' : esc(J.estagio(nv.n).nome)} ${p.criadoEm ? ` · desde ${dataCurta(p.criadoEm)}` : ''}</small></div></div>
+    ${po ? '<p class="xp-falta">Conclua a 1ª sessão para receber o fôlego de vida e virar <b>Peregrino</b>.</p>' : `
+    <div class="barra"><i style="width:${nv.pct}%"></i></div>
+    <p class="xp-falta">Faltam <b>${falta} XP</b> para o nível ${nv.n + 1}${est ? (est.nivel === nv.n + 1 ? `, quando você vira <b>${esc(est.nome)}</b>` : ` · <b>${faltaEst} XP</b> para virar <b>${esc(est.nome)}</b> (nível ${est.nivel})`) : ''}</p>`}
+    ${linhas.length ? `<div class="xp-sec">De onde veio</div>
+    <div class="xp-fontes">${linhas.map((g) => `<div class="xp-fonte"><span>${ico(ICO_GANHO[g])}</span><div><b>${NOME_GANHO[g]}</b><i style="width:${Math.round((tot[g] / maior) * 100)}%"></i></div><em>${tot[g]}</em></div>`).join('')}</div>` : ''}
+    ${ult.length ? `<div class="xp-sec">Últimos ganhos</div>
+    <div class="xp-hist">${ult.map((u) => `<div><small>${dataCurta(u.data)}</small><span>${u.g === 'acerto' ? `${u.n} acerto${u.n > 1 ? 's' : ''} no quiz` : esc(u.txt)}</span><b>+${u.xp}</b></div>`).join('')}</div>` : ''}
+    <div class="xp-sec">Como ganhar XP</div>
+    <div class="xp-como">
+      <span>Concluir uma sessão <b>+${J.XP.sessao}</b></span><span>Escrever a aplicação <b>+${J.XP.aplicacao}</b></span>
+      <span>Contar "como foi?" <b>+${J.XP.revisao}</b></span><span>Acerto na revisão <b>+${J.XP.acerto}</b></span>
+      <span>Meta da semana (5 dias) <b>+${J.FAIXAS_SEMANA[0].xp}</b></span><span>Concluir um livro <b>+${J.XP.livro}</b></span>
+      <span>Concluir uma era <b>+${J.XP.era}</b></span><span>Completar um desafio <b>+${J.XP.livro}</b></span></div>
+    <button class="btn grande" data-fechar>Fechar</button></div>`);
 }
 
 function carta(id, { aberta = true, nova = false, verso = false } = {}) {
@@ -760,7 +809,7 @@ function telaLinha() {
 }
 
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-const dataCurta = (d) => { const [, m, dd] = d.split('-'); return `${+dd} ${MESES[m - 1]}`; };
+const dataCurta = (d) => { if (!d) return ''; const [, m, dd] = String(d).split('-'); return `${+dd} ${MESES[m - 1]}`; };
 const MEDALHA_NOME = { bronze: 'Medalha de bronze', prata: 'Medalha de prata', ouro: 'Medalha de ouro' };
 function medalhaEra(eraId, cls = '') {
   return `<span class="selo-disco era-em so-ico ${cls}">${ico(J.ICONE_ERA[eraId] || 'landmark')}</span>`;
@@ -944,6 +993,7 @@ document.body.addEventListener('click', (ev) => {
   const acao = b.dataset.acao;
   const id = b.dataset.id || location.hash.split('/')[2];
 
+  if (acao === 'ver-xp' && !document.querySelector('.overlay')) { abrirXP(); return; }
   if (acao === 'f-tipo') { FORM.tipo = b.dataset.v; render(); }
   if (acao === 'f-av') { FORM.avatar[b.dataset.k] = Number(b.dataset.v); render(); }
   if (acao === 'f-personagem') { FORM.nome = document.getElementById('nome')?.value ?? FORM.nome; FORM.avatar = { personagem: b.dataset.v }; render(); }
