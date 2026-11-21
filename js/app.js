@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v19';
+const VERSAO_APP = 'v24';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -475,7 +475,7 @@ function telaResultado(res) {
     ${res.juntos?.length ? `<p class="dica">Também concluíram: ${res.juntos.map(esc).join(', ')}</p>` : ''}
     ${res.abertas ? `<a class="btn grande sec" href="#/cartas">${ico('layers')} Ver no álbum</a>` : res.novosP.length + (res.novosS?.length || 0) ? `<button class="btn grande ouro pacote" data-acao="abrir-cartas">${ico('layers')} Abrir ${[res.novosP.length ? `${res.novosP.length} carta${res.novosP.length > 1 ? 's' : ''}` : '', res.novosS?.length ? `${res.novosS.length} selo${res.novosS.length > 1 ? 's' : ''}` : ''].filter(Boolean).join(' e ')}</button>` : ''}
     ${res.novosM.length ? `<section class="bloco"><div class="rot">Na linha do tempo</div>${res.novosM.map((m) => `<p>${ico('flag')} ${esc(J.MARCOS.find((x) => x.id === m).titulo)}</p>`).join('')}</section>` : ''}
-    ${res.novasC.length ? `<section class="bloco"><div class="rot">Conquistas</div>${res.novasC.map((c) => `<p>${ico('trophy')} <b>${esc(c.nome)}</b> — ${esc(c.desc)}</p>`).join('')}</section>` : ''}
+    ${res.novasC.length ? (res.conqVistas ? `<section class="bloco"><div class="rot">Conquistas</div>${res.novasC.map((c) => `<p>${ico('trophy')} <b>${esc(c.nome)}</b> — ${esc(c.desc)}</p>`).join('')}</section>` : `<button class="btn grande ouro pacote" data-acao="ver-conquistas">${ico('trophy')} Receber ${res.novasC.length > 1 ? `${res.novasC.length} conquistas` : 'conquista'}</button>`) : ''}
     <a class="btn sec" href="#/hoje">Voltar ao início</a>
   </div>`;
 }
@@ -681,7 +681,7 @@ function telaCartas(aba = 'pessoas') {
     const fim = (d) => Object.values(p.desafios[d.id]).map((x) => x.data).sort().pop();
     return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">Cada desafio completado abre aqui a sua página, com o selo daquele evento.</p>
     ${eventos.sort((a, b) => fim(b).localeCompare(fim(a))).map((d) => `<a class="evento ${d.tema ? `t-${d.tema}` : ''}" href="#/selo/${d.selo.id}" style="--c:${d.cor}">
-      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? arteEspecial(d.selo) : `<span class="selo-disco">${ico(d.selo.icone)}</span>`}</span>
+      ${d.tema === 'natal' ? bannerNatal(190) : ''}<span class="ev-selo">${d.selo.arte ? arteEspecial(d.selo) : (SELOS_COM_IMAGEM.has(d.selo.id) ? `<span class="selo-disco com-img"><img class="selo-img" src="img/selos/${d.selo.id}.webp" alt=""></span>` : `<span class="selo-disco">${ico(d.selo.icone)}</span>`)}</span>
       <span class="ev-txt"><small>${esc(d.tipo)} · concluído em ${fmtData(fim(d))}</small><b>${esc(d.nome)}</b><em>${d.sessoes.length} de ${d.sessoes.length} dias · Selo ${esc(d.selo.nome)}</em></span></a>`).join('')}`;
   }
   if (aba === 'selos') {
@@ -739,6 +739,73 @@ function telaLinha() {
   }).join('')}</div>`;
 }
 
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const dataCurta = (d) => { const [, m, dd] = d.split('-'); return `${+dd} ${MESES[m - 1]}`; };
+const MEDALHA_NOME = { bronze: 'Medalha de bronze', prata: 'Medalha de prata', ouro: 'Medalha de ouro' };
+function medalhaEra(eraId, cls = '') {
+  return `<span class="selo-disco era-em so-ico ${cls}">${ico(J.ICONE_ERA[eraId] || 'landmark')}</span>`;
+}
+// Estante: largura pelo nº de capítulos, altura e cor variando por livro; prateleiras de ~290px.
+const LOMBADA = { ct: 'Cânticos', '1ts': '1 Tess.', '2ts': '2 Tess.' };
+const CORES_LIVRO = ['#7a2e2a', '#2f5a45', '#2d4a78', '#9a6a22', '#5b3a6e', '#25616a', '#8a3b1f', '#4a5a2a', '#6b2f4a', '#3b4f63'];
+const livrosNaEstante = () => J.CONQUISTAS.filter((c) => c.grupo === 'livro' && ERAS.find((x) => x.id === LIVROS[c.livro].era).conteudo);
+function prateleiras(p, { novo = null, larguraMax = 286 } = {}) {
+  const tem = (c) => p.conquistas[c.id];
+  const linhas = []; let linha = [], larg = 0;
+  // Na estante só entra livro concluído (sem livro pela metade).
+  for (const c of livrosNaEstante().filter((x) => tem(x) || x.livro === novo)) {
+    const L = LIVROS[c.livro];
+    const w = Math.max(16, Math.min(46, Math.round(14 + L.caps * 0.36))); const h = 92 + ((L.n * 37) % 26);
+    const nome = LOMBADA[L.id] || L.nome;
+    const html = `<div class="livro on ${c.livro === novo ? 'entra' : ''} ${nome.length > 11 ? 'longo' : ''}" style="--w:${w}px;--h:${h}px;--c:${CORES_LIVRO[L.n % CORES_LIVRO.length]}" title="${esc(c.nome)}"><span>${esc(nome)}</span>${ico('check')}</div>`;
+    if (larg + w + 3 > larguraMax && linha.length) { linhas.push(linha); linha = []; larg = 0; }
+    linha.push({ html, novo: c.livro === novo }); larg += w + 3;
+  }
+  if (linha.length) linhas.push(linha);
+  return linhas;
+}
+const prateleiraHTML = (l) => `<div class="prateleira">${l.map((x) => x.html).join('')}</div>`;
+
+function blocoConquistas(p) {
+  const tem = (c) => p.conquistas[c.id];
+  const medalha = (c) => `<div class="conq ${c.nivel} ${tem(c) ? 'on' : ''}"><span class="med">${ico(c.icone)}</span><b>${esc(c.nome)}</b><small>${esc(c.desc)}</small>${tem(c) ? `<em>${dataCurta(tem(c))}</em>` : ''}</div>`;
+  const grupo = (g, nome) => { const l = J.CONQUISTAS.filter((c) => c.grupo === g); return `<div class="conq-grupo"><div class="rot">${nome} <span>${l.filter(tem).length}/${l.length}</span></div><div class="conquistas">${l.map(medalha).join('')}</div></div>`; };
+  const eras = J.CONQUISTAS.filter((c) => c.grupo === 'era');
+  const era = (c) => `<div class="era-c ${tem(c) ? 'on' : ''}">${medalhaEra(c.era)}<b>${esc(ERAS.find((x) => x.id === c.era).nome)}</b>${tem(c) ? `<em>${dataCurta(tem(c))}</em>` : ''}</div>`;
+  const livros = livrosNaEstante();
+  const todas = [...J.CONQUISTAS.filter((c) => c.nivel), ...eras, ...livros];
+  return `<section class="bloco"><div class="bloco-tit"><span>Conquistas</span><span>${todas.filter(tem).length}/${todas.length}</span></div>
+    <div class="conq-grupo"><div class="rot">Grandes marcos: as eras <span>${eras.filter(tem).length}/${eras.length}</span></div><div class="eras-c">${eras.map(era).join('')}</div></div>
+    <div class="conq-grupo"><div class="rot">Estante: livros concluídos <span>${livros.filter(tem).length}/${livros.length}</span></div><div class="estante">${(prateleiras(p).length ? prateleiras(p) : [[]]).map(prateleiraHTML).join('')}</div><p class="dica">${livros.some(tem) ? 'Cada livro concluído ganha seu lugar na estante.' : 'Conclua um livro e ele ganha seu lugar na estante.'}</p></div>
+    ${grupo('ritmo', 'Ritmo')}${grupo('colecao', 'Coleção')}${grupo('pratica', 'Prática')}</section>`;
+}
+
+// Animações de conquista: livro entrando na estante, medalha da era, medalhas comuns. Uma tela de cada vez.
+function animarConquistas(lista, depois) {
+  const p = P();
+  const livros = lista.filter((c) => c.grupo === 'livro'); const eras = lista.filter((c) => c.grupo === 'era'); const meds = lista.filter((c) => c.nivel);
+  const telas = [
+    ...livros.map((c) => [35, () => {
+      const linha = prateleiras(p, { novo: c.livro }).find((l) => l.some((x) => x.novo));
+      return `<div class="anim-conq anim-livro"><small>Livro concluído</small><h2>${esc(LIVROS[c.livro].nome)}</h2>
+        <div class="estante grande">${prateleiraHTML(linha)}</div><p>Mais um livro na sua estante.</p><button class="btn grande" data-fechar>Continuar</button></div>`;
+    }]),
+    ...eras.map((c) => [90, () => { const e = ERAS.find((x) => x.id === c.era);
+      return `<div class="anim-conq anim-era"><div class="raios"></div><small>Grande marco</small>
+        <div class="era-c on">${medalhaEra(c.era, 'gira')}</div><h2>${esc(c.nome)}</h2><p>Você concluiu a era <b>${esc(e.nome)}</b>.</p><button class="btn grande ouro" data-fechar>Continuar</button></div>`; }]),
+    ...(meds.length ? [[35, () => `<div class="anim-conq anim-med"><small>${meds.length > 1 ? 'Novas medalhas' : 'Nova medalha'}</small>
+      <div class="meds">${meds.map((c, i) => `<div class="conq ${c.nivel} on cai" style="animation-delay:${0.15 + i * 0.35}s"><span class="med">${ico(c.icone)}</span><b>${esc(c.nome)}</b><small>${MEDALHA_NOME[c.nivel]}</small></div>`).join('')}</div>
+      <button class="btn grande" data-fechar>Continuar</button></div>`]] : []),
+  ];
+  const proxima = (i) => {
+    if (i >= telas.length) { depois?.(); return; }
+    const [nConfete, html] = telas[i];
+    overlay(html(), () => proxima(i + 1)); setTimeout(() => confete(nConfete), 900);
+  };
+  proxima(0);
+}
+if (CANAL_TESTE) window.__animConq = (ids) => animarConquistas(ids.map((id) => J.CONQUISTAS.find((c) => c.id === id)));
+
 function telaPerfil() {
   const p = P(); const nv = J.nivel(p.xp);
   const aplic = Object.values(p.sessoes).filter((s) => s.revisao).length;
@@ -755,8 +822,7 @@ function telaPerfil() {
   <section class="bloco"><div class="bloco-tit"><span>Família</span></div>
     <div class="familia">${perfis().map((o) => `<button class="membro ${o.id === p.id ? 'on' : ''}" data-acao="trocar" data-p="${o.id}">${avatarHTML(o.avatar, J.itensAte(J.nivel(o.xp).n), 46)}<b>${esc(o.nome)}</b><small>Nível ${J.nivel(o.xp).n}</small></button>`).join('')}
       <a class="membro novo" href="#/novo-perfil">${ico('plus')}<b>Adicionar</b><small>viajante</small></a></div></section>
-  <section class="bloco"><div class="bloco-tit"><span>Conquistas</span><span>${J.CONQUISTAS.filter((c) => p.conquistas[c.id]).length}/${J.CONQUISTAS.length}</span></div>
-    <div class="conquistas">${J.CONQUISTAS.map((c) => `<div class="conq ${p.conquistas[c.id] ? 'on' : ''}"><span>${ico(p.conquistas[c.id] ? 'award' : 'lock-keyhole')}</span><b>${esc(c.nome)}</b><small>${esc(c.desc)}</small></div>`).join('')}</div></section>
+  ${blocoConquistas(p)}
   ${cartaoInstalar(false)}
   <section class="bloco"><div class="bloco-tit"><span>Backup</span></div>
     <p class="dica">Os dados de todos os viajantes ficam neste aparelho. Exporte de vez em quando e guarde o arquivo, ou use para passar o progresso para outro celular.</p>
@@ -935,6 +1001,7 @@ ${location.origin}${location.pathname}`;
     ir('#/resultado'); confete(ultimoResultado.novosS.length ? 90 : 40);
     if (ultimoResultado.subiu) setTimeout(() => subiuNivel(ultimoResultado.subiu), 700);
   }
+  if (acao === 'ver-conquistas' && !ultimoResultado.conqVistas && !document.querySelector('.overlay')) animarConquistas(ultimoResultado.novasC, () => { ultimoResultado.conqVistas = true; render(); });
   if (acao === 'abrir-cartas' && !ultimoResultado.abertas && !document.querySelector('.overlay')) abrirCartas([...ultimoResultado.novosP, ...(ultimoResultado.novosS || []).map((x) => 'selo:' + x)]);
 
   if (acao === 'revisar') {

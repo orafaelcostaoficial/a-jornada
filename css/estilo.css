@@ -317,12 +317,39 @@ textarea:focus { outline: none; border-color: var(--ouro); }
 .membro b { font-size: .88rem; } .membro small { font-size: .72rem; color: var(--tx-2); }
 .membro.novo { border-style: dashed; color: var(--tx-2); }
 .membro.novo .ico { width: 46px; height: 46px; padding: 10px; }
+.conq-grupo { margin-top: 14px; } .conq-grupo:first-of-type { margin-top: 4px; }
+.conq-grupo .rot { display: flex; justify-content: space-between; margin-bottom: 8px; } .conq-grupo .rot span { color: var(--tx-2); font-weight: 600; }
 .conquistas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.conq { display: grid; justify-items: center; text-align: center; gap: 2px; padding: 12px 8px; border-radius: 16px; background: var(--sup-2); opacity: .5; }
-.conq span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ln); }
-.conq.on { opacity: 1; background: var(--ouro-cl); }
-.conq.on span { background: linear-gradient(135deg, #f0c25a, #c98a1c); color: #fff; }
+.conq { --m1: #d9d4ca; --m2: #b9b2a5; --fd: var(--sup-2); display: grid; justify-items: center; align-content: start; text-align: center; gap: 2px; padding: 12px 8px 10px; border-radius: 16px; background: var(--sup-2); }
+.conq.bronze { --m1: #eab07a; --m2: #9c5a27; --fd: #f8e8da; } .conq.prata { --m1: #eef1f5; --m2: #8f99a5; --fd: #eef0f3; } .conq.ouro { --m1: #f6cf6a; --m2: #c4841a; --fd: var(--ouro-cl); }
+.conq .med { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 4px; color: #b9b2a5; background: var(--sup); border: 2px dashed var(--ln); }
+.conq.on { background: var(--fd); }
+.conq.on .med { border: 0; color: #fff; background: linear-gradient(140deg, var(--m1), var(--m2)); box-shadow: inset 0 0 0 3px rgba(255,255,255,.4), 0 3px 8px rgba(0,0,0,.18); }
+.conq.prata.on .med { color: #4b5560; }
+.conq:not(.on) b, .conq:not(.on) small { opacity: .55; }
 .conq b { font-size: .85rem; line-height: 1.2; } .conq small { font-size: .72rem; color: var(--tx-2); line-height: 1.25; }
+.conq em, .era-c em { font-style: normal; font-size: .66rem; font-weight: 700; color: var(--m2, #8a6a1c); margin-top: 3px; text-transform: uppercase; letter-spacing: .04em; }
+.eras-c { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px 6px; align-items: start; }
+.era-c { display: grid; justify-items: center; align-content: start; text-align: center; gap: 4px; } .era-c b { font-size: .64rem; line-height: 1.15; color: var(--tx-2); font-weight: 600; }
+.eras-c .era-c .era-em { width: 52px; height: 52px; color: #b9b2a5; background: #ebe6dc; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #d8d1c4; }
+.eras-c .era-c .era-em::before { border-color: rgba(0,0,0,.08); }
+.eras-c .era-c .era-em .selo-img { filter: grayscale(1); opacity: .3; } .eras-c .era-c .era-em::after { display: none; }
+.eras-c .era-c.on .era-em, .anim-era .era-c.on .era-em { background: radial-gradient(circle at 32% 28%, #ffe7a3, #e2a93a 45%, #a8701a 85%); box-shadow: 0 0 0 3px #1d2a55, 0 0 0 5px #e9b949, 0 5px 12px rgba(29,42,85,.35); }
+.eras-c .era-c.on .era-em::before { border-color: rgba(255,255,255,.55); }
+.eras-c .era-c.on .era-em .selo-img { filter: drop-shadow(0 3px 4px rgba(0,0,0,.3)); opacity: 1; } .eras-c .era-c.on .era-em::after { display: block; }
+.era-c.on b { color: var(--tx); } .era-c.on em { color: #8a6a1c; }
+.eras-c { padding-top: 6px; }
+.estante { padding: 16px 10px 0; border-radius: 10px; background: linear-gradient(90deg, rgba(0,0,0,.18), transparent 8%, transparent 92%, rgba(0,0,0,.18)), repeating-linear-gradient(90deg, #5a3a22 0 22px, #553620 22px 41px), #5a3a22; border: 8px solid #7b5230; border-bottom-width: 0; box-shadow: inset 0 0 18px rgba(0,0,0,.45); }
+.prateleira { display: flex; align-items: flex-end; gap: 3px; min-height: 124px; padding: 0 4px; margin: 0 -10px; padding-left: 14px; border-bottom: 10px solid #8a5d36; box-shadow: 0 6px 6px -3px rgba(0,0,0,.45); position: relative; }
+.prateleira::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 3px; background: #a77446; }
+.livro { position: relative; width: var(--w); height: var(--h); flex: none; border-radius: 3px 3px 1px 1px; display: flex; justify-content: center; overflow: hidden;
+background: var(--c); }
+.livro.on { opacity: 1; background: linear-gradient(90deg, rgba(0,0,0,.3), rgba(255,255,255,.14) 30%, transparent 55%, rgba(0,0,0,.32)), var(--c); }
+.livro.on::before, .livro.on::after { content: ""; position: absolute; left: 0; right: 0; height: 3px; background: #e2b552; box-shadow: 0 5px 0 -1px #e2b552; }
+.livro.on::before { top: 9px; } .livro.on::after { bottom: 14px; }
+.livro span { position: relative; z-index: 1; writing-mode: vertical-rl; transform: rotate(180deg); font-size: .62rem; font-weight: 700; padding: 20px 0 24px; color: rgba(60,45,30,.75); white-space: nowrap; overflow: hidden; }
+.livro.on span { color: #f6e3b4; text-shadow: 0 1px 1px rgba(0,0,0,.4); }
+.livro .ico { position: absolute; z-index: 1; bottom: 2px; width: 11px; height: 11px; color: #f6cf6a; stroke-width: 3; }
 .rodape { font-size: .72rem; color: var(--tx-2); text-align: center; margin-top: 18px; }
 
 /* nav */
@@ -630,3 +657,52 @@ body.tema-natal { background: linear-gradient(#f6ece6, #f3efe6 420px); }
 @keyframes balanca { 50% { transform: perspective(500px) rotateX(-4deg) rotateY(10deg); } }
 
 .sp-arte .selo-disco, .ev-selo .selo-disco { width: 100%; height: 100%; display: block; }
+
+.livro.longo span { font-size: .52rem; }
+
+/* Medalha da era só com ícone (até chegar o emblema próprio) */
+.eras-c .era-c .era-em.so-ico .ico, .anim-era .era-em.so-ico .ico { width: 46%; height: 46%; stroke-width: 1.8; position: relative; z-index: 1; }
+.eras-c .era-c.on .era-em.so-ico, .anim-era .era-c.on .era-em.so-ico { color: #1d2a55; }
+.eras-c .era-c.on .era-em.so-ico::after, .anim-era .era-em::after { content: ""; display: block; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.45) 48%, transparent 60%); background-size: 260% 100%; animation: holo 4.5s linear infinite; pointer-events: none; }
+
+/* Animações de conquista */
+.anim-conq small { display: block; text-transform: uppercase; letter-spacing: .2em; font-weight: 800; color: #ffd36b; animation: sobe .5s ease both; }
+.anim-conq h2 { margin: 6px 0 14px; font-size: 1.6rem; animation: sobe .5s .1s ease both; }
+.anim-conq p { margin: 14px 0 18px; opacity: .9; animation: sobe .5s 1.4s ease both; }
+.anim-conq .btn { animation: sobe .5s 1.7s ease both; }
+@keyframes sobe { from { opacity: 0; transform: translateY(14px); } }
+
+/* Livro entrando na estante */
+.estante.grande { margin: 0 auto; width: 310px; max-width: 100%; text-align: left; }
+.estante.grande .prateleira { margin: 0 -10px; padding-top: 34px; }
+.livro.entra { z-index: 2; animation: livro-entra 2.4s .7s cubic-bezier(.25,1.25,.5,1) both; box-shadow: 0 0 0 0 rgba(255,211,107,0); }
+.livro.entra::before, .livro.entra::after { transform-origin: left; animation: faixa .8s 3.1s ease-out both; }
+.livro.entra .ico { animation: pop .6s 3.8s cubic-bezier(.3,1.8,.5,1) both; }
+.livro.entra span { animation: brilho-livro 2s 3.4s ease both; }
+@keyframes livro-entra { 0% { transform: translateY(-200px) rotate(-14deg); opacity: 0; } 20% { opacity: 1; } 60% { transform: translateY(5px) rotate(1deg); } 78% { transform: translateY(-5px) rotate(-.5deg); } 90% { transform: translateY(1px); } 100% { transform: none; } }
+@keyframes faixa { from { transform: scaleX(0); } }
+@keyframes pop { from { transform: scale(0); } }
+@keyframes brilho-livro { 40% { text-shadow: 0 0 10px #ffd36b, 0 0 2px #fff; color: #fff; } }
+
+/* Medalha da era girando */
+.anim-era { position: relative; }
+.anim-era .raios { position: absolute; left: 50%; top: 110px; width: 420px; height: 420px; margin: -210px 0 0 -210px; border-radius: 50%; pointer-events: none;
+  background: repeating-conic-gradient(rgba(255,211,107,.22) 0 8deg, transparent 8deg 20deg); -webkit-mask: radial-gradient(circle, #000 20%, transparent 68%); mask: radial-gradient(circle, #000 20%, transparent 68%);
+  animation: raios-gira 14s linear infinite, aparece 1s .9s ease both; }
+@keyframes raios-gira { to { transform: rotate(360deg); } }
+@keyframes aparece { from { opacity: 0; } }
+.anim-era .era-c { position: relative; margin: 26px auto 10px; justify-items: center; }
+.anim-era .era-em { width: 150px !important; height: 150px !important; }
+.anim-era .era-em.gira { animation: medalha-gira 1.4s .3s cubic-bezier(.2,.9,.3,1.15) both; }
+@keyframes medalha-gira { 0% { transform: perspective(600px) scale(.2) rotateY(900deg); opacity: 0; } 60% { opacity: 1; } 100% { transform: perspective(600px) scale(1) rotateY(0); } }
+.anim-era h2 { animation-delay: 1.2s; }
+
+/* Medalhas comuns caindo */
+.anim-med .meds { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 18px 0 20px; }
+.anim-med .conq { width: 140px; color: var(--tx); }
+.anim-med .conq.cai { animation: cai .9s cubic-bezier(.3,1.5,.5,1) both; }
+.anim-med .conq .med { width: 64px; height: 64px; } .anim-med .conq .med .ico { width: 30px; height: 30px; }
+.anim-med .conq small { color: var(--m2); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .64rem; animation: none; }
+@keyframes cai { 0% { transform: translateY(-160px) rotate(-25deg); opacity: 0; } 40% { opacity: 1; } 100% { transform: none; } }
+.anim-era .era-c.on .era-em { box-shadow: 0 0 0 6px #1d2a55, 0 0 0 10px #e9b949, 0 10px 40px rgba(255,200,90,.45) !important; }
+.anim-livro p { animation-delay: 4.2s; } .anim-livro .btn { animation-delay: 4.6s; }
