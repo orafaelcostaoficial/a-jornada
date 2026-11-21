@@ -3,6 +3,7 @@
 Projeto pessoal do Rafael, usado em casa com as crianças e com famílias amigas.
 PWA estático (HTML/CSS/JS puro, **sem build**), publicado no GitHub Pages e instalado no celular.
 **As evoluções são pedidas pelo celular**: o Claude clona, edita, testa sozinho e publica no canal de teste.
+**Comece pelo `ROADMAP.md`**: onde estamos, o que está pendente e as próximas frentes. Atualize-o ao fim de cada frente.
 
 ## Arquivos fora do código (Drive)
 Originais das imagens, prompts, documentos e backups ficam no Google Drive em **Projetos/A_Jornada**
