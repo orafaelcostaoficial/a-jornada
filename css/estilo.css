@@ -741,7 +741,7 @@ body.tema-natal { background: linear-gradient(#f6ece6, #f3efe6 420px); }
 .xp-topo { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
 .xp-n { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; align-content: center; flex: none; color: #fff;
   background: linear-gradient(140deg, #f6cf6a, #c4841a); box-shadow: inset 0 0 0 3px rgba(255,255,255,.4), 0 4px 0 #8a5a14; }
-.xp-n small { font-size: .58rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; line-height: 1; } .xp-n b { font-size: 1.6rem; line-height: 1; font-family: var(--display); }
+.xp-n small { color: #5a3a12; font-size: .58rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; line-height: 1; } .xp-n b { font-size: 1.6rem; line-height: 1; font-family: var(--display); text-shadow: 0 2px 0 #8a5a14; }
 .xp-topo > div:last-child b { display: block; font-family: var(--display); font-size: 1.5rem; } .xp-topo small { color: var(--tx-2); font-size: .8rem; }
 .xp-painel .barra { margin: 4px 0 6px; }
 .xp-falta { font-size: .88rem; color: var(--tx-2); margin: 0 0 6px; } .xp-falta b { color: var(--tx); }
@@ -758,3 +758,16 @@ body.tema-natal { background: linear-gradient(#f6ece6, #f3efe6 420px); }
 .xp-como span { background: var(--sup-2); border-radius: 12px; padding: 8px 10px; font-size: .78rem; line-height: 1.25; display: flex; justify-content: space-between; gap: 6px; align-items: center; }
 .xp-como b { color: var(--ouro-esc); white-space: nowrap; }
 .xp-painel .btn { margin-top: 14px; width: 100%; background: var(--tx); color: var(--sup); }
+
+/* Modo escuro: partes que tinham fundo claro fixo com texto claro (ficavam apagadas) */
+@media (prefers-color-scheme: dark) {
+  body.tema-natal { background: linear-gradient(#1c1428, var(--bg) 420px); }
+  .lista-desafio .dd { background: color-mix(in srgb, var(--fundo, #faf6ee) 14%, var(--sup-2)); }
+  .lista-desafio .dd.bloq { opacity: .55; }
+  .dd-n { background: color-mix(in srgb, var(--fundo, #f0e3cf) 30%, #3a3328); color: var(--tx); }
+  .conq.ouro { --fd: #fbefd2; } .conq.on b { color: #1f1d1a; } .conq.on small { color: #5c544a; }
+  .conq:not(.on) { background: var(--sup-2); } .conq .med { background: var(--sup); border-color: #3a3f4c; color: #6c6a66; }
+  .eras-c .era-c .era-em { background: #2a2e39; box-shadow: 0 0 0 2px var(--sup), 0 0 0 4px #3a3f4c; color: #6c6a66; }
+  .eras-c .era-c .era-em::before { border-color: rgba(255,255,255,.08); }
+  .anim-med .conq b { color: #1f1d1a; }
+}

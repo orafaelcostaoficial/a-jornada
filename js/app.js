@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v29';
+const VERSAO_APP = 'v30';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -155,15 +155,17 @@ function barraXP(p) {
 }
 
 // Painel do XP: quanto falta para o próximo nível, de onde veio o XP e os últimos ganhos.
-const NOME_GANHO = { sessao: 'Sessões', aplicacao: 'Aplicações escritas', semana: 'Metas da semana', revisao: '"Como foi?" contado', acerto: 'Acertos no quiz', livro: 'Livros concluídos', era: 'Eras concluídas', desafio: 'Desafios' };
-const ICO_GANHO = { sessao: 'book-open', aplicacao: 'hand-helping', semana: 'target', revisao: 'messages-square', acerto: 'circle-check', livro: 'book-open-text', era: 'landmark', desafio: 'star' };
-const grupoGanho = (l) => (l.tipo === 'bonus' ? (String(l.ref).startsWith('semana') ? 'semana' : 'aplicacao') : l.tipo === 'desafio-fim' ? 'desafio' : l.tipo);
+const NOME_GANHO = { sessao: 'Sessões', aplicacao: 'Aplicações escritas', estudo: 'Anotações de estudo', semana: 'Metas da semana', revisao: '"Como foi?" contado', acerto: 'Acertos no quiz', livro: 'Livros concluídos', era: 'Eras concluídas', desafio: 'Desafios' };
+const ICO_GANHO = { sessao: 'book-open', aplicacao: 'hand-helping', estudo: 'user-pen', semana: 'target', revisao: 'messages-square', acerto: 'circle-check', livro: 'book-open-text', era: 'landmark', desafio: 'star' };
+// bonus: meta da semana (ref semana-/seq-), aplicação (+4) ou anotação de estudo de versões antigas (+3).
+const grupoGanho = (l) => (l.tipo === 'bonus' ? (/^(semana|seq)-/.test(String(l.ref)) ? 'semana' : l.xp === 3 ? 'estudo' : 'aplicacao') : l.tipo === 'desafio-fim' ? 'desafio' : l.tipo);
 function textoGanho(l) {
   const g = grupoGanho(l); const s = J.sessaoPorId(l.ref);
   if (g === 'sessao') return s ? `Sessão de ${J.refSessao(s)}` : 'Sessão concluída';
   if (g === 'aplicacao') return s ? `Aplicação em ${J.refSessao(s)}` : 'Aplicação escrita';
   if (g === 'revisao') return s ? `Contou como foi: ${J.refSessao(s)}` : 'Contou como foi';
-  if (g === 'semana') return 'Meta da semana';
+  if (g === 'estudo') return s ? `Anotação de estudo em ${J.refSessao(s)}` : 'Anotação de estudo';
+  if (g === 'semana') return String(l.ref).startsWith('seq') ? 'Semanas seguidas' : 'Meta da semana';
   if (g === 'livro') return `${LIVROS[l.ref]?.nome || 'Livro'} concluído`;
   if (g === 'era') return `Era ${ERAS.find((e) => e.id === l.ref)?.nome || ''} concluída`;
   if (g === 'desafio') return l.tipo === 'desafio-fim' ? 'Desafio completo' : 'Dia de desafio';
