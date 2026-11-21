@@ -42,6 +42,16 @@ jobs:
             git clone --depth 1 --branch teste "https://github.com/${{ github.repository }}" _teste
             rm -rf _teste/.git _teste/.github
             mv _teste _site/teste
+            # O canal de teste vira um app separado, com outro nome e ícone, para não se confundir com o oficial.
+            python3 - <<'PY'
+          import json
+          p = '_site/teste/manifest.webmanifest'
+          m = json.load(open(p, encoding='utf-8'))
+          m.update(name='A Jornada · TESTE', short_name='Jornada TESTE', id='./?canal=teste', theme_color='#c8283a')
+          for i in m['icons']:
+              i['src'] = i['src'].replace('icon-', 'teste-')
+          json.dump(m, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+          PY
           fi
           rm -rf _site/.git _site/.github
       - uses: actions/configure-pages@v5
