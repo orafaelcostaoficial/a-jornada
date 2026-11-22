@@ -17,7 +17,7 @@ Para o traço não variar: uma conversa do Gemini por lote, anexando uma carta j
 | Eva | épica | ✅ pronta (no app) |
 | Caim | comum | ✅ pronta (no app) |
 | Abel | rara | ✅ pronta (no app) |
-| Sete | rara | a gerar |
+| Sete | rara | ✅ pronta (no app) |
 | Enoque | épica | a gerar |
 | Matusalém | rara | a gerar |
 | Noé | lendária | ✅ pronta (no app) |
