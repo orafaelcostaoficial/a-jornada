@@ -18,6 +18,8 @@ export function progressoVazio() {
     xp: 0,
     log: [],         // { data, tipo, xp, ref }
     conquistas: {},  // id -> data
+    cartas: {},      // personagem -> { data, modo: 'quiz' | 'leitura' }
+    cartaQuiz: {},   // personagem -> { tentativas, usadas, atual: { q, r }, volta }
     vistas: {},      // cartas já reveladas (animação de abertura)
   };
 }
@@ -31,6 +33,18 @@ export function raizVazia() {
   // nuvem: { familiaId, familiaNome, codigoAmigo, convite } quando a família está ligada ao banco.
   // removidos: ids de perfis apagados neste aparelho (para apagar também na nuvem).
   return { v: 2, ativo: null, perfis: {}, nuvem: null, removidos: [] };
+}
+
+// Dá ids novos aos perfis deste aparelho. Usado ao entrar numa família: os ids antigos podem
+// já estar no banco ligados a outra família, e reaproveitá-los faria a sincronização falhar.
+export function renovarIds(raiz) {
+  const perfis = {}; let ativo = null;
+  for (const [idVelho, p] of Object.entries(raiz.perfis || {})) {
+    const id = novoPerfil('').id + Object.keys(perfis).length;
+    perfis[id] = { ...p, id };
+    if (raiz.ativo === idVelho) ativo = id;
+  }
+  return { ...raiz, perfis, ativo: ativo || Object.keys(perfis)[0] || null, removidos: [] };
 }
 
 // Junta duas versões do mesmo perfil (aparelhos diferentes) sem perder progresso.
@@ -66,6 +80,9 @@ export function mesclarPerfil(a, b) {
   r.log.sort((x, y) => (x.data < y.data ? -1 : x.data > y.data ? 1 : 0));
   r.xp = r.log.reduce((t, l) => t + l.xp, 0);
   r.conquistas = { ...b.conquistas, ...a.conquistas };
+  if (a.cartas || b.cartas) r.cartas = { ...(b.cartas || {}), ...(a.cartas || {}) };
+  r.cartaQuiz = { ...((novo === a ? b : a).cartaQuiz || {}), ...(novo.cartaQuiz || {}) };
+  for (const k of Object.keys(r.cartas || {})) delete r.cartaQuiz[k];
   r.vistas = { ...b.vistas, ...a.vistas };
   return r;
 }

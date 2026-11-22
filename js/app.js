@@ -12,7 +12,7 @@ import { bannerNatal, ARTE_SELO } from './tema.js';
 import { DESAFIOS } from '../data/desafios.js';
 
 const NOME_APP = 'A Jornada';
-const VERSAO_APP = 'v34';
+const VERSAO_APP = 'v36';
 let RAIZ = store.carregar();
 const P = () => RAIZ.perfis[RAIZ.ativo];
 const perfis = () => Object.values(RAIZ.perfis);
@@ -55,6 +55,23 @@ async function sincronizar() {
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') agendarSync(300); });
 setInterval(() => document.visibilityState === 'visible' && agendarSync(0), 90000);
+
+function avisoCodigoAmigo() {
+  overlay(`<div class="confirma"><p><b>Isso é um código de amigo</b>, não o convite da família.</p>
+    <p class="dica">• <b>Mora na mesma casa?</b> Peça o <b>convite</b> (formato abc123-def456). Ele fica em Amigos → Outros celulares da casa → Mostrar.</p>
+    <p class="dica">• <b>É de outra família?</b> Crie a sua família aqui primeiro. Depois coloque o código em Amigos → Código do amigo.</p>
+    <button class="btn grande ouro" data-fechar>Entendi</button></div>`);
+}
+
+function entrarFamilia(b, convite) {
+  if (!convite.trim()) return;
+  b.disabled = true;
+  N.entrarFamilia(convite).then((info) => {
+    if (RAIZ.nuvem?.familiaId === info.familiaId) { toast('Este celular já está nessa família'); return; }
+    RAIZ = { ...store.renovarIds(RAIZ), nuvem: info }; store.salvar(RAIZ); AMIGOS = [];
+    toast(`Você entrou na família ${esc(info.familiaNome)}`); return sincronizar();
+  }).catch((e) => { if (e.codigoAmigo) avisoCodigoAmigo(); else toast(esc(e.message)); b.disabled = false; }).finally(render);
+}
 
 function confirmar(msg, sim, aoSim) {
   const o = overlay(`<div class="confirma"><p>${msg}</p><button class="btn grande perigo" data-sim>${sim}</button><button class="btn" data-fechar>Cancelar</button></div>`);
@@ -160,8 +177,8 @@ function barraXP(p) {
 }
 
 // Painel do XP: quanto falta para o próximo nível, de onde veio o XP e os últimos ganhos.
-const NOME_GANHO = { sessao: 'Sessões', aplicacao: 'Aplicações escritas', estudo: 'Anotações de estudo', semana: 'Metas da semana', revisao: '"Como foi?" contado', acerto: 'Acertos no quiz', livro: 'Livros concluídos', era: 'Eras concluídas', desafio: 'Desafios' };
-const ICO_GANHO = { sessao: 'book-open', aplicacao: 'hand-helping', estudo: 'user-pen', semana: 'target', revisao: 'messages-square', acerto: 'circle-check', livro: 'book-open-text', era: 'landmark', desafio: 'star' };
+const NOME_GANHO = { sessao: 'Sessões', carta: 'Cartas conquistadas', aplicacao: 'Aplicações escritas', estudo: 'Anotações de estudo', semana: 'Metas da semana', revisao: '"Como foi?" contado', acerto: 'Acertos no quiz', livro: 'Livros concluídos', era: 'Eras concluídas', desafio: 'Desafios' };
+const ICO_GANHO = { sessao: 'book-open', carta: 'layers', aplicacao: 'hand-helping', estudo: 'user-pen', semana: 'target', revisao: 'messages-square', acerto: 'circle-check', livro: 'book-open-text', era: 'landmark', desafio: 'star' };
 // bonus: meta da semana (ref semana-/seq-), aplicação (+4) ou anotação de estudo de versões antigas (+3).
 const grupoGanho = (l) => (l.tipo === 'bonus' ? (/^(semana|seq)-/.test(String(l.ref)) ? 'semana' : l.xp === 3 ? 'estudo' : 'aplicacao') : l.tipo === 'desafio-fim' ? 'desafio' : l.tipo);
 function textoGanho(l) {
@@ -169,6 +186,7 @@ function textoGanho(l) {
   if (g === 'sessao') return s ? `Sessão de ${J.refSessao(s)}` : 'Sessão concluída';
   if (g === 'aplicacao') return s ? `Aplicação em ${J.refSessao(s)}` : 'Aplicação escrita';
   if (g === 'revisao') return s ? `Contou como foi: ${J.refSessao(s)}` : 'Contou como foi';
+  if (g === 'carta') return `Carta de ${J.PERSONAGENS[l.ref]?.nome || 'personagem'} conquistada`;
   if (g === 'estudo') return s ? `Anotação de estudo em ${J.refSessao(s)}` : 'Anotação de estudo';
   if (g === 'semana') return String(l.ref).startsWith('seq') ? 'Semanas seguidas' : 'Meta da semana';
   if (g === 'livro') return `${LIVROS[l.ref]?.nome || 'Livro'} concluído`;
@@ -210,10 +228,19 @@ function abrirXP() {
     <button class="btn grande" data-fechar>Fechar</button></div>`);
 }
 
-function carta(id, { aberta = true, nova = false, verso = false } = {}) {
+function carta(id, { aberta = true, nova = false, verso = false, estado = null } = {}) {
   const c = J.PERSONAGENS[id]; const [sim, rar, tit] = J.CARTAS[id] || ['star', 'comum', ''];
   const s = J.SESSOES.find((x) => x.personagens.includes(id));
   const era = s ? eraDe(s) : 'principio';
+  if (estado === 'conquistar' || estado === 'espera') {
+    const st = J.estadoCarta(P(), id);
+    return `<a class="carta conquistar r-${rar}" href="#/conquistar/${id}" style="--c:${COR_ERA[era]}"><div class="carta-in">
+      <div class="carta-cab"><span class="carta-nome">${esc(c.nome)}</span><span class="gemas">${'◆'.repeat(RARIDADE[rar].gemas)}</span></div>
+      <div class="carta-arte"><span class="simbolo">${ico(sim)}</span><span class="interroga">?</span></div>
+      <div class="carta-tit">${st.volta ? `Volta em ${fmtData(st.volta)}` : 'A conquistar'}</div>
+      <div class="carta-pe"><span>${st.volta ? 'Aguarde' : 'Responder'}</span>${ico(st.volta ? 'hourglass' : 'chevron-right')}</div>
+    </div></a>`;
+  }
   if (!aberta) return `<div class="carta bloq"><div class="carta-in"><div class="carta-arte">${ico('lock-keyhole', 'g')}</div><div class="carta-nome">???</div></div></div>`;
   const gemas = '◆'.repeat(RARIDADE[rar].gemas);
   return `<a class="carta r-${rar} ${nova ? 'nova' : ''}" href="#/carta/${id}" style="--c:${COR_ERA[era]}">
@@ -318,6 +345,7 @@ function telaHoje() {
   const missoes = [
     { feito: feitaHoje, ico: 'book-open', txt: 'Fazer a sessão do dia', xp: `+${J.XP.sessao}–${J.XP.sessao + J.XP.aplicacao}`, href: prox ? `#/sessao/${prox.id}` : null },
     quiz.length ? { feito: false, ico: 'medal', txt: `Revisar ${quiz.length} pergunta${quiz.length > 1 ? 's' : ''}`, xp: `+${J.XP.acerto} cada`, href: '#/revisao' } : null,
+    ...J.cartasDisponiveis(p).slice(0, 2).map((id) => ({ feito: false, ico: 'layers', txt: `Conquistar a carta de ${J.PERSONAGENS[id].nome}`, xp: `+${J.XP.carta}`, href: `#/conquistar/${id}` })),
     ...aplic.map((s) => ({ feito: false, ico: 'heart', txt: `Como foi: “${p.sessoes[s.id].aplicacao}”`, xp: `+${J.XP.revisao}`, href: `#/aplicacao/${s.id}` })),
   ].filter(Boolean);
 
@@ -530,6 +558,9 @@ function telaResultado(res) {
     <ul class="ganhos">${res.ganhos.map(([t, x]) => `<li><span>${esc(t)}</span><b>+${x}</b></li>`).join('')}</ul>
     ${res.juntos?.length ? `<p class="dica">Também concluíram: ${res.juntos.map(esc).join(', ')}</p>` : ''}
     ${res.abertas ? `<a class="btn grande sec" href="#/cartas">${ico('layers')} Ver no álbum</a>` : res.novosP.length + (res.novosS?.length || 0) ? `<button class="btn grande ouro pacote" data-acao="abrir-cartas">${ico('layers')} Abrir ${[res.novosP.length ? `${res.novosP.length} carta${res.novosP.length > 1 ? 's' : ''}` : '', res.novosS?.length ? `${res.novosS.length} selo${res.novosS.length > 1 ? 's' : ''}` : ''].filter(Boolean).join(' e ')}</button>` : ''}
+    ${res.novosQ?.length ? `<section class="bloco conquistar-res"><div class="rot">Cartas a conquistar</div>
+      <p class="dica">Responda 3 perguntas sobre cada personagem desta leitura para ganhar a carta. Pode ser agora ou depois, pelo Álbum.</p>
+      <div class="grade-cartas mini">${res.novosQ.map((id) => carta(id, { estado: 'conquistar' })).join('')}</div></section>` : ''}
     ${res.novosM.length ? `<section class="bloco"><div class="rot">Na linha do tempo</div>${res.novosM.map((m) => `<p>${ico('flag')} ${esc(J.MARCOS.find((x) => x.id === m).titulo)}</p>`).join('')}</section>` : ''}
     ${res.novasC.length ? (res.conqVistas ? `<section class="bloco"><div class="rot">Conquistas</div>${res.novasC.map((c) => `<p>${ico('trophy')} <b>${esc(c.nome)}</b> — ${esc(c.desc)}</p>`).join('')}</section>` : `<button class="btn grande ouro pacote" data-acao="ver-conquistas">${ico('trophy')} Receber ${res.novasC.length > 1 ? `${res.novasC.length} conquistas` : 'conquista'}</button>`) : ''}
     <a class="btn sec" href="#/hoje">Voltar ao início</a>
@@ -543,13 +574,13 @@ function selo(id, { aberta = true, grande = false } = {}) {
   return `<a class="selo-p ${grande ? 'grande' : ''}" href="#/selo/${id}"><span class="selo-disco ${s.arte ? 'arte' : ''} ${img ? 'com-img' : ''}">${s.arte ? ARTE_SELO[s.arte] : img ? '' : ico(s.icone)}${img}</span><span>${esc(s.nome)}</span></a>`;
 }
 
-function abrirCartas(lista, i = 0) {
-  if (i >= lista.length) { if (ultimoResultado) ultimoResultado.abertas = true; render(); return; }
+function abrirCartas(lista, i = 0, novasC = []) {
+  if (i >= lista.length) { if (novasC.length) { animarConquistas(novasC, render); return; } if (ultimoResultado) ultimoResultado.abertas = true; render(); return; }
   if (lista[i].startsWith('selo:')) {
     const id = lista[i].slice(5); const s = J.SELOS[id] || J.SELOS_ESPECIAIS[id];
     const o = overlay(`<div class="revelar r-epica"><div class="revelar-selo">${selo(id, { grande: true })}</div>
       <div class="revelar-txt"><small>${J.SELOS_ESPECIAIS[id] ? 'Selo especial' : 'Selo da Palavra'}</small><b>${esc(s.nome)}</b></div><p class="selo-txt">${esc(s.texto)} <i>${esc(s.ref)}</i></p>
-      <button class="btn grande" data-fechar>${i + 1 < lista.length ? `Próximo (${i + 2}/${lista.length})` : 'Guardar no álbum'}</button></div>`, () => abrirCartas(lista, i + 1));
+      <button class="btn grande" data-fechar>${i + 1 < lista.length ? `Próximo (${i + 2}/${lista.length})` : 'Guardar no álbum'}</button></div>`, () => abrirCartas(lista, i + 1, novasC));
     setTimeout(() => o.querySelector('.revelar-selo').classList.add('on'), 200);
     return;
   }
@@ -558,7 +589,7 @@ function abrirCartas(lista, i = 0) {
       <div class="revelar-carta"><div class="face verso"><div class="verso-logo">${ico('book-open')}<span>${NOME_APP}</span></div></div><div class="face frente">${carta(id, { nova: true })}</div></div>
       <div class="revelar-txt"><small>${RARIDADE[rar].nome}</small><b>${esc(J.PERSONAGENS[id].nome)}</b></div>
       <button class="btn grande" data-fechar>${i + 1 < lista.length ? `Próxima (${i + 2}/${lista.length})` : 'Guardar no álbum'}</button>
-    </div>`, () => abrirCartas(lista, i + 1));
+    </div>`, () => abrirCartas(lista, i + 1, novasC));
   setTimeout(() => { o.querySelector('.revelar-carta').classList.add('virada'); if (rar === 'lendaria' || rar === 'epica') confete(rar === 'lendaria' ? 90 : 40); }, 450);
 }
 
@@ -583,6 +614,42 @@ function telaAplicacao(id) {
 }
 
 let filaQuiz = [];
+// Questionário da carta: 3 perguntas sobre o personagem na leitura. Não mostra a resposta certa (só onde conferir),
+// para a nova tentativa continuar valendo.
+let CQ = null; // { id, ultimo: { certo, ref, fim, ... } } — retorno da última resposta, para mostrar antes da próxima
+function telaConquistar(id) {
+  const p = P(); const c = J.PERSONAGENS[id];
+  if (!c) return telaCartas();
+  const u = CQ?.id === id ? CQ.ultimo : null;
+  if (!u?.ganhou && J.personagensLiberados(p).has(id)) return telaCarta(id);
+  if (!u?.ganhou && !J.cartasAConquistar(p).includes(id)) return telaCartas();
+  const [sim, rar] = J.CARTAS[id]; const precisa = J.acertosParaCarta(p);
+  const ses = J.SESSOES.find((s) => s.personagens.includes(id) && J.concluida(p, s.id));
+  const cab = `<header class="topo-sec"><a class="voltar" href="#/cartas">${ico('chevron-left')}</a><h2>Conquistar carta</h2></header>
+    <div class="cq-topo r-${rar}"><span class="cq-sombra">${ico(sim)}</span><div><small>${esc(RARIDADE[rar].nome)}</small><b>${esc(c.nome)}</b></div></div>`;
+  const reler = ses ? `<a class="btn sec" href="#/sessao/${ses.id}">${ico('book-open')} Reler ${esc(J.refSessao(ses))}</a>` : '';
+  if (u?.fim) {
+    if (u.ganhou) return `${cab}<section class="bloco cq-fim ok">${ico('circle-check', 'g')}<h3>Carta conquistada!</h3><p>${u.acertos} de 3 acertos.</p>
+      <button class="btn grande ouro" data-acao="cq-revelar" data-id="${id}">${ico('layers')} Abrir a carta</button></section>`;
+    return `${cab}<section class="bloco cq-fim">${ico('target', 'g')}<h3>Ainda não foi dessa vez</h3>
+      <p>Você acertou ${u.acertos} de 3; precisa de ${u.precisa}.</p>
+      ${u.volta ? `<p class="dica">As 3 tentativas acabaram. O questionário de ${esc(c.nome)} volta em <b>${fmtData(u.volta)}</b>, com perguntas novas. Que tal reler o trecho até lá?</p>`
+        : `<p class="dica">Restam <b>${u.restantes}</b> tentativa${u.restantes > 1 ? 's' : ''}, com outras perguntas.</p><button class="btn grande ouro" data-acao="cq-nova" data-id="${id}">Tentar de novo</button>`}
+      ${reler}<a class="btn sec" href="#/cartas">Voltar ao Álbum</a></section>`;
+  }
+  const st = J.estadoCarta(p, id);
+  if (st.volta) return `${cab}<section class="bloco cq-fim">${ico('hourglass', 'g')}<h3>Volta em ${fmtData(st.volta)}</h3><p class="dica">As 3 tentativas acabaram. Nessa data o questionário volta com perguntas novas.</p>${reler}</section>`;
+  const t = J.tentativaCarta(p, id); salvar();
+  const n = t.respostas.length; const q = t.perguntas[n];
+  return `${cab}
+  <p class="sub cq-regra">Responda 3 perguntas sobre ${esc(c.nome)} na leitura. Para ganhar a carta, acerte <b>${precisa === 3 ? 'as 3' : `${precisa} das 3`}</b>.
+    <span>Tentativa ${t.tentativa} de ${J.TENTATIVAS_CARTA}</span></p>
+  <div class="cq-pontos">${[0, 1, 2].map((k) => `<i class="${k < n ? (t.respostas[k] ? 'ok' : 'erro') : k === n ? 'atual' : ''}"></i>`).join('')}</div>
+  <section class="quiz anima"><small>Pergunta ${n + 1} de 3</small><p class="pergunta">${esc(q.q)}</p>
+    <div class="opcoes">${q.op.map((o, i) => `<button class="opcao" data-acao="cq-resp" data-id="${id}" data-i="${i}"><i>${'ABCD'[i]}</i>${esc(o)}</button>`).join('')}</div>
+    <div id="feedback"></div></section>`;
+}
+
 function telaRevisao() {
   if (!filaQuiz.length) filaQuiz = J.quizPendente(P()).sort(() => Math.random() - 0.5).slice(0, 10);
   if (!filaQuiz.length) return `${topo()}<section class="bloco vazio">${ico('medal', 'g')}<p>Nada para revisar hoje. As perguntas voltam em intervalos maiores conforme você acerta.</p><a class="btn" href="#/hoje">Voltar</a></section>`;
@@ -686,7 +753,7 @@ function telaAmigos() {
     <section class="bloco"><div class="bloco-tit"><span>Já criou em outro celular?</span></div>
       <label class="rot" for="convite">Convite da família</label><input id="convite" class="campo" placeholder="ex.: a1b2c3-d4e5f6" autocapitalize="off">
       <button class="btn grande" data-acao="entrar-familia" style="margin-top:12px">Entrar na família</button>
-      <p class="dica">O convite aparece no celular que criou a família, nesta mesma tela.</p></section>`;
+      <p class="dica">O convite aparece no celular que criou a família, nesta mesma tela, e tem o formato <b>abc123-def456</b>. O código de amigo (6 letras) não serve aqui.</p></section>`;
   }
   const n = RAIZ.nuvem;
   const st = { sincronizando: 'Sincronizando…', ok: `Sincronizado ${SYNC.em ? SYNC.em.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : ''}`, erro: `Erro: ${esc(SYNC.erro || '')}`, pronto: 'Pronto' }[SYNC.status] || '';
@@ -703,7 +770,11 @@ function telaAmigos() {
     ${Object.entries(familias).map(([fid, f]) => `<div class="fam-amiga"><div><b>${esc(f.nome)}</b><small>${f.membros.map((m) => esc(m.nome)).join(', ')}</small></div><button class="mini" data-acao="rem-amigo" data-f="${fid}" data-n="${esc(f.nome)}">Remover</button></div>`).join('')}</section>` : ''}
   <section class="bloco"><div class="bloco-tit"><span>Outros celulares da casa</span></div>
     <p class="dica">No outro celular, abra o app, vá em Amigos → "Entrar na família" e use o convite. Ele é secreto: dá acesso às anotações da família.</p>
-    <div class="codigo secreto"><small>Convite</small><b id="convite-val" data-v="${esc(n.convite)}">••••••-••••••</b><button class="btn sec" data-acao="ver-convite">Mostrar</button></div></section>`;
+    <div class="codigo secreto"><small>Convite</small><b id="convite-val" data-v="${esc(n.convite)}">••••••-••••••</b><button class="btn sec" data-acao="ver-convite">Mostrar</button></div>
+    <details class="trocar-fam"><summary>Este celular está na família errada?</summary>
+      <p class="dica">Se você criou uma família sozinho e queria entrar em outra, use o convite dela. Os viajantes deste celular vão junto, com todo o progresso.</p>
+      <label class="rot" for="convite-troca">Convite da outra família</label><input id="convite-troca" class="campo" placeholder="ex.: a1b2c3-d4e5f6" autocapitalize="off">
+      <button class="btn grande" data-acao="trocar-familia" style="margin-top:12px">Entrar na outra família</button></details></section>`;
 }
 
 function linhaRanking(pos, a, eu) {
@@ -765,12 +836,13 @@ function telaCartas(aba = 'pessoas') {
     return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${Object.keys(J.SELOS).length} Selos da Palavra · palavras e objetos que marcam a história</p>
     <div class="grade-selos">${Object.keys(J.SELOS).map((id) => selo(id, { aberta: lib.has(id) })).join('')}</div>`;
   }
-  const lib = J.personagensLiberados(p);
+  const lib = J.personagensLiberados(p); const aConq = J.cartasAConquistar(p);
   const ordem = [...new Set(J.SESSOES.flatMap((s) => s.personagens))];
   const porRar = Object.keys(RARIDADE).map((r) => [r, ordem.filter((id) => J.CARTAS[id][1] === r && lib.has(id)).length, ordem.filter((id) => J.CARTAS[id][1] === r).length]);
   return `${topo()}<h1 class="tit-tela">Álbum</h1>${abas}<p class="sub">${lib.size} de ${ordem.length} cartas nesta era</p>
   <div class="raridades">${porRar.map(([r, a, t]) => `<span class="r-${r}"><i></i>${RARIDADE[r].nome} ${a}/${t}</span>`).join('')}</div>
-  <div class="grade-cartas">${ordem.map((id) => carta(id, { aberta: lib.has(id) })).join('')}</div>`;
+  ${aConq.length ? `<p class="dica conquistar-dica">${ico('layers')} ${aConq.length} carta${aConq.length > 1 ? 's' : ''} a conquistar: responda 3 perguntas sobre o personagem.</p>` : ''}
+  <div class="grade-cartas">${ordem.map((id) => (aConq.includes(id) ? carta(id, { estado: 'conquistar' }) : carta(id, { aberta: lib.has(id) }))).join('')}</div>`;
 }
 
 function telaSelo(id) {
@@ -792,6 +864,7 @@ function telaSelo(id) {
 
 function telaCarta(id) {
   const c = J.PERSONAGENS[id]; const p = P();
+  if (c && J.cartasAConquistar(p).includes(id)) return telaConquistar(id);
   if (!c || !J.personagensLiberados(p).has(id)) return telaCartas();
   const minhas = J.concluidas(p).filter((s) => s.personagens.includes(id));
   return `<header class="topo-sec"><a class="voltar" href="#/cartas">${ico('chevron-left')}</a><h2>Carta</h2></header>
@@ -924,6 +997,7 @@ const NAV = { hoje: 'hoje', jornada: 'jornada', sessao: 'jornada', livro: 'jorna
 
 function render() {
   const [, rota = 'hoje', arg] = (location.hash || '#/hoje').split('/');
+  if (perfis().map((o) => J.migrarCartas(o)).some(Boolean)) salvar(); // cartas antigas: quem já tinha, fica com elas
   let html;
   if (!P() && rota !== 'novo-perfil') html = telaBoasVindas();
   else switch (rota) {
@@ -942,6 +1016,7 @@ function render() {
     case 'eventos': html = telaCartas('eventos'); break;
     case 'selo': html = telaSelo(arg); break;
     case 'carta': html = telaCarta(arg); break;
+    case 'conquistar': html = telaConquistar(arg); break;
     case 'linha': html = telaLinha(); break;
     case 'amigos': html = telaAmigos(); break;
     case 'perfil': html = telaPerfil(); break;
@@ -1024,11 +1099,17 @@ document.body.addEventListener('click', (ev) => {
   if (acao === 'instalar') instalar();
   if (acao === 'fechar-instalar') { sessionStorage.setItem('ajornada-instalar-fechado', '1'); render(); }
   if (acao === 'cap') { const r = rascunho(id); r.cap = Number(b.dataset.c); render(); }
-  if (acao === 'criar-familia' || acao === 'entrar-familia') {
+  if (acao === 'criar-familia') {
     b.disabled = true;
-    const fn = acao === 'criar-familia' ? N.criarFamilia(document.getElementById('fam-nome').value) : N.entrarFamilia(document.getElementById('convite').value);
-    fn.then((info) => { RAIZ.nuvem = info; store.salvar(RAIZ); toast(acao === 'criar-familia' ? 'Família criada' : 'Você entrou na família'); return sincronizar(); })
+    N.criarFamilia(document.getElementById('fam-nome').value)
+      .then((info) => { RAIZ.nuvem = info; store.salvar(RAIZ); toast('Família criada'); return sincronizar(); })
       .catch((e) => { toast(esc(e.message)); b.disabled = false; }).finally(render);
+  }
+  if (acao === 'entrar-familia') entrarFamilia(b, document.getElementById('convite').value);
+  if (acao === 'trocar-familia') {
+    const v = document.getElementById('convite-troca').value; if (!v.trim()) return;
+    if (N.pareceCodigoAmigo(v)) { avisoCodigoAmigo(); return; }
+    confirmar(`Sair de <b>${esc(RAIZ.nuvem.familiaNome)}</b> e entrar na família do convite? Os viajantes deste celular vão junto.`, 'Entrar', () => entrarFamilia(b, v));
   }
   if (acao === 'sync') sincronizar().then(render);
   if (acao === 'add-amigo') {
@@ -1039,6 +1120,8 @@ document.body.addEventListener('click', (ev) => {
   if (acao === 'ver-convite') { const el = document.getElementById('convite-val'); el.textContent = el.dataset.v; }
   if (acao === 'compartilhar') {
     const txt = `Vamos estudar a Bíblia juntos n'A Jornada! Meu código de amigo: ${RAIZ.nuvem.codigoAmigo}
+Para me adicionar: abra o app, vá em Amigos, crie a sua família e coloque esse código em "Código do amigo".
+(É para outra família. Quem mora comigo entra com o convite da família.)
 ${location.origin}${location.pathname}`;
     if (navigator.share) navigator.share({ text: txt }).catch(() => {}); else navigator.clipboard?.writeText(txt).then(() => toast('Copiado'));
   }
@@ -1100,6 +1183,20 @@ ${location.origin}${location.pathname}`;
     if (certo) confete(15);
     const depois = J.nivel(P().xp).n; if (depois > antes) setTimeout(() => subiuNivel(depois), 600);
   }
+  if (acao === 'cq-resp') {
+    const id = b.dataset.id; const i = Number(b.dataset.i);
+    const r = J.responderCarta(P(), id, i); if (!r) { render(); return; }
+    salvar();
+    document.querySelectorAll('.opcao').forEach((o, k) => { o.disabled = true; if (k === i) o.classList.add(r.certo ? 'certa' : 'errada'); });
+    document.querySelectorAll('.cq-pontos i')[document.querySelectorAll('.cq-pontos i.ok, .cq-pontos i.erro').length]?.classList.replace('atual', r.certo ? 'ok' : 'erro');
+    document.getElementById('feedback').innerHTML = `<p class="${r.certo ? 'ok' : 'erro'}">${r.certo ? `${ico('circle-check')} Certo!` : `${ico('x')} Não foi essa.`} <small>Confira em ${esc(r.ref)}</small></p>
+      <button class="btn grande" data-acao="cq-prox" data-id="${id}">${r.fim ? 'Ver resultado' : 'Próxima'}</button>`;
+    CQ = { id, ultimo: r.fim ? r : null };
+    if (r.certo) confete(12);
+  }
+  if (acao === 'cq-prox') render();
+  if (acao === 'cq-nova') { CQ = null; render(); }
+  if (acao === 'cq-revelar') { const id = b.dataset.id; const novasC = CQ?.ultimo?.novasC || []; CQ = null; ir('#/cartas'); setTimeout(() => abrirCartas([id], 0, novasC), 150); }
   if (acao === 'proxima-q') { filaQuiz.shift(); if (!filaQuiz.length) { toast('Revisão concluída'); ir('#/hoje'); } else render(); }
 
   if (acao === 'exportar') {
