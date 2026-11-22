@@ -22,7 +22,7 @@ Para o traço não variar: uma conversa do Gemini por lote, anexando uma carta j
 | Matusalém | rara | ✅ pronta (no app) |
 | Noé | lendária | ✅ pronta (no app) |
 | Sem | comum | ✅ pronta (no app) |
-| Ninrode | comum | a gerar |
+| Ninrode | comum | ✅ pronta (no app) |
 | Terá | comum | ✅ pronta (no app) |
 | Abraão | lendária | a gerar |
 
