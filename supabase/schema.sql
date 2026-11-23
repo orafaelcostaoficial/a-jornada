@@ -6,7 +6,8 @@
 --              e um CONVITE (secreto, para entrar com outro celular na mesma família).
 --   membros  = cada aparelho logado (login anônimo do Supabase) pertence a uma família.
 --   perfis   = os viajantes (adulto/criança) com todo o progresso em `dados`.
---   amizades = famílias amigas veem nome, avatar, nível, XP da semana e onde estão no mapa.
+--   amizades = famílias amigas veem apelido, avatar, nível, XP da semana e onde estão no mapa.
+--   v58: o banco não guarda nome de viajante, só o apelido (ver o fim do arquivo).
 --
 -- Pré-requisito no painel: Authentication → Sign In / Providers → "Allow anonymous sign-ins" ligado.
 
@@ -148,8 +149,8 @@ grant select on public.familias, public.membros, public.amizades to authenticate
 --   casa    = a tabela `familias` acima (quem entra pelo convite secreto; dados e anotações).
 --   família = grupo de casas (`grupos`), entrando com o código da família. Por enquanto cada casa
 --             fica em uma família só (regra nas funções, não na tabela, para abrir depois).
---   Ranking da família: semanal, nomes reais. Ranking geral: mensal, todos os viajantes do app,
---   só apelido + personagem (nunca o nome real nem a casa).
+--   Ranking da família: semanal, apelidos e casas. Ranking geral: mensal, todos os viajantes do app,
+--   só apelido + personagem (nunca a casa).
 -- ════════════════════════════════════════════════════════════════════════════
 
 create table if not exists public.grupos (
@@ -258,7 +259,7 @@ create or replace function public.ranking_familia()
 returns table (grupo_id uuid, casa_id uuid, casa text, perfil_id text, nome text, tipo text, avatar jsonb,
                xp int, xp_semana int, semana text, sessao_atual text, era text, atualizado timestamptz)
 language sql stable security definer set search_path = public as $$
-  select c.grupo_id, f.id, f.nome, p.id, p.nome, p.tipo, p.avatar, p.xp, p.xp_semana, p.semana, p.sessao_atual, p.era, p.atualizado
+  select c.grupo_id, f.id, f.nome, p.id, nullif(trim(p.apelido), ''), p.tipo, p.avatar, p.xp, p.xp_semana, p.semana, p.sessao_atual, p.era, p.atualizado
   from grupo_casas c
   join familias f on f.id = c.casa_id
   join perfis p on p.familia_id = f.id
@@ -316,6 +317,112 @@ revoke all on function public.meus_grupos(), public.criar_grupo(text), public.en
 grant execute on function public.meus_grupos(), public.criar_grupo(text), public.entrar_grupo(text), public.sair_grupo(uuid),
   public.minhas_familias(), public.ranking_familia(), public.ranking_geral(text, text) to authenticated;
 grant select on public.grupos, public.grupo_casas to authenticated;
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- v58 — SÓ APELIDO, APAGAR DA NUVEM e RESPONSÁVEL PELA CASA
+--   O viajante tem um campo só, o apelido. A coluna `perfis.nome` fica vazia para sempre e o
+--   gatilho abaixo tira o nome também de `dados`, mesmo que um app antigo ainda mande.
+alter table public.perfis alter column nome drop not null;
+
+create or replace function public.perfis_sem_nome() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  new.nome := null;
+  new.dados := coalesce(new.dados, '{}'::jsonb) - 'nome';
+  return new;
+end $$;
+drop trigger if exists perfis_sem_nome on public.perfis;
+create trigger perfis_sem_nome before insert or update on public.perfis
+  for each row execute function public.perfis_sem_nome();
+update public.perfis set nome = null where nome is not null or dados ? 'nome';
+
+-- Apps v37 (amigos): também só o apelido.
+create or replace function public.amigos()
+returns table (familia_id uuid, familia text, perfil_id text, nome text, tipo text, avatar jsonb,
+               xp int, xp_semana int, semana text, sessao_atual text, era text, atualizado timestamptz)
+language sql stable security definer set search_path = public as $$
+  select f.id, f.nome, p.id, nullif(trim(p.apelido), ''), p.tipo, p.avatar, p.xp, p.xp_semana, p.semana, p.sessao_atual, p.era, p.atualizado
+  from amizades a
+  join familias f on f.id = a.amigo_id
+  join perfis p on p.familia_id = f.id
+  where a.familia_id = minha_familia()
+$$;
+
+-- Responsável pela casa: o celular que criou a casa (gravado no primeiro membro). Se ele não estiver
+-- mais na casa (trocou de celular, saiu), o responsável passa a ser o celular mais antigo da casa.
+-- Casas criadas antes da v58 não têm o campo: vale o celular mais antigo.
+alter table public.familias add column if not exists responsavel uuid;
+
+create or replace function public.membros_entrada() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if tg_op = 'UPDATE' and new.familia_id is distinct from old.familia_id then
+    new.criado_em := now();  -- mudou de casa: conta como recém-chegado na nova
+  end if;
+  return new;
+end $$;
+drop trigger if exists membros_entrada on public.membros;
+create trigger membros_entrada before update on public.membros
+  for each row execute function public.membros_entrada();
+
+create or replace function public.membros_primeiro() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  update familias set responsavel = new.user_id where id = new.familia_id and responsavel is null;
+  return null;
+end $$;
+drop trigger if exists membros_primeiro on public.membros;
+create trigger membros_primeiro after insert or update of familia_id on public.membros
+  for each row execute function public.membros_primeiro();
+
+create or replace function public.responsavel_da_casa(p_casa uuid) returns uuid
+language sql stable security definer set search_path = public as $$
+  select coalesce(
+    (select f.responsavel from familias f join membros m on m.user_id = f.responsavel and m.familia_id = f.id where f.id = p_casa),
+    (select m.user_id from membros m where m.familia_id = p_casa order by m.criado_em, m.user_id limit 1))
+$$;
+
+create or replace function public.sou_responsavel() returns boolean
+language sql stable security definer set search_path = public as $$
+  select minha_familia() is not null and responsavel_da_casa(minha_familia()) = auth.uid()
+$$;
+
+-- Apaga do servidor a minha casa inteira: perfis e anotações, membros (todos os celulares),
+-- amizades e participação nas famílias (as famílias que ficarem sem casa somem).
+-- Só o celular responsável pela casa pode.
+create or replace function public.apagar_minha_casa() returns void
+language plpgsql security definer set search_path = public as $$
+declare minha uuid := minha_familia(); gs uuid[];
+begin
+  if minha is null then return; end if;
+  if responsavel_da_casa(minha) is distinct from auth.uid() then
+    raise exception 'Só o celular responsável pela casa pode apagar a casa.';
+  end if;
+  select array_agg(grupo_id) into gs from grupo_casas where casa_id = minha;
+  delete from familias where id = minha;
+  delete from grupos g where g.id = any(coalesce(gs, '{}'))
+    and not exists (select 1 from grupo_casas c where c.grupo_id = g.id);
+end $$;
+
+-- Tira só este celular da casa. Os viajantes continuam na casa para os outros celulares.
+-- Se era o último celular da casa, a casa é apagada (não fica dado sem dono no servidor).
+create or replace function public.sair_da_casa() returns void
+language plpgsql security definer set search_path = public as $$
+declare minha uuid := minha_familia(); gs uuid[];
+begin
+  if minha is null then return; end if;
+  delete from membros where user_id = auth.uid();
+  if not exists (select 1 from membros where familia_id = minha) then
+    select array_agg(grupo_id) into gs from grupo_casas where casa_id = minha;
+    delete from familias where id = minha;
+    delete from grupos g where g.id = any(coalesce(gs, '{}'))
+      and not exists (select 1 from grupo_casas c where c.grupo_id = g.id);
+  end if;
+end $$;
+
+revoke all on function public.apagar_minha_casa(), public.sair_da_casa(), public.sou_responsavel(),
+  public.responsavel_da_casa(uuid) from public, anon;
+grant execute on function public.apagar_minha_casa(), public.sair_da_casa(), public.sou_responsavel() to authenticated;
 
 -- Avisa a API do Supabase (PostgREST) para enxergar as tabelas e funções novas.
 notify pgrst, 'reload schema';
