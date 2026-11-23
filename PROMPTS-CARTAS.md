@@ -15,7 +15,7 @@ Para o traço não variar: uma conversa do Gemini por lote, anexando uma carta j
 |---|---|---|
 | Adão | lendária | ✅ pronta (no app) |
 | Eva | épica | ✅ pronta (no app) |
-| Caim | comum | 🔁 refazer (rosto parecido com outros) |
+| Caim | comum | ✅ pronta (no app) |
 | Abel | rara | ✅ pronta (no app) |
 | Sete | rara | ✅ pronta (no app) |
 | Enoque | épica | ✅ pronta (no app) |
