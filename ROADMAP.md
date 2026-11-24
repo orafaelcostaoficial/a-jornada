@@ -76,6 +76,7 @@ As decisões de produto e o desenho das funções ficam no `PLANO.md`. As regras
    - **Celebração de nível:** `celebrarNivel` (app.js) com `nivelVisto` no perfil (mescla pelo maior). Vale para qualquer XP (sessão, carta, revisão, aplicação, sincronização), fora de quiz/leitura e sem outra janela aberta. Perfil sem o campo só marca o nível atual (sem celebração retroativa).
    - **Conquistas no Perfil:** Ritmo, Coleção e Prática vêm antes das eras e da estante (as primeiras medalhas ficavam escondidas lá embaixo).
    - **Ranking geral:** selo "você" só no viajante ativo (antes saía em todos da casa).
+8. **v61 (na `teste`, 23/11/2026):** Álbum sem "buracos": cartas que você tem e as a conquistar ficam juntas, na ordem da história; as que ainda não apareceram (inclusive as da fila escondida) vão para o bloco "Ainda por descobrir", no fim.
 7. ~~Conferir os slugs da NAA~~: feito em 21/11/2026 (`ex`, `lv`, `nm`, `dt` conferidos no site; o botão NAA da era 2 passou a aparecer na v33).
 
 ---
