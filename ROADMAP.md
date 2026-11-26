@@ -59,6 +59,8 @@ As decisões de produto e o desenho das funções ficam no `PLANO.md`. As regras
 
 ## 2. Pendente agora (pequeno)
 
+0. **Novo jeito de escrever as sessões (v62, na `teste`, 25/11/2026).** O Rafael achou o tom mecânico (contexto que contava o final, notas que repetiam o versículo, pergunta pulando direto para a vida) e a tela do "como foi?" sem a pergunta. Criada a skill **`jornada-escrita`** (gancho, repare, por trás do texto com selos 📖🔗🔎🗺️ e fonte comprovada, conversa, para fazer com ação de verdade e atitudes bíblicas, tempo com Deus com oração). Regras dele: nada de opinião de estudiosos nem "leitura possível"; fora da Bíblia, só fato com fonte; jejum de criança é sempre de algo, nunca de comida. Gn 1–11 (gn-01 a gn-06) reescritos; passos agora "Antes de ler → Leitura → Entendi → Viver"; o "como foi?" mostra o desafio, a pergunta, a resposta e o passo (registros antigos mostram a pergunta antiga).
+   - **Próximo:** com o "aprovado", reescrever o resto da era 1 (gn-07 em diante e Jó), depois Moisés e Juízes. Avaliar se `CRIANCAS`/`CRIANCAS_FAZER` ainda fazem falta nas sessões novas (hoje o texto novo serve à família toda).
 1. **Teste separado do oficial (feito, 21/11/2026; v32 no oficial).** O teste virou outro app, em outro endereço: o repositório `a-jornada-teste`, publicado por `ferramentas/publicar_teste.sh`. O conteúdo já foi enviado.
    - **Falta:** (a) ligar o Pages no `a-jornada-teste` (Settings → Pages → Deploy from a branch → `main` / root), o que o Rafael faz pelo celular; (b) com o "pode publicar", levar a v32 da `teste` para a `main`, com o redirecionamento de `/a-jornada/teste/`, o link do rodapé e o cartão "já instalado".
    - **No celular:** desinstalar o teste antigo, se ainda existir, e instalar o novo pelo botão.

@@ -6,6 +6,9 @@
 // - Nada é copiado da NAA nem da Bíblia de Estudo NAA: é paráfrase própria,
 //   no formato de uma Bíblia de estudo (introdução, cenário, notas).
 // - Datas que o texto não dá não são inventadas.
+//
+// v62: sessões com `gancho` seguem a skill jornada-escrita (gancho, repare, portras, conversa, fazer, oracao).
+// Itens de fora da Bíblia (🔎/🗺️) trazem `fonte` conferida. `contexto/notas/pergunta` ficam para registros antigos.
 
 export const INTRODUCOES = {
   gn: {
@@ -44,6 +47,12 @@ export const SESSOES = [
   // ───────────── GÊNESIS ─────────────
   { id: 'gn-01', livro: 'gn', caps: [1, 2], titulo: 'A criação',
     cenario: 'O princípio de tudo.',
+    gancho: "Antes de existir sol, mar ou qualquer animal, o texto já começa com alguém: Deus. Ele fala, e as coisas passam a existir. Hoje você descobre em que ordem tudo apareceu e o que Deus achou do resultado.",
+    repare: [{"t": "Que frase se repete no fim de quase todos os dias da criação? O que muda no sexto dia?", "ref": "Gn 1:4-31"}, {"t": "De que Deus forma o homem, e o que ele sopra nele?", "ref": "Gn 2:7"}, {"t": "Qual é a única árvore de que o homem não pode comer?", "ref": "Gn 2:17"}],
+    portras: [{"selo": "biblia", "t": "Seis vezes o texto diz que Deus viu que era bom. No fim do sexto dia, depois de criar o ser humano, a frase cresce: \"muito bom\".", "ref": "Gn 1:4-25; 1:31"}, {"selo": "liga", "t": "João abre o seu evangelho com as mesmas palavras, \"No princípio\", e diz que todas as coisas foram feitas por meio da Palavra.", "ref": "Gn 1:1; Jo 1:1-3"}, {"selo": "liga", "t": "O sétimo dia volta nos Dez Mandamentos: o descanso semanal é ligado aos seis dias da criação.", "ref": "Gn 2:2-3; Êx 20:8-11"}],
+    conversa: "Deus fez o homem e a mulher à imagem dele (Gn 1:27). O que isso diz sobre o valor de cada pessoa que você conhece, inclusive as que são difíceis? \"Ainda não sei\" também vale.",
+    fazer: "Deus deu ao homem o trabalho de cultivar e guardar o jardim (Gn 2:15). Assuma um cuidado em casa pelos próximos 3 dias: uma planta, um bicho, um cômodo ou um canto da casa. Faça sem ninguém precisar lembrar.",
+    oracao: "Fique um minuto em silêncio olhando algo que Deus criou: o céu, uma planta, as suas mãos. Depois ore: \"Senhor, obrigado porque tudo o que o Senhor fez é bom. Obrigado por me fazer à sua imagem. Me ajuda a cuidar bem do que o Senhor me confiou.\" Continue com as suas palavras.",
     contexto: 'Gênesis abre com Deus criando os céus e a terra e ordenando tudo em seis dias. O capítulo 2 volta ao sexto dia e mostra de perto a formação do homem e da mulher e o jardim do Éden.',
     notas: [
       ['1:1', 'Antes de tudo, Deus já existe e cria. O texto não explica Deus; começa por ele.'],
@@ -58,6 +67,12 @@ export const SESSOES = [
 
   { id: 'gn-02', livro: 'gn', caps: [3, 3], titulo: 'A queda',
     cenario: 'O jardim do Éden.',
+    gancho: "Um jardim perfeito, com uma única regra. Então aparece alguém com uma pergunta que parece inocente. Hoje você descobre como uma conversa mudou tudo, e o que Deus fez em seguida.",
+    repare: [{"t": "Compare a pergunta da serpente com o que Deus tinha dito. O que ela muda?", "ref": "Gn 2:16-17; 3:1"}, {"t": "O que o homem e a mulher fazem quando ouvem Deus andando no jardim?", "ref": "Gn 3:8"}, {"t": "Quando Deus pergunta o que aconteceu, de quem cada um põe a culpa?", "ref": "Gn 3:12-13"}],
+    portras: [{"selo": "biblia", "t": "Quem procura é Deus. A primeira pergunta dele depois do erro é: \"Onde você está?\".", "ref": "Gn 3:9"}, {"selo": "biblia", "t": "Antes de tirá-los do jardim, Deus faz roupas de pele e os veste.", "ref": "Gn 3:21"}, {"selo": "liga", "t": "A árvore da vida, cujo caminho fica guardado em Gênesis, aparece de novo no último capítulo da Bíblia.", "ref": "Gn 3:24; Ap 22:2"}, {"selo": "liga", "t": "A imagem de esmagar a serpente debaixo dos pés volta numa carta de Paulo.", "ref": "Gn 3:15; Rm 16:20"}],
+    conversa: "Quando Deus perguntou o que tinha acontecido, o homem culpou a mulher, e a mulher culpou a serpente (Gn 3:12-13). Por que você acha que é tão difícil dizer \"fui eu\"? \"Ainda não sei\" também vale.",
+    fazer: "Adão e Eva se esconderam e jogaram a culpa em outro (Gn 3:8-13). Procure alguém a quem você deve um pedido de desculpas e diga com todas as letras: \"Fui eu, me perdoa.\" Sem desculpa e sem \"mas\".",
+    oracao: "Fique um minuto em silêncio e lembre de algo errado que você ainda não entregou a Deus. Depois ore: \"Senhor, obrigado porque o Senhor foi procurar Adão e Eva mesmo depois do erro. Eu não quero me esconder do Senhor. Me perdoa pelo que eu fiz de errado e me dá coragem para pedir perdão a quem eu magoei.\" Continue com as suas palavras.",
     contexto: 'A serpente questiona a palavra de Deus, a mulher e o homem comem do fruto proibido e a relação com Deus, entre os dois e com a criação se quebra. Mesmo no juízo, Deus anuncia uma promessa.',
     notas: [
       ['3:1', 'A tentação começa com uma pergunta que distorce o que Deus disse.'],
@@ -72,6 +87,12 @@ export const SESSOES = [
 
   { id: 'gn-03', livro: 'gn', caps: [4, 5], titulo: 'Caim, Abel e a linhagem de Adão',
     cenario: 'Fora do Éden, na primeira família.',
+    gancho: "Dois irmãos levam ofertas a Deus. Uma é aceita, a outra não, e o irmão fica muito irado. Antes de qualquer coisa acontecer, Deus vem conversar com ele. Hoje você descobre o aviso que Deus deu e o que Caim fez com ele.",
+    repare: [{"t": "O que Deus diz a Caim sobre o pecado, antes de qualquer coisa acontecer?", "ref": "Gn 4:7"}, {"t": "Que pergunta Caim devolve a Deus?", "ref": "Gn 4:9"}, {"t": "No capítulo 5, que frase fecha a vida de quase todos? Quem é a exceção?", "ref": "Gn 5:5-31"}],
+    portras: [{"selo": "conta", "t": "Some as idades do próprio texto: Matusalém tinha 187 anos quando nasceu Lameque; Lameque tinha 182 quando nasceu Noé; e Noé tinha 600 quando veio o dilúvio. 187 + 182 + 600 = 969, exatamente a idade com que Matusalém morreu. A conta fecha no ano do dilúvio.", "ref": "Gn 5:25-29; 5:27; 7:6"}, {"selo": "liga", "t": "Enoque volta na carta aos Hebreus: foi levado sem ver a morte, porque agradava a Deus.", "ref": "Gn 5:24; Hb 11:5"}, {"selo": "liga", "t": "João usa Caim como o exemplo do que não fazer com o irmão.", "ref": "Gn 4:8; 1Jo 3:12"}],
+    conversa: "Deus avisou Caim antes: o pecado estava à porta, e ele devia dominá-lo (Gn 4:7). Por que você acha que Caim não ouviu o aviso? E o que costuma \"bater à sua porta\" quando você fica com raiva? \"Ainda não sei\" também vale.",
+    fazer: "Caim deixou a raiva crescer até ferir o próprio irmão (Gn 4:5-8). Escolha uma pessoa com quem você está brigado ou chateado e dê o primeiro passo para fazer as pazes até o \"como foi?\": uma conversa, um recado ou um gesto.",
+    oracao: "Fique um minuto em silêncio e pense em alguém com quem você está chateado. Depois ore: \"Senhor, o Senhor avisou Caim porque se importava com ele. Me ajuda a dominar a minha raiva antes que ela me domine. Abençoa essa pessoa e me dá coragem para dar o primeiro passo.\" Continue com as suas palavras.",
     contexto: 'O pecado logo chega ao primeiro assassinato. Depois, a genealogia de Adão até Noé mostra a vida seguindo, geração após geração, com o refrão "e morreu".',
     notas: [
       ['4:7', 'Antes do crime, Deus avisa Caim: o pecado está à porta, e ele deve dominá-lo.'],
@@ -88,6 +109,12 @@ export const SESSOES = [
 
   { id: 'gn-04', livro: 'gn', caps: [6, 7], titulo: 'Noé e o dilúvio',
     cenario: 'A terra antes do dilúvio.',
+    gancho: "Deus manda Noé construir um barco do tamanho de um prédio deitado, e ainda não tinha caído uma gota de chuva. Hoje você descobre o que Noé fez com essa ordem.",
+    repare: [{"t": "Quantas vezes o texto diz que Noé fez \"como Deus ordenou\"?", "ref": "Gn 6:22; 7:5"}, {"t": "Quem fecha a porta da arca?", "ref": "Gn 7:16"}],
+    portras: [{"selo": "biblia", "t": "A arca media 300 côvados de comprimento, 50 de largura e 30 de altura.", "ref": "Gn 6:15"}, {"selo": "conta", "t": "Um côvado era a medida do cotovelo até a ponta do dedo médio: em geral uns 45,7 cm, chegando a 53 cm em alguns povos. Isso dá uma arca de 137 a 159 m de comprimento, mais que um campo de futebol (o maior permitido tem 120 m), e uns 14 m de altura, como um prédio de 4 andares.", "ref": "Gn 6:15", "fonte": "Britannica, verbete \"cubit\"; Regras do Jogo da IFAB, Regra 1"}, {"selo": "liga", "t": "A Bíblia também usa o \"côvado de homem\" para medir a cama do rei Ogue.", "ref": "Dt 3:11"}, {"selo": "liga", "t": "Chove 40 dias e 40 noites. Moisés também fica 40 dias no monte, e Jesus, 40 dias no deserto.", "ref": "Gn 7:12; Êx 24:18; Mt 4:2"}],
+    conversa: "Noé ainda não via chuva nenhuma. Por que você acha que ele obedeceu mesmo assim? \"Ainda não sei\" também vale.",
+    fazer: "Noé começou a construir antes de ver a chuva. Escolha hoje uma coisa certa que você vem empurrando para depois (o pedido de desculpas, a tarefa, a ajuda que prometeu) e comece amanhã, sem esperar vontade ou garantia.",
+    oracao: "Fique um minuto em silêncio. Depois ore: \"Senhor, obrigado porque o Senhor guardou Noé e fechou a porta da arca. Me dá coragem para obedecer mesmo quando eu ainda não vejo o resultado. Me ajuda a começar amanhã o que eu venho adiando.\" Continue com as suas palavras.",
     contexto: 'A maldade humana se espalha e Deus decide trazer o dilúvio. Noé é a exceção: recebe a ordem de construir a arca e obedece.',
     notas: [
       ['6:5-6', 'Deus vê que a maldade é grande e que todo desígnio do coração humano é mau.'],
@@ -102,6 +129,12 @@ export const SESSOES = [
 
   { id: 'gn-05', livro: 'gn', caps: [8, 9], titulo: 'A aliança com Noé',
     cenario: 'Depois do dilúvio, nos montes de Ararate (Gn 8:4).',
+    gancho: "Depois de meses de água, a arca para no alto de uns montes. Noé abre a janela e solta duas aves, uma de cada vez. Hoje você descobre qual delas voltou com uma resposta no bico.",
+    repare: [{"t": "Quantas vezes Noé solta a pomba, e o que acontece em cada uma?", "ref": "Gn 8:8-12"}, {"t": "Qual é a primeira coisa que Noé faz ao sair da arca?", "ref": "Gn 8:20"}, {"t": "Com quem Deus faz a aliança? Só com Noé?", "ref": "Gn 9:9-17"}],
+    portras: [{"selo": "conta", "t": "Noé entra na arca no ano 600 da vida dele, mês 2, dia 17. A terra fica seca no ano 601, mês 2, dia 27, e Deus manda sair. Pelas datas do próprio texto, foram um ano e dez dias lá dentro.", "ref": "Gn 7:11; 8:14-16"}, {"selo": "lugar", "t": "O texto não fala de um único monte, e sim dos \"montes de Ararate\". Ararate é o nome hebraico do antigo reino de Urartu, ao redor do lago Van, numa região que hoje fica dividida entre Turquia, Armênia e Irã.", "ref": "Gn 8:4", "fonte": "Britannica, verbete \"Urartu\"; Columbia Encyclopedia, verbete \"Urartu\""}, {"selo": "liga", "t": "Ararate aparece de novo como a terra para onde fogem os filhos do rei Senaqueribe.", "ref": "Gn 8:4; 2Rs 19:37"}, {"selo": "liga", "t": "O arco nas nuvens volta nas visões da glória de Deus, em Ezequiel e no Apocalipse.", "ref": "Gn 9:13; Ez 1:28; Ap 4:3"}],
+    conversa: "A primeira coisa que Noé fez fora da arca foi construir um altar ao Senhor (Gn 8:20). Por que você acha que ele começou por aí, antes de qualquer outra coisa? \"Ainda não sei\" também vale.",
+    fazer: "Noé saiu da arca e, antes de tudo, adorou a Deus (Gn 8:20). Por 3 dias, comece o seu dia agradecendo a Deus antes de pegar o celular ou ligar a TV: três motivos diferentes a cada manhã.",
+    oracao: "Fique um minuto em silêncio e lembre de uma promessa de Deus que você conhece. Depois ore: \"Senhor, obrigado porque o Senhor cumpre o que promete, como fez com Noé. Quando eu vir um arco-íris, quero lembrar que o Senhor é fiel. Me ajuda a começar cada dia agradecendo.\" Continue com as suas palavras.",
     contexto: 'As águas baixam, Noé sai da arca e oferece sacrifícios. Deus faz uma aliança com toda a criação e dá o arco nas nuvens como sinal.',
     notas: [
       ['8:11', 'A pomba volta com uma folha de oliveira: as águas tinham baixado.'],
@@ -116,6 +149,12 @@ export const SESSOES = [
 
   { id: 'gn-06', livro: 'gn', caps: [10, 11], titulo: 'As nações e Babel',
     cenario: 'A terra de Sinar (Gn 11:2) e, no fim, Ur e Harã.',
+    gancho: "O mundo inteiro fala a mesma língua. Um grupo tem uma ideia ousada: construir uma torre que chegue até o céu. Hoje você descobre o que Deus fez com esse plano e de onde veio o nome Babel.",
+    repare: [{"t": "Que material eles usam no lugar de pedra e de argamassa?", "ref": "Gn 11:3"}, {"t": "Quais são os objetivos da construção?", "ref": "Gn 11:4"}, {"t": "Quem desce para ver a cidade e a torre?", "ref": "Gn 11:5"}],
+    portras: [{"selo": "lugar", "t": "Tijolo cozido e betume eram mesmo o material da região: na Mesopotâmia, as grandes torres de templo eram revestidas de tijolo cozido em forno e reforçadas com betume.", "ref": "Gn 11:3", "fonte": "Britannica, verbete \"Mesopotamian art\""}, {"selo": "liga", "t": "Em Babel, o plano era \"fazer um nome\" para si. No capítulo seguinte, é Deus quem promete tornar grande o nome de Abrão.", "ref": "Gn 11:4; 12:2"}, {"selo": "lugar", "t": "Ur dos caldeus, de onde sai a família de Abrão, foi encontrada: são as ruínas de Tell el-Muqayyar, no sul do Iraque, perto do rio Eufrates.", "ref": "Gn 11:31", "fonte": "Britannica, verbete \"Ur\""}, {"selo": "liga", "t": "Em Babel, Deus confunde as línguas e o povo se espalha. No dia de Pentecostes, gente de muitas nações ouve os apóstolos, cada um na sua própria língua.", "ref": "Gn 11:7-9; At 2:5-11"}],
+    conversa: "O povo de Babel queria fazer um nome para si e não ser espalhado (Gn 11:4). Por que você acha que esse plano desagradou a Deus? E onde você vê gente querendo \"fazer um nome\" hoje? \"Ainda não sei\" também vale.",
+    fazer: "Em Babel, todos queriam aparecer (Gn 11:4). Nos próximos 3 dias, faça uma coisa boa em segredo para alguém da sua casa, sem contar para ninguém e sem esperar elogio.",
+    oracao: "Fique um minuto em silêncio. Depois ore: \"Senhor, o seu nome é maior que qualquer nome. Me livra de querer aparecer mais do que o Senhor. Me ajuda a fazer o bem em segredo, só para o Senhor ver.\" Continue com as suas palavras.",
     contexto: 'A lista das nações descende dos filhos de Noé. Em Babel, a humanidade se une para fazer um nome para si; Deus confunde a língua e a espalha. A genealogia de Sem leva até Terá e Abrão.',
     notas: [
       ['10:8-10', 'Ninrode, poderoso caçador, começa um reino que inclui Babel.'],
