@@ -32,7 +32,7 @@ NAA no site da SBB) → Entendi (por trás do texto + o que entendi) → Viver (
 O "para fazer" volta em 3 dias ("como foi?"), mostrando a pergunta, a resposta e o passo combinado.
 **Todo texto de sessão segue a skill `jornada-escrita`** (campos `gancho`, `repare`, `portras`, `conversa`, `fazer`,
 `oracao`). Sessões ainda sem `gancho` usam o formato antigo (`contexto`, `notas`, `pergunta`) e continuam funcionando.
-Desde a v62: Gn 1–11 (gn-01 a gn-06) no formato novo; o resto vai sendo reescrito.
+Desde a v62: as eras 1 a 3 inteiras (78 sessões) estão no formato novo. Validar referências com `node` lendo `data/biblia/blivre` (todas as refs de `repare`, `portras`, `conversa` e `fazer` devem existir).
 Revisão em quiz com repetição espaçada (Leitner). Meta semanal 5 de 7 dias (sem streak que zera).
 
 ## Regras de conteúdo — inegociáveis
